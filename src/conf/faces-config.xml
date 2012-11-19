@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config version="1.2"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+
+<!--
+        <application>
+                <view-handler>it.unipmn.di.dcs.sharegrid.web.faces.view.ViewHandlerImpl</view-handler>
+                <action-listener>it.unipmn.di.dcs.sharegrid.web.faces.view.ActionListenerImpl</action-listener>
+        </application>
+-->
+	<lifecycle>
+		<phase-listener>it.unipmn.di.dcs.sharegrid.web.faces.servlet.DownloadPhaseListener</phase-listener>
+	</lifecycle>
+
+	<!--@{ Choose-When-Otherwise -->
+	<component>
+		<display-name>Choose-When-Otherwise</display-name>
+		<component-type>it.unipmn.di.dcs.sharegrid.web.faces.Choose</component-type>
+		<component-class>it.unipmn.di.dcs.sharegrid.web.faces.component.UIChooseComponent</component-class>
+		<component-extension>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.Choose</renderer-type>
+		</component-extension>
+	</component>
+
+	<render-kit>
+		<renderer>
+			<description>
+			<![CDATA[Renderer for the 'choose-when-otherwise' component.]]>
+			</description>
+			<component-family>it.unipmn.di.dcs.sharegrid.web.faces.Choose</component-family>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.Choose</renderer-type>
+			<renderer-class>it.unipmn.di.dcs.sharegrid.web.faces.renderer.ChooseRenderer</renderer-class>
+		</renderer>
+	</render-kit>
+
+	<!--@{ When (Choose-When-Otherwise) -->
+	<component>
+		<display-name>When (Choose-When-Otherwise)</display-name>
+		<component-type>it.unipmn.di.dcs.sharegrid.web.faces.ChooseWhen</component-type>
+		<component-class>it.unipmn.di.dcs.sharegrid.web.faces.component.UIChooseWhenComponent</component-class>
+		<component-extension>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.ChooseWhen</renderer-type>
+		</component-extension>
+	</component>
+
+	<render-kit>
+		<renderer>
+			<description>
+			<![CDATA[Renderer for the 'when' part of the 'choose-when-otherwise' component.]]>
+			</description>
+			<component-family>it.unipmn.di.dcs.sharegrid.web.faces.ChooseWhen</component-family>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.ChooseWhen</renderer-type>
+			<renderer-class>it.unipmn.di.dcs.sharegrid.web.faces.renderer.ChooseWhenRenderer</renderer-class>
+		</renderer>
+	</render-kit>
+	<!--@} When (Choose-When-Otherwise) -->
+
+	<!--@{ Otherwise (Choose-When-Otherwise) -->
+	<component>
+		<display-name>Otherwise (Choose-When-Otherwise)</display-name>
+		<component-type>it.unipmn.di.dcs.sharegrid.web.faces.ChooseOtherwise</component-type>
+		<component-class>it.unipmn.di.dcs.sharegrid.web.faces.component.UIChooseOtherwiseComponent</component-class>
+		<component-extension>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.ChooseOtherwise</renderer-type>
+		</component-extension>
+	</component>
+
+	<render-kit>
+		<renderer>
+			<description>
+			<![CDATA[Renderer for the 'otherwise' part of the 'choose-when-otherwise' component.]]>
+			</description>
+			<component-family>it.unipmn.di.dcs.sharegrid.web.faces.ChooseOtherwise</component-family>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.ChooseOtherwise</renderer-type>
+			<renderer-class>it.unipmn.di.dcs.sharegrid.web.faces.renderer.ChooseOtherwiseRenderer</renderer-class>
+		</renderer>
+	</render-kit>
+	<!--@} Otherwise (Choose-When-Otherwise) -->
+	<!--@} Choose-When-Otherwise -->
+
+	<!--@{ Credit Card -->
+	<component>
+		<display-name>Credit Card</display-name>
+		<component-type>it.unipmn.di.dcs.sharegrid.web.faces.CreditCard</component-type>
+		<component-class>it.unipmn.di.dcs.sharegrid.web.faces.component.UICreditCardInputComponent</component-class>
+<!--
+		<component-extension>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.HtmlCreditCard</renderer-type>
+		</component-extension>
+-->
+	</component>
+
+	<render-kit>
+		<renderer>
+			<description>
+			<![CDATA[Renderer for the credit card component.]]>
+			</description>
+			<component-family>it.unipmn.di.dcs.sharegrid.web.faces.CreditCard</component-family>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.HtmlCreditCard</renderer-type>
+			<renderer-class>it.unipmn.di.dcs.sharegrid.web.faces.renderer.html.HtmlCreditCardInputRenderer</renderer-class>
+		</renderer>
+	</render-kit>
+	<!--@} Credit Card -->
+
+	<!--@{ Data-Iterator -->
+	<component>
+		<display-name>Data-Iterator</display-name>
+		<component-type>javax.faces.Data</component-type>
+		<component-class>javax.faces.component.UIData</component-class>
+		<component-extension>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.DataIterator</renderer-type>
+		</component-extension>
+	</component>
+
+	<render-kit>
+		<renderer>
+			<description>
+			<![CDATA[Renderer for the dataIterator component.]]>
+			</description>
+			<component-family>javax.faces.Data</component-family>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.DataIterator</renderer-type>
+			<renderer-class>it.unipmn.di.dcs.sharegrid.web.faces.renderer.IteratorRenderer</renderer-class>
+		</renderer>
+	</render-kit>
+	<!--@} Data-Iterator -->
+
+	<!--@{ For-Each -->
+<!--
+	<component>
+		<display-name>For-Each</display-name>
+		<component-type>it.unipmn.di.dcs.sharegrid.web.faces.ForEach</component-type>
+		<component-class>it.unipmn.di.dcs.sharegrid.web.faces.component.UIForEachComponent</component-class>
+		<component-extension>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.ForEach</renderer-type>
+		</component-extension>
+	</component>
+
+	<render-kit>
+		<renderer>
+			<description>
+			<![CDATA[Renderer for the forEach component.]]>
+			</description>
+			<component-family>it.unipmn.di.dcs.sharegrid.web.faces.ForEach</component-family>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.ForEach</renderer-type>
+			<renderer-class>it.unipmn.di.dcs.sharegrid.web.faces.renderer.ForEachRenderer</renderer-class>
+		</renderer>
+	</render-kit>
+-->
+	<!--@} For-Each -->
+
+	<!--@{ If -->
+	<component>
+		<display-name>If</display-name>
+		<component-type>it.unipmn.di.dcs.sharegrid.web.faces.If</component-type>
+		<component-class>it.unipmn.di.dcs.sharegrid.web.faces.component.UIIfComponent</component-class>
+		<component-extension>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.If</renderer-type>
+		</component-extension>
+	</component>
+
+	<render-kit>
+		<renderer>
+			<description>
+			<![CDATA[Renderer for the if component.]]>
+			</description>
+			<component-family>it.unipmn.di.dcs.sharegrid.web.faces.If</component-family>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.If</renderer-type>
+			<renderer-class>it.unipmn.di.dcs.sharegrid.web.faces.renderer.IfRenderer</renderer-class>
+		</renderer>
+	</render-kit>
+	<!--@} If -->
+
+	<!--@{ If-Then-Else -->
+	<component>
+		<display-name>If-Then-Else</display-name>
+		<component-type>it.unipmn.di.dcs.sharegrid.web.faces.IfThenElse</component-type>
+		<component-class>it.unipmn.di.dcs.sharegrid.web.faces.component.UIIfThenElseComponent</component-class>
+		<component-extension>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.IfThenElse</renderer-type>
+		</component-extension>
+	</component>
+
+	<render-kit>
+		<renderer>
+			<description>
+			<![CDATA[Renderer for the if-then-else component.]]>
+			</description>
+			<component-family>it.unipmn.di.dcs.sharegrid.web.faces.IfThenElse</component-family>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.IfThenElse</renderer-type>
+			<renderer-class>it.unipmn.di.dcs.sharegrid.web.faces.renderer.IfThenElseRenderer</renderer-class>
+		</renderer>
+	</render-kit>
+
+	<!--@{ Then (If-Then-Else) -->
+	<component>
+		<display-name>Then (If-Then-Else)</display-name>
+		<component-type>it.unipmn.di.dcs.sharegrid.web.faces.IfThenElseThen</component-type>
+		<component-class>it.unipmn.di.dcs.sharegrid.web.faces.component.UIIfThenElseThenComponent</component-class>
+		<component-extension>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.IfThenElseThen</renderer-type>
+		</component-extension>
+	</component>
+
+	<render-kit>
+		<renderer>
+			<description>
+			<![CDATA[Renderer for the then component of the if-then-else component.]]>
+			</description>
+			<component-family>it.unipmn.di.dcs.sharegrid.web.faces.IfThenElseThen</component-family>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.IfThenElseThen</renderer-type>
+			<renderer-class>it.unipmn.di.dcs.sharegrid.web.faces.renderer.IfThenElseThenRenderer</renderer-class>
+		</renderer>
+	</render-kit>
+	<!--@} Then (If-Then-Else) -->
+
+	<!--@{ Else (If-Then-Else) -->
+	<component>
+		<display-name>Else (If-Then-Else)</display-name>
+		<component-type>it.unipmn.di.dcs.sharegrid.web.faces.IfThenElseElse</component-type>
+		<component-class>it.unipmn.di.dcs.sharegrid.web.faces.component.UIIfThenElseElseComponent</component-class>
+		<component-extension>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.IfThenElseElse</renderer-type>
+		</component-extension>
+	</component>
+
+	<render-kit>
+		<renderer>
+			<description>
+			<![CDATA[Renderer for the else component of the if-then-else component.]]>
+			</description>
+			<component-family>it.unipmn.di.dcs.sharegrid.web.faces.IfThenElseElse</component-family>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.IfThenElseElse</renderer-type>
+			<renderer-class>it.unipmn.di.dcs.sharegrid.web.faces.renderer.IfThenElseElseRenderer</renderer-class>
+		</renderer>
+	</render-kit>
+	<!--@} Else (If-Then-Else) -->
+	<!--@} If-Then-Else -->
+
+	<!--@{ Input File -->
+	<component>
+		<display-name>Input File</display-name>
+		<component-type>it.unipmn.di.dcs.sharegrid.web.faces.InputFile</component-type>
+		<component-class>it.unipmn.di.dcs.sharegrid.web.faces.component.UIInputFileComponent</component-class>
+		<component-extension>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.HtmlInputFile</renderer-type>
+		</component-extension>
+	</component>
+
+	<render-kit>
+		<description>
+		<![CDATA[Render-kit for InputFile component]]>
+		</description>
+		<renderer>
+			<component-family>it.unipmn.di.dcs.sharegrid.web.faces.InputFile</component-family>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.HtmlInputFile</renderer-type>
+			<renderer-class>it.unipmn.di.dcs.sharegrid.web.faces.renderer.html.HtmlInputFileRenderer</renderer-class>
+		</renderer>
+	</render-kit>
+	<!--@} Input File -->
+
+	<!--@{ Input Date -->
+	<component>
+		<display-name>Input Date</display-name>
+		<component-type>it.unipmn.di.dcs.sharegrid.web.faces.InputDate</component-type>
+		<component-class>it.unipmn.di.dcs.sharegrid.web.faces.component.UIInputDateComponent</component-class>
+		<component-extension>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.HtmlInputDate</renderer-type>
+		</component-extension>
+	</component>
+
+	<render-kit>
+		<description>
+		<![CDATA[Render-kit for InputDate component]]>
+		</description>
+		<renderer>
+			<component-family>it.unipmn.di.dcs.sharegrid.web.faces.InputDate</component-family>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.HtmlInputDate</renderer-type>
+			<renderer-class>it.unipmn.di.dcs.sharegrid.web.faces.renderer.html.HtmlInputDateRenderer</renderer-class>
+		</renderer>
+	</render-kit>
+	<!--@} Input Date -->
+
+	<!--@{ Input Radio -->
+	<component>
+		<display-name>Input Radio</display-name>
+		<component-type>it.unipmn.di.dcs.sharegrid.web.faces.InputRadio</component-type>
+		<component-class>it.unipmn.di.dcs.sharegrid.web.faces.component.UIInputRadioComponent</component-class>
+		<component-extension>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.HtmlInputRadio</renderer-type>
+		</component-extension>
+	</component>
+
+	<render-kit>
+		<description>
+		<![CDATA[Render-kit for InputRadio component]]>
+		</description>
+		<renderer>
+			<component-family>it.unipmn.di.dcs.sharegrid.web.faces.InputRadio</component-family>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.HtmlInputRadio</renderer-type>
+			<renderer-class>it.unipmn.di.dcs.sharegrid.web.faces.renderer.html.HtmlInputRadioRenderer</renderer-class>
+		</renderer>
+	</render-kit>
+	<!--@} Input Radio -->
+
+	<!--@{ Output Accordion -->
+	<component>
+		<display-name>Output Accordion</display-name>
+		<component-type>it.unipmn.di.dcs.sharegrid.web.faces.OutputAccordion</component-type>
+		<component-class>it.unipmn.di.dcs.sharegrid.web.faces.component.UIOutputAccordionComponent</component-class>
+		<component-extension>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.HtmlOutputAccordion</renderer-type>
+		</component-extension>
+	</component>
+
+	<render-kit>
+		<description>
+		<![CDATA[Render-kit for OutputAccordion component]]>
+		</description>
+		<renderer>
+			<component-family>it.unipmn.di.dcs.sharegrid.web.faces.OutputAccordion</component-family>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.HtmlOutputAccordion</renderer-type>
+			<renderer-class>it.unipmn.di.dcs.sharegrid.web.faces.renderer.html.HtmlOutputAccordionRenderer</renderer-class>
+		</renderer>
+	</render-kit>
+	<!--@} Output Accordion -->
+
+	<!--@{ Output Accordion Panel -->
+	<component>
+		<display-name>Output Accordion Panel</display-name>
+		<component-type>it.unipmn.di.dcs.sharegrid.web.faces.OutputAccordionPanel</component-type>
+		<component-class>it.unipmn.di.dcs.sharegrid.web.faces.component.UIOutputAccordionPanelComponent</component-class>
+		<component-extension>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.HtmlOutputAccordionPanel</renderer-type>
+		</component-extension>
+	</component>
+
+	<render-kit>
+		<description>
+		<![CDATA[Render-kit for OutputAccordionPanel component]]>
+		</description>
+		<renderer>
+			<component-family>it.unipmn.di.dcs.sharegrid.web.faces.OutputAccordionPanel</component-family>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.HtmlOutputAccordionPanel</renderer-type>
+			<renderer-class>it.unipmn.di.dcs.sharegrid.web.faces.renderer.html.HtmlOutputAccordionPanelRenderer</renderer-class>
+		</renderer>
+	</render-kit>
+	<!--@} Output Accordion Panel -->
+
+	<!--@{ Output File -->
+	<component>
+		<display-name>Output File</display-name>
+		<component-type>it.unipmn.di.dcs.sharegrid.web.faces.OutputFile</component-type>
+		<component-class>it.unipmn.di.dcs.sharegrid.web.faces.component.UIOutputFileComponent</component-class>
+		<component-extension>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.HtmlOutputFile</renderer-type>
+		</component-extension>
+	</component>
+
+	<render-kit>
+		<description>
+		<![CDATA[Render-kit for OutputFile component]]>
+		</description>
+		<renderer>
+			<component-family>it.unipmn.di.dcs.sharegrid.web.faces.OutputFile</component-family>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.HtmlOutputFile</renderer-type>
+			<renderer-class>it.unipmn.di.dcs.sharegrid.web.faces.renderer.html.HtmlOutputFileRenderer</renderer-class>
+		</renderer>
+	</render-kit>
+	<!--@} Output File -->
+
+	<!--@{ Output Popup Panel -->
+	<component>
+		<display-name>Output Popup Panel</display-name>
+		<component-type>it.unipmn.di.dcs.sharegrid.web.faces.OutputPopupPanel</component-type>
+		<component-class>it.unipmn.di.dcs.sharegrid.web.faces.component.UIOutputPopupPanelComponent</component-class>
+		<component-extension>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.HtmlOutputPopupPanel</renderer-type>
+		</component-extension>
+	</component>
+
+	<render-kit>
+		<description>
+		<![CDATA[Render-kit for OutputPopupPanel component]]>
+		</description>
+		<renderer>
+			<component-family>it.unipmn.di.dcs.sharegrid.web.faces.OutputPopupPanel</component-family>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.HtmlOutputPopupPanel</renderer-type>
+			<renderer-class>it.unipmn.di.dcs.sharegrid.web.faces.renderer.html.HtmlOutputPopupPanelRenderer</renderer-class>
+		</renderer>
+	</render-kit>
+	<!--@} Output Popup Panel -->
+
+	<!--@{ Output Text Filter -->
+	<component>
+		<display-name>Output Text Filter</display-name>
+		<component-type>it.unipmn.di.dcs.sharegrid.web.faces.OutputTextFilter</component-type>
+		<component-class>it.unipmn.di.dcs.sharegrid.web.faces.component.UIOutputTextFilterComponent</component-class>
+		<component-extension>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.HtmlOutputTextFilter</renderer-type>
+		</component-extension>
+	</component>
+
+	<render-kit>
+		<description>
+		<![CDATA[Render-kit for OutputTextFilter component]]>
+		</description>
+		<renderer>
+			<component-family>it.unipmn.di.dcs.sharegrid.web.faces.OutputTextFilter</component-family>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.HtmlOutputTextFilter</renderer-type>
+			<renderer-class>it.unipmn.di.dcs.sharegrid.web.faces.renderer.html.HtmlOutputTextFilterRenderer</renderer-class>
+		</renderer>
+	</render-kit>
+	<!--@} Output Text Filter -->
+
+	<!--@{ Output ToolTip -->
+	<component>
+		<display-name>Output Popup Panel</display-name>
+		<component-type>it.unipmn.di.dcs.sharegrid.web.faces.OutputToolTip</component-type>
+		<component-class>it.unipmn.di.dcs.sharegrid.web.faces.component.UIOutputToolTipComponent</component-class>
+		<component-extension>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.HtmlOutputToolTip</renderer-type>
+		</component-extension>
+	</component>
+
+	<render-kit>
+		<description>
+		<![CDATA[Render-kit for OutputToolTip component]]>
+		</description>
+		<renderer>
+			<component-family>it.unipmn.di.dcs.sharegrid.web.faces.OutputToolTip</component-family>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.HtmlOutputToolTip</renderer-type>
+			<renderer-class>it.unipmn.di.dcs.sharegrid.web.faces.renderer.html.HtmlOutputToolTipRenderer</renderer-class>
+		</renderer>
+	</render-kit>
+	<!--@} Output ToolTip -->
+
+	<!--@{ Panel Grid -->
+	<component>
+		<display-name>Panel Grid</display-name>
+		<component-type>it.unipmn.di.dcs.sharegrid.web.faces.PanelGrid</component-type>
+		<component-class>it.unipmn.di.dcs.sharegrid.web.faces.component.UIPanelGridComponent</component-class>
+		<component-extension>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.HtmlPanelGrid</renderer-type>
+		</component-extension>
+	</component>
+
+	<render-kit>
+		<description>
+		<![CDATA[Render-kit for PanelGrid component]]>
+		</description>
+		<renderer>
+			<component-family>it.unipmn.di.dcs.sharegrid.web.faces.PanelGrid</component-family>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.HtmlPanelGrid</renderer-type>
+			<renderer-class>it.unipmn.di.dcs.sharegrid.web.faces.renderer.html.HtmlPanelGridRenderer</renderer-class>
+		</renderer>
+	</render-kit>
+	<!--@} Panel Grid -->
+
+	<!--@{ Panel Group -->
+	<component>
+		<display-name>Panel Group</display-name>
+		<component-type>it.unipmn.di.dcs.sharegrid.web.faces.PanelGroup</component-type>
+		<component-class>it.unipmn.di.dcs.sharegrid.web.faces.component.UIPanelGroupComponent</component-class>
+		<component-extension>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.HtmlPanelGroup</renderer-type>
+		</component-extension>
+	</component>
+
+	<render-kit>
+		<description>
+		<![CDATA[Render-kit for PanelGroup component]]>
+		</description>
+		<renderer>
+			<component-family>it.unipmn.di.dcs.sharegrid.web.faces.PanelGroup</component-family>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.HtmlPanelGroup</renderer-type>
+			<renderer-class>it.unipmn.di.dcs.sharegrid.web.faces.renderer.html.HtmlPanelGroupRenderer</renderer-class>
+		</renderer>
+	</render-kit>
+	<!--@} Panel Group -->
+
+	<!--@{ Select Items -->
+	<component>
+		<display-name>Select Items</display-name>
+		<component-type>it.unipmn.di.dcs.sharegrid.web.faces.SelectItems</component-type>
+		<component-class>it.unipmn.di.dcs.sharegrid.web.faces.component.UISelectItemsComponent</component-class>
+	</component>
+	<!--@} Select Items -->
+</faces-config>

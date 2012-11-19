@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jsp:root version="2.1"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:dcsjsf="http://dcs.di.unipmn.it/tld/dcsjsf"
+	xmlns:ft="http://sourceforge.net/projects/facestrace">
+
+	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
+        <jsp:output	omit-xml-declaration="no"
+			doctype-root-element="html"
+			doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+			doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+	<f:view>
+
+	<html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<title>DCS *outputPopupPanel* component test</title>
+<!--
+			<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/scripts/dcs.js"><![CDATA[<!- - // - ->]]></script>
+			<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/scripts/dcs/widget/outputpopuppanel.js"><![CDATA[<!- - // - ->]]></script>
+-->
+<!--
+			<a4j:loadScript src="/resources/scripts/dcs.js"/>
+			<a4j:loadScript src="/resources/scripts/dcs/widget/outputpopuppanel.js"/>
+-->
+		</head>
+		<body>
+			<h1>DCS *outputPopupPanel* component test</h1>
+
+			<h:panelGrid columns="1">
+				<h:panelGroup>
+					<button id="my-src1">Simple Popup Panel #1 (through JSF)</button>
+					<dcsjsf:outputPopupPanel	showOnId="my-src1"
+												headerTitle="Popup Panel Title">
+						<h:outputText value="Inside Popup Panel #1: created through JSF"/>
+					</dcsjsf:outputPopupPanel>
+				</h:panelGroup>
+				<h:panelGroup>
+					<button id="my-src2">Simple Popup Panel #2 (through JSF)</button>
+					<dcsjsf:outputPopupPanel	showOnId="my-src2"
+												headerTitle="Popup Panel Title">
+						<h:outputText value="Inside Popup Panel #2: created through JSF"/>
+					</dcsjsf:outputPopupPanel>
+				</h:panelGroup>
+				<h:panelGroup>
+					<button id="my-src3">Simple Popup Panel #3 (JS direct)</button>
+					<script type="text/javascript">
+					<![CDATA[
+						new Dcs.Widget.OutputPopupPanel(
+								{
+									bodyContent: 'Inside Popup Panel #3: created from direct JS',
+									headerTitle: 'Popup Panel Title',
+									showOnId: 'my-src3'
+								}
+						);
+					]]>
+					</script>
+				</h:panelGroup>
+				<h:panelGroup>
+					<strong>Properties:</strong>
+					<blockquote>
+						autoHide: false,
+						<br/>
+						borderWidth: 1,
+						<br/>
+						caption: '...',
+						<br/>
+						closable: true,
+						<br/>
+						contentBody: '...',
+						<br/>
+						cornerRadius: 1,
+						<br/>
+						hideOthers: true,
+					</blockquote>
+				</h:panelGroup>
+			</h:panelGrid>
+		</body>
+	</html>
+
+<!--
+	<ft:trace/>
+-->
+
+	</f:view>
+</jsp:root>

@@ -1,0 +1,1253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 2.1//EN" "http://java.sun.com/dtd/web-jsptaglibrary_2_1.dtd" [
+
+<!ENTITY ui_common_attrs SYSTEM "./inc/ui_common_attrs.xml">
+<!ENTITY ui_input_common_attrs SYSTEM "./inc/ui_input_common_attrs.xml">
+<!ENTITY ui_output_common_attrs SYSTEM "./inc/ui_output_common_attrs.xml">
+
+]>
+
+<taglib xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+	version="2.1">
+
+	<short-name>dcsjsf</short-name>
+	<uri>http://dcs.di.unipmn.it/tld/dcsjsf</uri>
+	<tlib-version>1.0</tlib-version>
+	<jsp-version>2.1</jsp-version>
+	<description>
+		<![CDATA[The core DCS Java Server Faces custom components.]]>
+	</description>
+
+<!--
+	<listener>
+		<listener-class>it.unipmn.di.dcs.sharegrid.web.faces.servlet.LifecycleListener</listener-class>
+	</listener>
+-->
+
+<!--
+	<tag>
+		<name>dummy</name>
+		<description>
+		This tag exists solely to register our lifecycle listener.
+		The specified tag is a dummy, to satisfy the DTD requirement.
+		</description>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.servlet.DummyTag</tag-class>
+	</tag>
+-->
+
+	<!--@{ attribute -->
+	<tag>
+		<name>attribute</name>
+		<description>
+		<![CDATA[Add an attribute to the UIComponent associated with the closest
+		parent UIComponent custom action.]]>
+		</description>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.AttributeTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<description>
+			The name of the component attribute to be set.
+			</description>
+			<name>name</name>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			The value of the component attribute to be set.
+			</description>
+			<name>value</name>
+			<deferred-value>
+				<type>java.lang.Object</type>
+			</deferred-value>
+		</attribute>
+	</tag>
+	<!--@} attribute -->
+
+	<!--@{ choose -->
+	<tag>
+		<name>choose</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.ChooseTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+		<![CDATA[The 'Choose-When-Otherwise' idiom: establishes a
+		context for mutually exclusive conditional operations, marked by
+		<when> and <otherwise>.]]>
+		</description>
+	</tag>
+	<tag>
+		<name>when</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.ChooseWhenTag</tag-class>
+		<body-content>scriptless</body-content>
+		<description>
+		<![CDATA['When' part of the 'Choose-When-Otherwise' idiom.]]>
+		</description>
+		<attribute>
+			<description>
+			<![CDATA[Scope for attribute 'var'.]]>
+			</description>
+			<name>scope</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The test condition that determines whether or not the body content should be processed.]]>
+			</description>
+			<name>test</name>
+			<required>true</required>
+<!--
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+-->
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Name of the exported scoped variable for the
+			resulting value of the test condition. The type
+			of the scoped variable is Boolean.]]>
+			</description>
+			<name>var</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>otherwise</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.ChooseOtherwiseTag</tag-class>
+		<body-content>scriptless</body-content>
+		<description>
+		<![CDATA['Otherwise' part of the 'Choose-When-Otherwise' idiom.]]>
+		</description>
+	</tag>
+	<!--@} choose -->
+
+	<!--@{ creditCardInput -->
+	<tag>
+		<name>creditCardInput</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.CreditCardInputTag</tag-class>
+		<body-content>empty</body-content>
+		<description>
+			<![CDATA[This is the tag for the credit card input component.]]>
+		</description>
+
+		&ui_common_attrs;
+		&ui_input_common_attrs;
+
+		<attribute>
+			<description>
+			<![CDATA[The number of characters used to determine
+			the width of this field.]]>
+			</description>
+			<name>size</name>
+			<required>false</required>
+			<deferred-value>
+				<type>int</type>
+			</deferred-value>
+		</attribute>
+	</tag>
+	<!--@} creditCardNumber -->
+
+	<!--@{ dataIterator -->
+	<tag>
+		<name>dataIterator</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.DataIteratorTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+		<![CDATA[Render the components of the child UIColumn components under the UIData component associated with this tag, once per row.
+		The actual renderer class (IteratorRenderer) can serve as the base class for more specialized markup generation.]]>
+		</description>
+
+		&ui_common_attrs;
+
+		<attribute>
+			<name>first</name>
+			<description>
+			<![CDATA[Zero-relative row index of the first row to be displayed.
+			If not specified, the default value is zero (i.e. the first row of the underlying data model).]]>
+			</description>
+			<required>false</required>
+			<deferred-value>
+				<type>int</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>rows</name>
+			<description>
+			<![CDATA[The maximum number of rows (from the underlying data model) to be rendered.
+			If not specified, the default value is zero, which indicates that all remaining rows should be rendered.]]>
+			</description>
+			<required>false</required>
+			<deferred-value>
+				<type>int</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>var</name>
+			<description>
+			<![CDATA[Attribute key under which an object representing the current row will be exposed as a request scope attribute.
+			If not specified, no such row data object will be exposed.]]>
+			</description>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+	</tag>
+	<!--@} dataIterator -->
+
+	<!--@{ forEach -->
+	<tag>
+		<name>forEach</name>
+		<description>
+		<![CDATA[The forEach tag is a replacement for the JSTL &amp;lt;c:forEach&amp;gt; tag.
+		As of JSF 1.2/JSP 2.1/JSTL 1.2, the regular &amp;lt;c:forEach&amp;gt; tag does work with JSF components. However, it does not support varStatus with JSF!
+		(Unlike c:forEach, dcsjsf:forEach doesn't currently support anything for "items" other than arrays and lists.)]]>
+		</description>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.ForEachTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<description>
+			<![CDATA[the items over which iteration takes place]]>
+			</description>
+			<name>items</name>
+			<deferred-value/>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[the name of the variable to expose]]>
+			</description>
+			<name>var</name>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Name of the exported scoped variable for the status of the iteration.]]>
+			</description>
+			<name>varStatus</name>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[the beginning index]]>
+			</description>
+			<name>begin</name>
+			<deferred-value>
+				<type>java.lang.Integer</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[the ending index]]>
+			</description>
+			<name>end</name>
+			<deferred-value>
+				<type>java.lang.Integer</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[the number of steps per iteration]]>
+			</description>
+			<name>step</name>
+			<deferred-value>
+				<type>java.lang.Integer</type>
+			</deferred-value>
+		</attribute>
+	</tag>
+	<!--@} forEach -->
+
+	<!--@{ if -->
+	<tag>
+		<name>if</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.IfTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+		<![CDATA['If' idiom.]]>
+		</description>
+		<attribute>
+			<description>
+			<![CDATA[Scope for attribute 'var'.]]>
+			</description>
+			<name>scope</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The test condition that determines whether or not the body content should be processed.]]>
+			</description>
+			<name>test</name>
+			<required>true</required>
+<!--
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+-->
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Name of the exported scoped variable for the
+			resulting value of the test condition. The type
+			of the scoped variable is Boolean.]]>
+			</description>
+			<name>var</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+	</tag>
+	<!--@} if -->
+
+	<!--@{ ifThenElse -->
+	<tag>
+		<name>ifThenElse</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.IfThenElseTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+		<![CDATA['If-Then-Else' idiom.]]>
+		</description>
+		<attribute>
+			<description>
+			<![CDATA[Scope for attribute 'var'.]]>
+			</description>
+			<name>scope</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The test condition that determines whether or not the body content should be processed.]]>
+			</description>
+			<name>test</name>
+			<required>true</required>
+<!--
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+-->
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Name of the exported scoped variable for the
+			resulting value of the test condition. The type
+			of the scoped variable is Boolean.]]>
+			</description>
+			<name>var</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>then</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.IfThenElseThenTag</tag-class>
+		<body-content>scriptless</body-content>
+		<description>
+		<![CDATA['Then' part of the 'If-Then-Else' idiom.]]>
+		</description>
+	</tag>
+	<tag>
+		<name>else</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.IfThenElseElseTag</tag-class>
+		<body-content>scriptless</body-content>
+		<description>
+		<![CDATA['Else' part of the 'If-Then-Else' idiom.]]>
+		</description>
+	</tag>
+	<!--@} ifThenElse -->
+
+	<!--@{ inputDate -->
+	<tag>
+		<name>inputDate</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.InputDateTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+		<![CDATA[
+		Show a calendar for setting a date.
+		]]>
+		</description>
+
+		&ui_common_attrs;
+		&ui_input_common_attrs;
+
+	</tag>
+	<!--@} inputDate -->
+
+	<!--@{ inputFile -->
+	<tag>
+		<name>inputFile</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.InputFileTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+		<![CDATA[
+		You must enable the MultiPart Filter to make this component
+		work (see web.xml). Also, don't forget to set the form's
+		attribute "enctype" to "multipart/form-data".
+		See "examples/web/fileupload.jsp" for an example!
+
+		Unless otherwise specified, all attributes accept static values
+		or EL expressions.
+		]]>
+		</description>
+
+		&ui_common_attrs;
+		&ui_input_common_attrs;
+
+		<attribute>
+			<description>
+			<![CDATA[MIME type that the server should accept.]]>
+			</description>
+			<name>accept</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The number of characters used to determine
+			the width of this field.]]>
+			</description>
+			<name>size</name>
+			<required>false</required>
+			<deferred-value>
+				<type>int</type>
+			</deferred-value>
+		</attribute>
+	</tag>
+	<!--@} inputFile -->
+
+	<!--@{ inputRadio -->
+	<tag>
+		<name>inputRadio</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.InputRadioTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+		<![CDATA[Radio control.]]>
+		</description>
+
+		&ui_common_attrs;
+		&ui_input_common_attrs;
+
+		<attribute>
+			<description>
+			<![CDATA[TRUE if this radio control is checked.]]>
+			</description>
+			<name>checked</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Name of the to which this radio control belongs.]]>
+			</description>
+			<name>groupName</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The number of characters used to determine
+			the width of this field.]]>
+			</description>
+			<name>size</name>
+			<required>false</required>
+			<deferred-value>
+				<type>int</type>
+			</deferred-value>
+		</attribute>
+	</tag>
+	<!--@} inputRadio -->
+
+	<!--@{ outputAccordion -->
+	<tag>
+		<name>outputAccordion</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.OutputAccordionTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+		<![CDATA[]]>
+		</description>
+
+		&ui_common_attrs;
+		&ui_output_common_attrs;
+
+		<attribute>
+			<name>panelHeight</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>headerClass</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>contentClass</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>panelClass</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+	</tag>
+	<!--@} outputAccordion -->
+
+	<!--@{ outputAccordionPanel -->
+	<tag>
+		<name>outputAccordionPanel</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.OutputAccordionPanelTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+		<![CDATA[]]>
+		</description>
+
+		&ui_common_attrs;
+		&ui_output_common_attrs;
+
+        <attribute>
+            <name>heading</name>
+            <description>
+				<![CDATA[The heading for the panel]]>
+			</description>
+            <required>yes</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+        </attribute>
+	</tag>
+	<!--@} outputAccordionPanel -->
+
+	<!--@{ outputFile -->
+	<tag>
+		<name>outputFile</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.OutputFileTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+		<![CDATA[]]>
+		</description>
+
+		&ui_common_attrs;
+		&ui_output_common_attrs;
+
+		<attribute>
+			<name>data</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.Object</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>fileName</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>height</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>iframe</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>method</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>mimeType</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>text</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>var</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>width</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+	</tag>
+	<!--@} outputFile -->
+
+	<!--@{ outputPopupPanel -->
+	<tag>
+		<name>outputPopupPanel</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.OutputPopupPanelTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+		<![CDATA[A specialized panel intended for use as a popup window. Popup windows are floated and draggable by default, and also provide specific behavior like the ability to maximize and restore (with an event for minimizing, since the minimize behavior is application-specific).]]>
+		</description>
+
+		&ui_common_attrs;
+		&ui_output_common_attrs;
+
+		<attribute>
+			<name>autoScroll</name>
+			<description><![CDATA[True to use overflow:'auto' on the panel's body element and show scroll bars automatically when necessary, false to clip any overflowing content (defaults to false).]]></description>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>bodyClass</name>
+			<description><![CDATA[The style class of the window body.]]></description>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>bodyContentId</name>
+			<description><![CDATA[The id of the component which to use as the panel's body content provider (defaults to ''). If not specified, the body content is taken from children of this component.]]></description>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>border</name>
+			<description><![CDATA[True to display the borders of the panel's body element, false to hide them (defaults to true).]]></description>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>closable</name>
+			<description>
+			<![CDATA[True to display the 'close' tool button and allow the user to close the window, false to hide the button and disallow closing the window (defaults to true).
+			By default, when close is requested by either clicking the close button in the header or pressing ESC when the Window has focus, the close method will be called. This will destroy the Window and its content meaning that it may not be reused.
+			To make closing a Window hide the Window so that it may be reused, set closeAction to 'hide'.]]>
+			</description>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>closeAction</name>
+			<description><![CDATA[The action to take when the close button is clicked. The default action is 'close' which will actually remove the window and destroy it. The other valid option is 'hide' which will simply hide the window by setting visibility to hidden and applying negative offsets, keeping the window available to be redisplayed via the show method.]]></description>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>headerClass</name>
+			<description><![CDATA[The style class of the window header.]]></description>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>headerTitle</name>
+			<description><![CDATA[The title text to display in the panel header (defaults to ''). When a title is specified the header element will automatically be created and displayed; otherwise, the header is not shown.]]></description>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>height</name>
+			<description><![CDATA[The height of this component in pixels. If not set it will automatically calculated.]]></description>
+			<required>false</required>
+			<deferred-value>
+				<type>int</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>maximizable</name>
+			<description><![CDATA[True to display the 'maximize' tool button and allow the user to maximize the window, false to hide the button and disallow maximizing the window (defaults to false). Note that when a window is maximized, the tool button will automatically change to a 'restore' button with the appropriate behavior already built-in that will restore the window to its previous size.]]></description>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>minimizable</name>
+			<description><![CDATA[True to display the 'minimize' tool button and allow the user to minimize the window, false to hide the button and disallow minimizing the window (defaults to false). Note that this button provides no implementation -- the behavior of minimizing a window is implementation-specific, so the minimize event must be handled and a custom minimize behavior implemented for this option to be useful.]]></description>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>modal</name>
+			<description><![CDATA[True to make the window modal and mask everything behind it when displayed, false to display it without restricting access to other UI elements (defaults to false).]]></description>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>resizable</name>
+			<description><![CDATA[True to allow user resizing at each edge and corner of the window, false to disable resizing (defaults to true).]]></description>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>showOn</name>
+			<description><![CDATA[The event name triggering the displaying of the window (defaults to 'click').]]></description>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>showOnId</name>
+			<description><![CDATA[The id (in format of call UIComponent.findComponent()) of the component that fires the 'showOn' event name triggering the displaying of the window (defaults to '').]]></description>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>width</name>
+			<description><![CDATA[The width of this component in pixels. If not set it will automatically calculated.]]></description>
+			<required>false</required>
+			<deferred-value>
+				<type>int</type>
+			</deferred-value>
+		</attribute>
+	</tag>
+	<!--@} outputPopupPanel -->
+
+	<!--@{ outputTextFilter -->
+	<tag>
+		<name>outputTextFilter</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.OutputTextFilterTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+		<![CDATA[Filter text according to the associated renderer. If no filtering rules are specified the filtering is done agains a default map. Filtering rules can be specified with the 'rules' attributes as a comma-separated list of "character ':' string" elements, where 'character' is the character to be filtered and 'string' is the replacing text. If specified, the inline 'rules' attribute will override the default rules. Note that is the text to be filtered is specified through a 'h:outputText' or 'h:outputFormat' element make sure to set to true the associated attribute 'escape', otherwise special characters might be escaped before the filtering happens. The text to be filtered might also be specified through the 'value' attribute. If text appears both as 'value' attribute and as element children, each text is considered taking first the text in the 'value' attribute and then the one in the children.]]>
+		</description>
+
+		&ui_common_attrs;
+		&ui_output_common_attrs;
+
+		<attribute>
+			<name>rules</name>
+			<description><![CDATA[Inline filtering rules to be specified as a comma separated list of "character ':' string' elements.]]></description>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>layout</name>
+			<description><![CDATA[The type of layout markup to use when rendering this element. Possible values are "block", "inline" or "none". For instance, in case of HTML rendering, if the value is "block" the renderer must produce an HTML "div" element, while if the value is "inline" an HTML "span" element must be produced. If the value is "none" or other, no enclosing markup is rendered.]]></description>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+	</tag>
+	<!--@} outputTextFilter -->
+
+	<!--@{ outputToolTip -->
+	<tag>
+		<name>outputToolTip</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.OutputToolTipTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+		<![CDATA[]]>
+		</description>
+
+		&ui_common_attrs;
+		&ui_output_common_attrs;
+
+		<attribute>
+			<name>autoHide</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>borderWidth</name>
+			<required>false</required>
+			<deferred-value>
+				<type>int</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>caption</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>closable</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>cornerRadius</name>
+			<required>false</required>
+			<deferred-value>
+				<type>int</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>hideDelay</name>
+			<required>false</required>
+			<deferred-value>
+				<type>int</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>hideOthers</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>showDelay</name>
+			<required>false</required>
+			<deferred-value>
+				<type>int</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>showOn</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>targetId</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>visible</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>width</name>
+			<required>false</required>
+			<deferred-value>
+				<type>int</type>
+			</deferred-value>
+		</attribute>
+	</tag>
+	<!--@} outputToolTip -->
+
+	<!--@{ panelGrid -->
+	<tag>
+		<name>panelGrid</name>
+		<description>
+		<![CDATA[Renders an HTML "table" element, conforming to the
+		rules in the HTML 4.01 specification.  Render the "caption" facet,
+		if present, inside a "caption" element immediately below the "table" element.
+		If the "captionClass" attribute is specified, render its value as the value
+		of the "class" attribute on the "caption" element.  If the "captionStyle" attribute
+		is specified, render its value as the value of the "style" attribute
+		on the "caption" element.  If the "styleClass" attribute is specified, render
+		its value as the value of the "class" attribute.  Render the pass-through
+		attributes in the table below.  Render the "header" facet, if present, inside of
+		"thead", "tr", and "th" elements, nested in that order.  If the
+		"headerClass" attribute is specifed, render its value as the value
+		of the "class" attribute on the "th" element.  Render "colgroup"
+		as the value of the "scope" attribute.  Render the value of the
+		"columns" attribute as the value of the "colspan" attribute on the
+		"th" element.  Render the "footer" facet if present, using similar
+		logic to the rendering of the "header", but replacing "thead" with
+		"tfoot", "th" with "td", and "headerClass" with "footerClass".
+		Render the children of the <code>UIPanel</code> component inside
+		of a "tbody" element.  Render the children based on the value of
+		the "columns" attribute, creating a new row each time a "columns"
+		worth of children have been rendered.  For the start of each row,
+		render a "tr" element.  Output the value of the "rowClasses" per
+		the attribute description below.  For each child, output a "td"
+		element, attaching the value of the "columnClasses" attribute per
+		the attribute description below.  Recursively encode each child.
+		Close out the "td" element.  When done with the row, close out the
+		"tr" element.  If a child has "rendered==false" it is not rendered,
+		and the column counter must not be incremented.]]>
+		</description>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.PanelGridTag</tag-class>
+		<body-content>JSP</body-content>
+
+		&ui_common_attrs;
+
+		<attribute>
+			<description>
+			<![CDATA[Name or code of the background color for this table.]]>
+			</description>
+			<name>bgcolor</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Width (in pixels) of the border to be drawn
+			around this table.]]>
+			</description>
+			<name>border</name>
+			<required>false</required>
+			<deferred-value>
+				<type>int</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Space-separated list of CSS style class(es) that will be
+			applied to any caption generated for this table.]]>
+			</description>
+			<name>captionClass</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[CSS style(s) to be applied when this caption is rendered.]]>
+			</description>
+			<name>captionStyle</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Definition of how much space the user agent should
+			leave between the border of each cell and its contents.]]>
+			</description>
+			<name>cellpadding</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Definition of how much space the user agent should
+			leave between the left side of the table and the
+			leftmost column, the top of the table and the top of
+			the top side of the topmost row, and so on for the
+			right and bottom of the table.  It also specifies
+			the amount of space to leave between cells.]]>
+			</description>
+			<name>cellspacing</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Comma-delimited list of CSS style classes that will be applied
+			to the columns of this table.  A space separated list of
+			classes may also be specified for any individual column.  If
+			the number of elements in this list is less than the number of
+			columns specified in the "columns" attribute, no "class"
+			attribute is output for each column greater than the number of
+			elements in the list.  If the number of elements in the list
+			is greater than the number of columns specified in the
+			"columns" attribute, the elements at the posisiton in the list
+			after the value of the "columns" attribute are ignored.]]>
+			</description>
+			<name>columnClasses</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The number of columns to render before
+			starting a new row.]]>
+			</description>
+			<name>columns</name>
+			<required>false</required>
+			<deferred-value>
+				<type>int</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Space-separated list of CSS style class(es) that will be
+			applied to any footer generated for this table.]]>
+			</description>
+			<name>footerClass</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Code specifying which sides of the frame surrounding
+			this table will be visible.  Valid values are:
+			none (no sides, default value); above (top side only);
+			below (bottom side only); hsides (top and bottom sides
+			only); vsides (right and left sides only); lhs (left
+			hand side only); rhs (right hand side only); box
+			(all four sides); and border (all four sides).]]>
+			</description>
+			<name>frame</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Space-separated list of CSS style class(es) that will be
+			applied to any header generated for this table.]]>
+			</description>
+			<name>headerClass</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.Strin </type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Comma-delimited list of CSS style classes that will be applied
+			to the rows of this table.  A space separated list of classes
+			may also be specified for any individual row.  Thes styles are
+			applied, in turn, to each row in the table.  For example, if
+			the list has two elements, the first style class in the list
+			is applied to the first row, the second to the second row, the
+			first to the third row, the second to the fourth row, etc.  In
+			other words, we keep iterating through the list until we reach
+			the end, and then we start at the beginning again.]]>
+			</description>
+			<name>rowClasses</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Code specifying which rules will appear between cells
+			within this table.  Valid values are:  none (no rules,
+			default value); groups (between row groups); rows
+			(between rows only); cols (between columns only); and
+			all (between all rows and columns).]]>
+			</description>
+			<name>rules</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Summary of this table's purpose and structure, for
+			user agents rendering to non-visual media such as
+			speech and Braille.]]>
+			</description>
+			<name>summary</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Width of the entire table, for visual user agents.]]>
+			</description>
+			<name>width</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+	</tag>
+	<!--@} panelGrid -->
+
+	<!--@{ panelGroup -->
+	<tag>
+		<name>panelGroup</name>
+		<description>
+		<![CDATA[Intended for use in situations when only one
+		UIComponent child can be nested, such as in the case of facets.
+		If the "style" or "styleClass" attributes are present, and the "layout"
+		attribute is present with a value of "block", render a "div" element,
+		outputting the value of the "style" attribute as the value of the
+		"style" attribute and the value of the "styleClass" attribute as the
+		value of the "class" attribute.  Otherwise, if the "layout" attribute
+		is not present, or the "layout" attribute contains a value other than
+		"block", render a "span" element, outputting the value of the
+		"style" attribute as the value of the "style" attribute, and the value
+		of the "styleClass" attribute as the value of the "class"
+		attribute.]]>
+		</description>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.PanelGroupTag</tag-class>
+		<body-content>JSP</body-content>
+
+		&ui_common_attrs;
+
+		<attribute>
+			<description>
+			<![CDATA[The number of columns this component will span.]]>
+			</description>
+			<name>colSpan</name>
+			<required>false</required>
+			<deferred-value>
+				<type>int</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The type of layout markup to use when rendering this group.
+			If the value is "block" the renderer must produce an HTML
+			"div" element.  Otherwise HTML "span" element must
+			be produced.]]>
+			</description>
+			<name>layout</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+	</tag>
+	<!--@} panelGroup -->
+
+	<!--@{ selectItems -->
+	<tag>
+		<name>selectItems</name>
+		<description>
+		<![CDATA[Add a child UISelectItems component to the UIComponent
+		    associated with the closed parent UIComponent custom action.]]>
+		</description>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.SelectItemsTag</tag-class>
+		<body-content>empty</body-content>
+
+		&ui_common_attrs;
+
+		<attribute>
+			<name>var</name>
+			<description>
+			<![CDATA[Name of the iterator variable.]]>
+			</description>
+			<required>true</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>itemLabel</name>
+			<description>
+			<![CDATA[Label to be displayed to the user for this option.]]>
+			</description>
+			<required>true</required>
+			<deferred-value>
+				<type>java.lang.Object</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>itemValue</name>
+			<description>
+			<![CDATA[Value to be returned to the server if this option is selected by the user.]]>
+			</description>
+			<required>true</required>
+			<deferred-value>
+				<type>java.lang.Object</type>
+			</deferred-value>
+		</attribute>
+	</tag>
+	<!--@} selectItems -->
+
+	<!--@{ setBeanProperty -->
+	<tag>
+		<name>setBeanProperty</name>
+		<description>
+		<![CDATA[...]]>
+		</description>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.SetBeanPropertyTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>bean</name>
+			<rtexprvalue>false</rtexprvalue>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>name</name>
+			<rtexprvalue>false</rtexprvalue>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>value</name>
+			<rtexprvalue>false</rtexprvalue>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+	</tag>
+	<!--@} setBeanProperty -->
+
+</taglib>

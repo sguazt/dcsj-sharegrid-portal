@@ -1,0 +1,612 @@
+<?xml version="1.0"?>
+
+<project name="ShareGrid Portal" default="compile" basedir=".">
+
+	<property file="build.properties"/>
+	<property file="${user.home}/build.properties"/>
+
+	<!-- Use ant-contrib for the "if" task -->
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+		<classpath>
+			<pathelement location="${ant.lib.path}/ant-contrib-1.0b3.jar"/>
+		</classpath>
+	</taskdef>
+
+	<!-- Conditions -->
+	<condition property="isused.apache.commons">
+		<istrue value="${use.apache.commons}"/>
+	</condition>
+	<condition property="isused.database.mysql">
+		<istrue value="${use.database.mysql}"/>
+	</condition>
+	<condition property="isused.middleware.ourgrid">
+		<istrue value="${use.middleware.ourgrid}"/>
+	</condition>
+	<condition property="isused.web.apache.myfaces.tomahawk">
+		<istrue value="${use.web.apache.myfaces.tomahawk}"/>
+	</condition>
+	<condition property="isused.web.apache.myfaces.trinidad">
+		<istrue value="${use.web.apache.myfaces.trinidad}"/>
+	</condition>
+	<condition property="isused.web.apache.shale">
+		<istrue value="${use.web.apache.shale}"/>
+	</condition>
+	<condition property="isused.web.jboss.gravel">
+		<istrue value="${use.web.jboss.gravel}"/>
+	</condition>
+	<condition property="isused.web.jboss.richfaces">
+		<istrue value="${use.web.jboss.richfaces}"/>
+	</condition>
+	<condition property="isused.web.misc.htmllib">
+		<istrue value="${use.web.misc.htmllib}"/>
+	</condition>
+	<condition property="isused.web.misc.jdom">
+		<istrue value="${use.web.misc.jdom}"/>
+	</condition>
+	<condition property="isused.web.misc.json">
+		<istrue value="${use.web.misc.json}"/>
+	</condition>
+	<condition property="isused.web.sun.appbase">
+		<istrue value="${use.web.sun.appbase}"/>
+	</condition>
+	<condition property="isused.web.sun.dynafaces">
+		<istrue value="${use.web.sun.dynafaces}"/>
+	</condition>
+	<condition property="isused.web.sun.errhandler">
+		<istrue value="${use.web.sun.errhandler}"/>
+	</condition>
+	<condition property="isused.web.sun.jmaki">
+		<istrue value="${use.web.sun.jmaki}"/>
+	</condition>
+	<condition property="isused.web.sun.jsfcl">
+		<istrue value="${use.web.sun.jsfcl}"/>
+	</condition>
+	<condition property="isused.web.sun.jsfext">
+		<istrue value="${use.web.sun.jsfext}"/>
+	</condition>
+	<condition property="isused.sun.mail">
+		<istrue value="${use.sun.mail}"/>
+	</condition>
+	<condition property="isused.web.sun.woodstock">
+		<istrue value="${use.web.sun.woodstock}"/>
+	</condition>
+
+	<patternset id="web.lib.files">
+		<include name="*.jar"/>
+		<include name="**/apache/commons/**/*.jar" if="isused.apache.commons"/>
+		<include name="**/apache/myfaces/tomahawk/**/*.jar" if="isused.web.apache.myfaces.tomahawk"/>
+		<include name="**/apache/myfaces/trinidad/**/*.jar" if="isused.web.apache.myfaces.trinidad"/>
+		<include name="**/apache/shale/**/*.jar" if="isused.web.apache.shale"/>
+		<include name="**/jboss/gravel/**/*.jar" if="isused.web.jboss.gravel"/>
+		<include name="**/jboss/richfaces/**/*.jar" if="isused.web.jboss.richfaces"/>
+		<include name="**/misc/**/htmlLib*.jar" if="isused.web.misc.htmllib"/>
+		<include name="**/misc/**/jdom*.jar" if="isused.web.misc.jdom"/>
+		<include name="**/misc/**/json*.jar" if="isused.web.misc.json"/>
+		<include name="**/misc/**/mysql*.jar" if="isused.database.mysql"/>
+		<include name="**/sun/appbase*.jar" if="isused.web.sun.appbase"/>
+		<include name="**/sun/dynafaces/**/*.jar" if="isused.web.sun.dynafaces"/>
+		<include name="**/sun/errorhandler*.jar" if="isused.web.sun.errhandler"/>
+		<include name="**/sun/jmaki/**/*.jar" if="isused.web.sun.jmaki"/>
+<!-- Doesn't work with the version of appbase.jar coming with NetBeans 6.0
+		<include name="**/sun/jsf/**/*-1.2_04.jar"/>
+-->
+<!-- Last working version:
+		<include name="**/sun/jsf/**/*-1.2_08.jar"/>
+		<include name="**/sun/jsf/**/*-1.2_09-b02.jar"/>
+-->
+		<include name="**/sun/jsf/jsf-api.jar"/>
+		<include name="**/sun/jsf/jsf-impl.jar"/>
+		<include name="**/sun/jsfcl*.jar" if="isused.web.sun.jsfcl"/>
+		<include name="**/sun/jsf-extensions/**/*.jar" if="isused.web.sun.jsfext"/>
+		<include name="**/sun/mail/**/*.jar" if="isused.sun.mail"/>
+		<include name="**/sun/woodstock/**/*.jar" if="isused.web.sun.woodstock"/>
+	</patternset>
+
+	<condition property="isused.j2ee-container.glassfish">
+		<istrue value="${use.j2ee-container.glassfish}"/>
+	</condition>
+	<condition property="isused.j2ee-container.tomcat">
+		<istrue value="${use.j2ee-container.tomcat}"/>
+	</condition>
+
+	<if>
+		<istrue value="${use.j2ee-container.tomcat}"/>
+		<then>
+			<path id="j2ee-container.compile.classpath">
+				<fileset dir="${tomcat.home}/lib">
+					<include name="el-api.jar"/>
+					<include name="jsp-api.jar"/>
+					<include name="servlet-api.jar"/>
+				</fileset>
+			</path>
+
+			<path id="j2ee-container.classpath">
+
+				<!-- Include all elements that Tomcat exposes to applications -->
+				<pathelement location="${tomcat.home}/bin"/>
+				<fileset dir="${tomcat.home}/bin">
+					<include name="*.jar"/>
+				</fileset>
+				<pathelement location="${tomcat.home}/lib"/>
+				<fileset dir="${tomcat.home}/lib">
+					<include name="*.jar"/>
+				</fileset>
+			</path>
+
+			<taskdef	resource="org/apache/catalina/ant/catalina.tasks"
+					classpathref="j2ee-container.classpath"/>
+		</then>
+		<elseif>
+			<istrue value="${use.j2ee-container.glassfish}"/>
+			<then>
+				<path id="j2ee-container.compile.classpath">
+					<fileset dir="${glassfish.home}/lib">
+						<include name="j2ee.jar"/>
+					</fileset>
+				</path>
+			</then>
+		</elseif>
+	</if>
+
+	<!--
+		=== Compilation Classpath ===
+	-->
+
+	<path id="common.compile.classpath">
+
+		<!-- Include all JAR files that will be included in /WEB-INF/lib -->
+		<!-- *** CUSTOMIZE HERE AS REQUIRED BY YOUR APPLICATION *** -->
+		<!--
+		    <pathelement location="${foo.jar}"/>
+		-->
+<!--
+		<pathelement location="${build.home}/WEB-INF/lib"/>
+-->
+		<fileset dir="${build.home}/WEB-INF/lib">
+<!-- NOTE: replaced with a finer selection
+			<include name="**/*.jar"/>
+-->
+<!--
+			<include name="appbase*.jar" if="isused.web.sun.appbase"/>
+-->
+
+<!-- NOTE: Not include in classpath!
+			<exclude name="**/commons-el-*.jar" if="isused.apache.commons"/>
+-->
+<!--
+			<include name="commons-beanutils*.jar" if="isused.apache.commons"/>
+			<include name="commons-collections*.jar" if="isused.apache.commons"/>
+			<include name="commons-digester*.jar" if="isused.apache.commons"/>
+-->
+<!--
+			<include name="commons-fileupload*.jar" if="isused.apache.commons"/>
+			<include name="commons-io*.jar" if="isused.apache.commons"/>
+-->
+			<include name="commons*.jar" if="isused.apache.commons"/>
+<!--
+			<include name="commons-logging*.jar" if="isused.apache.commons"/>
+			<include name="dataprovider*.jar" if="isused.sun.woodstock"/>
+-->
+			<include name="dcsj-commons*.jar"/>
+			<include name="dcsj-grid-core*.jar"/>
+			<include name="dcsj-grid-ourgrid*.jar"/>
+<!--
+			<include name="dojo*.jar"/>
+			<include name="dynamicfaces.jar" if="isused.web.sun.jsfext"/>
+			<include name="gravel.jar" if="isused.web.jboss.gravel"/>
+			<include name="htmlLib*.jar" if="isused.web.misc.htmllib"/>
+-->
+			<include name="jdom*.jar" if="isused.web.misc.jdom"/>
+			<include name="json*.jar" if="isused.web.misc.json"/>
+<!-- Doesn't work with the version of appbase.jar coming with NetBeans 6.0
+			<include name="jsf-api-1.2_04*.jar"/>
+-->
+<!-- Last working version:
+			<include name="jsf-api-1.2_08*.jar"/>
+-->
+			<include name="jsf-api.jar"/>
+			<include name="jsfcl*.jar" if="isused.web.sun.jsfcl"/>
+<!--
+			<include name="jsf-extensions-common*.jar" if="isused.web.sun.jsfext"/>
+			<include name="jsf-extensions-dynamic-faces*.jar" if="isused.web.sun.jsfext"/>
+			<include name="jsf-impl*.jar"/>
+			<include name="json-*.jar"/>
+			<include name="jstl*.jar"/>
+-->
+			<include name="mail*.jar" if="isused.sun.mail"/>
+			<include name="ourgrid*.jar" if="isused.middleware.ourgrid"/>
+<!--
+			<include name="prototype*.jar"/>
+-->
+			<include name="richfaces-api-*.jar" if="isused.web.jboss.richfaces"/>
+			<include name="richfaces-impl-*.jar" if="isused.web.jboss.richfaces"/>
+			<include name="richfaces-ui-*.jar" if="isused.web.jboss.richfaces"/>
+<!--
+			<include name="shale-remoting*.jar" if="isused.web.apache.shale"/>
+			<include name="standard*.jar"/>
+-->
+			<include name="tomahawk-*.jar" if="isused.web.apache.myfaces.tomahawk"/>
+<!--
+			<include name="webui-jsf*.jar" if="isused.web.sun.woodstock"/>
+			<include name="webui-jsf-sunthem*.jar" if="isused.web.sun.woodstock"/>
+-->
+		</fileset>
+	</path>
+
+	<path id="compile.classpath">
+		<path refid="common.compile.classpath"/>
+		<path refid="j2ee-container.compile.classpath"/>
+	</path>
+
+	<!--
+		=== "all" Target ===
+	-->
+	<target	name="all"
+		depends="clean,build"
+		description="Clean 'build' and 'dist' directories, then compile"/>
+
+	<!--
+		=== "clean" Target ===
+	-->
+	<target	name="clean"
+		description="Delete old 'build' and 'dist' directories">
+		<delete dir="${build.home}"/>
+		<delete dir="${dist.home}"/>
+	</target>
+
+	<!--
+		=== "dist" Target ===
+	-->
+	<target	name="dist"
+		depends="build,javadoc"
+		description="Create binary distribution">
+
+		<!-- Copy documentation subdirectories -->
+		<mkdir dir="${dist.home}/docs"/>
+		<copy todir="${dist.home}/docs">
+			<fileset dir="${docs.home}"/>
+		</copy>
+
+		<!-- Create application JAR file -->
+		<jar	jarfile="${war.file}"
+			basedir="${build.home}"/>
+
+		<!-- Copy additional files to ${dist.home} as necessary -->
+
+	</target>
+
+	<!--
+		=== "build" Target ===
+	-->
+	<target	name="build"
+		depends="post-compile"
+		description="Build from Java sources"/>
+
+	<!--
+		=== "post-compile" Target ===
+	-->
+	<target name="post-compile"
+		depends="compile"
+		description="Operations to be done just after the compilation phase">
+		<!-- Set the correct values for version, copyright, ... -->
+		<move file="${src.home}/it/unipmn/di/dcs/sharegrid/web/portal/view/AboutBean.java.orig" tofile="${src.home}/it/unipmn/di/dcs/sharegrid/web/portal/view/AboutBean.java"/>
+	</target>
+
+	<!--
+		=== "compile" Target ===
+	-->
+	<target	name="compile"
+		depends="pre-compile"
+		description="Compile Java sources">
+
+		<!-- Compile Java classes as necessary -->
+		<mkdir    dir="${build.home}/WEB-INF/classes"/>
+		<javac	srcdir="${src.home}"
+			includeantruntime="false"
+			destdir="${build.home}/WEB-INF/classes"
+			debug="${compile.debug}"
+			deprecation="${compile.deprecation}"
+			optimize="${compile.optimize}">
+			<classpath refid="compile.classpath"/>
+			<compilerarg value="-Xlint:unchecked"/>
+		</javac>
+
+		<!-- Copy application resources -->
+		<copy  todir="${build.home}/WEB-INF/classes">
+			<fileset dir="${src.home}" excludes="**/*.java"/>
+		</copy>
+
+	</target>
+
+	<!--
+		=== "javadoc" Target ===
+	-->
+	<target	name="javadoc"
+		description="Create Javadoc API documentation">
+
+		<mkdir dir="${dist.home}/docs/api"/>
+		<javadoc	sourcepath="${src.home}"
+				destdir="${dist.home}/docs/api"
+				packagenames="*">
+				<classpath refid="compile.classpath"/>
+
+			<doclet name="org.umlgraph.doclet.UmlGraphDoc" path="${lib.path}/UmlGraph-5.6.jar">
+				<param name="-inferrel"/>
+				<param name="-inferdep"/>
+				<param name="-hide" value="java.*"/>
+				<param name="-collpackages" value="java.util.*"/>
+				<param name="-qualify"/>
+				<param name="-postfixpackage"/>
+				<param name="-nodefontsize" value="9"/>
+				<param name="-nodefontpackagesize" value="7"/>
+				<param name="-link" value="http://java.sun.com/javase/6/docs/guide/javadoc/doclet/spec"/>
+				<param name="-link" value="http://java.sun.com/javase/6/docs/api"/>
+			</doclet>
+		</javadoc>
+
+	</target>
+
+	<!--
+		=== "install" Target ===
+	-->
+	<target	name="install"
+		depends="build"
+		description="Install application to servlet container">
+
+		<deploy	url="${manager.url}"
+			username="${manager.username}"
+			password="${manager.password}"
+			path="${app.path}"
+			localWar="file://${build.home}"/>
+		<!--
+		<copy file="${war.file}" todir="${deploy.path}"/>
+		-->
+	</target>
+
+	<!--
+		=== "list" Target ===
+	-->
+	<target	name="list"
+		description="List installed applications on servlet container">
+
+		<list	url="${manager.url}"
+			username="${manager.username}"
+			password="${manager.password}"/>
+
+	</target>
+
+	<!--
+		=== "pre-compile" Target ===
+	-->
+	<target name="pre-compile">
+		<!-- Create build directories as needed -->
+		<mkdir dir="${build.home}"/>
+		<mkdir dir="${build.home}/WEB-INF"/>
+		<mkdir dir="${build.home}/WEB-INF/classes"/>
+		<mkdir dir="${build.home}/WEB-INF/classes/META-INF"/>
+		<mkdir dir="${build.home}/WEB-INF/lib"/>
+
+		<!-- Copy static content of this web application -->
+		<copy todir="${build.home}">
+			<fileset dir="${web.home}">
+				<include name="**/*.xml"/>
+				<include name="**/*.jsp"/>
+				<include name="**/*.jspf"/>
+				<include name="**/*.jspx"/>
+				<include name="**/*.html"/>
+				<include name="resources/**"/>
+				<include name="resources/**/*.*"/>
+				<exclude name="**/lib/**"/>
+			</fileset>
+		</copy>
+
+		<!-- Copy static content of this web application -->
+		<copy todir="${build.home}/WEB-INF/classes/META-INF">
+			<fileset dir="${conf.home}">
+				<include name="*.xml"/>
+				<include name="*.conf"/>
+				<include name="*.properties"/>
+				<include name="MANIFEST.MF"/>
+				<include name="services"/>
+				<exclude name="**/.svn"/>
+			</fileset>
+		</copy>
+
+		<!-- Preprocess and copy TLDs -->
+		<exec executable="/usr/bin/xmllint">
+			<arg value="--noent"/>
+			<arg value="--dropdtd"/>
+			<arg value="--output"/>
+			<arg file="${build.home}/WEB-INF/classes/META-INF/dcsjsf-taglib.tld"/>
+			<arg file="${conf.home}/tlds/dcsjsf-taglib.tld"/>
+		</exec>
+		<exec executable="/usr/bin/xmllint">
+			<arg value="--noent"/>
+			<arg value="--dropdtd"/>
+			<arg value="--output"/>
+			<arg file="${build.home}/WEB-INF/classes/META-INF/dcsjsp-taglib.tld"/>
+			<arg file="${conf.home}/tlds/dcsjsp-taglib.tld"/>
+		</exec>
+
+<!--
+		<copy todir="${build.home}/web/WEB-INF/tlds" file="${conf.home}/taglib.tld"/>
+-->
+
+		<!-- Copy external dependencies as required -->
+		<!-- *** CUSTOMIZE HERE AS REQUIRED BY YOUR APPLICATION *** -->
+		<!--
+		<copy todir="${build.home}/WEB-INF/lib" file="${foo.jar}"/>
+		-->
+		<copy todir="${build.home}/WEB-INF/lib" flatten="true">
+			<fileset dir="${lib.path}">
+				<include name="*.jar"/>
+			</fileset>
+			<fileset dir="${web.lib.path}">
+				<patternset refid="web.lib.files"/>
+			</fileset>
+		</copy>
+
+
+		<!-- Copy static files from external dependencies as needed -->
+		<!-- *** CUSTOMIZE HERE AS REQUIRED BY YOUR APPLICATION *** -->
+
+		<!-- Set the correct values for version, copyright, ... -->
+		<copy file="${src.home}/it/unipmn/di/dcs/sharegrid/web/portal/view/AboutBean.java" tofile="${src.home}/it/unipmn/di/dcs/sharegrid/web/portal/view/AboutBean.java.orig"/>
+<!--
+		<replace	file="${src.home}/it/unipmn/di/dcs/sharegrid/web/portal/view/AboutBean.java"
+				propertyFile="${basedir}/build.properties"
+				token="@VERSION@"
+				value="unknown">
+			<replacefilter token="@VERSION@" property="app.version"/>
+		</replace>
+-->
+		<replace	file="${src.home}/it/unipmn/di/dcs/sharegrid/web/portal/view/AboutBean.java"
+				token="@VERSION@"
+				value="${app.version}"/>
+	</target>
+
+	<!--
+		=== "reload" Target ===
+	-->
+	<target	name="reload"
+		depends="compile"
+		description="Reload application on servlet container">
+
+		<reload	url="${manager.url}"
+			username="${manager.username}"
+			password="${manager.password}"
+			path="${app.path}"/>
+
+	</target>
+
+	<!--
+		=== "start" Target ===
+	-->
+	<target name="start" description="Start web application">
+		<start	url="${manager.url}"
+			username="${manager.username}"
+			password="${manager.password}"
+			path="${app.path}"/>
+	</target>
+
+	<!--
+		=== "stop" Target ===
+	-->
+	<target name="stop" description="Stop web application">
+		<stop	url="${manager.url}"
+			username="${manager.username}"
+			password="${manager.password}"
+			path="${app.path}"/>
+	</target>
+
+	<!--
+		=== "remove" Target ===
+	-->
+	<target	name="remove"
+		description="Remove application on servlet container">
+
+		<undeploy	url="${manager.url}"
+				username="${manager.username}"
+				password="${manager.password}"
+				path="${app.path}"/>
+
+	</target>
+
+	<!--
+		============================= TEST ============================
+	-->
+
+	<!--
+		=== Compilation Classpath ===
+	-->
+	<path id="test.compile.classpath">
+		<path refid="compile.classpath"/>
+		<fileset dir="${build.home}/WEB-INF/lib">
+			<include name="facestrace*.jar"/>
+			<include name="phaseTracker*.jar"/>
+		</fileset>
+	</path>
+
+	<!--
+		=== "test" Target ===
+	-->
+	<target name="test" depends="test.dist"/>
+
+	<!--
+		=== "test.dist" Target ===
+	-->
+	<target name="test.dist" depends="test.build">
+		<mkdir dir="${dist.home}"/>
+
+		<!-- Create application JAR file -->
+		<jar	jarfile="${war.file}"
+			basedir="${build.home}"/>
+	</target>
+
+
+	<!--
+		=== "test.build" Target ===
+	-->
+	<target name="test.build" depends="build,test.compile"/>
+
+	<!--
+		=== "test.pre-compile" Target ===
+	-->
+	<target name="test.pre-compile">
+
+		<!-- Create build directories as needed -->
+		<mkdir dir="${build.home}/test"/>
+
+		<!-- Copy static content of this web application -->
+		<copy todir="${build.home}/test">
+			<fileset dir="${test.web.home}">
+				<exclude name="WEB-INF/**"/>
+				<include name="**/*.xml"/>
+				<include name="**/*.jsp"/>
+				<include name="**/*.jspf"/>
+				<include name="**/*.jspx"/>
+				<include name="**/*.html"/>
+				<include name="resources/**"/>
+				<include name="resources/**/*.*"/>
+			</fileset>
+		</copy>
+
+		<copy todir="${build.home}/WEB-INF">
+			<fileset dir="${test.web.home}/WEB-INF">
+				<include name="**/*.*"/>
+			</fileset>
+		</copy>
+
+		<copy todir="${build.home}/WEB-INF/lib" flatten="true">
+			<fileset dir="${test.lib.path}">
+				<include name="*.jar"/>
+			</fileset>
+		</copy>
+	</target>
+
+	<!--
+		=== "test.compile" Target ===
+	-->
+	<target	name="test.compile"
+		depends="test.pre-compile"
+		description="Compile Java sources">
+
+		<!-- Compile Java classes as necessary -->
+		<javac	srcdir="${test.src.home}"
+			includeantruntime="false"
+			destdir="${build.home}/WEB-INF/classes"
+			debug="${compile.debug}"
+			deprecation="${compile.deprecation}"
+			optimize="${compile.optimize}">
+			<classpath refid="test.compile.classpath"/>
+			<compilerarg value="-Xlint:unchecked"/>
+		</javac>
+
+		<!-- Copy application resources -->
+		<copy  todir="${build.home}/WEB-INF/classes">
+			<fileset dir="${src.home}" excludes="**/*.java"/>
+		</copy>
+
+	</target>
+
+</project>

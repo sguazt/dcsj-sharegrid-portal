@@ -1,0 +1,30 @@
+Q: Why scripts are written as:
+   ---[SNIP ]---
+   <script type="text/javascript" src="...">
+   <![CDATA[ <!-- // -->]]>
+   </script>
+   ---[/SNIP]---
+   instead of:
+   ---[SNIP ]---
+   <script type="text/javascript" src="..."/>
+   ---[/SNIP]---
+   ?
+A: It seems some browser (e.g. Firefox 2.0.11) uncorrectly interprets the last
+   version rendering the page very bad.
+
+Q: Why my application server bother about JDBC driver class not found?
+A: Installing this jar in your WEB-INF/lib path it doesn't work since some
+   application server (e.g. Apache Tomcat) expects that DataSources will be
+   installed in its lib directory (e.g. for Tomcat: $CATALINE_HOME/lib).
+   Using tomcat's JNDI resources, the driver has to be in $CATALINE_HOME/lib.
+   If the application defines and manages it's own pool separate from Tomcat,
+   then you could put it in the app's WEB-INF/lib folder. This has everything to
+   do with how the classloaders work. Since Tomcat and your webapp both have to
+   have access to the driver when using container managed connection pools, it
+   has to be in $CATALINE_HOME/lib.
+
+Q: Why session is re-initialized ad each step?
+A: It's seem there are problems if you don't use JSF v.1.2b03. For instance,
+   using JSF 1.2b07 session is initilized at each step.
+   Using a greater version of JSF, like JSF 1.2_10, the problem should be
+   solved.

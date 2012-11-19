@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ - Copyright (C) 2008  Distributed Computing System (DCS) Group, Computer
+ - Science Department - University of Piemonte Orientale, Alessandria (Italy).
+ -
+ - This program is free software: you can redistribute it and/or modify
+ - it under the terms of the GNU General Public License as published
+ - by the Free Software Foundation, either version 3 of the License, or
+ - (at your option) any later version.
+ -
+ - This program is distributed in the hope that it will be useful,
+ - but WITHOUT ANY WARRANTY; without even the implied warranty of
+ - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ - GNU General Public License for more details.
+ -
+ - You should have received a copy of the GNU General Public License
+ - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -
+ - Author: Marco Guazzone (marco.guazzone@gmail.com)
+-->
+
+<jsp:root version="2.1"
+        xmlns:jsp="http://java.sun.com/JSP/Page"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html">
+
+        <jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
+        <jsp:output     omit-xml-declaration="no"
+                        doctype-root-element="html"
+			doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN"
+			doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+	<f:view>
+	<html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<meta http-equiv="Content-Type" content="text/xhtml; charset=UTF-8"/>
+			<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+			<link rel="stylesheet" href="${facesContext.externalContext.requestContextPath}/resources/theme/current/css/screen.css" type="text/css" />
+			<link rel="shortcut icon" href="${facesContext.externalContext.requestContextPath}/resources/theme/current/img/favicon.ico" type="image/x-icon"/>
+			<title><h:outputText value="#{msgs.passwdHelpTitle}"/></title>
+		</head>
+		<body>
+			<div id="document">
+				<div id="container">
+					<div id="sidebar">
+						<div class="sidebar">
+							<h:outputText styleClass="dcs-sg-head1" value="The Help sidebar..."/>
+						</div>
+					</div>
+					<div id="content">
+						<div class="dcs-sg-section">
+							<h:outputText styleClass="dcs-sg-head1" value="How safe is your password?"/>
+							<div class="dcs-sg-para">
+								<![CDATA[
+								The first step in protecting your online privacy is creating a safe password - i.e. one that a computer program or persistent individual won't easily be able to guess in a short period of time. To help you choose a secure password, we've created a feature that lets you know visually how safe your password is as soon as you create it.
+								]]>
+							</div>
+							<h:outputText styleClass="dcs-sg-head1" value="Tips for creating a secure password"/>
+							<br/>
+							<ul>
+								<li>Include punctuation marks and/or numbers.</li>
+								<li>Mix capital and lowercase letters.</li>
+								<li>Include similar looking substitutions, such as the number zero for the letter 'O' or '$' for the letter 'S'.</li>
+
+								<li>Create a unique acronym.</li>
+								<li>Include phonetic replacements, such as 'Luv 2 Laf' for 'Love to Laugh'.</li>
+							</ul>
+							<h:outputText styleClass="dcs-sg-head1" value="Things to avoid"/>
+							<br/>
+							<ul>
+								<li>Don't use a password that is listed as an example of how to pick a good password.</li>
+								<li>Don't use a password that contains personal information (name, birth date, etc.)</li>
+								<li>Don't use words or acronyms that can be found in a dictionary.</li>
+								<li>Don't use keyboard patterns (asdf) or sequential numbers (1234).</li>
+								<li>Don't make your password all numbers, uppercase letters or lowercase letters.</li>
+								<li>Don't use repeating characters (aa11).</li>
+							</ul>
+							<h:outputText styleClass="dcs-sg-head1" value="Tips for keeping your password secure"/>
+							<br/>
+							<ul>
+								<li>Never tell your password to anyone (this includes significant others, roommates, parrots, etc.).</li>
+								<li>Never write your password down.</li>
+								<li>Never send your password by email.</li>
+								<li>Periodically test your current password and change it to a new one.</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</body>
+	</html>
+	</f:view>
+</jsp:root>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ - Copyright (C) 2008  Distributed Computing System (DCS) Group, Computer
+ - Science Department - University of Piemonte Orientale, Alessandria (Italy).
+ -
+ - This program is free software: you can redistribute it and/or modify
+ - it under the terms of the GNU General Public License as published
+ - by the Free Software Foundation, either version 3 of the License, or
+ - (at your option) any later version.
+ -
+ - This program is distributed in the hope that it will be useful,
+ - but WITHOUT ANY WARRANTY; without even the implied warranty of
+ - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ - GNU General Public License for more details.
+ -
+ - You should have received a copy of the GNU General Public License
+ - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -
+ - Author: Marco Guazzone (marco.guazzone@gmail.com)
+-->
+
+<jsp:root version="2.1"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:dcsjsf="http://dcs.di.unipmn.it/tld/dcsjsf"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<f:subview id="header-view">
+
+		<div id="header">
+			<div id="title">
+				<h:outputLink value="#{facesContext.externalContext.requestContextPath}/faces/index.jspx">
+					<h:graphicImage value="/resources/theme/current/img/hdr.title.beta.png" alt="#{lbls.title}" title="#{lbls.title}"/>
+				</h:outputLink>
+			</div>
+			<c:if test="${sessionBean.userLoggedIn}">
+<!--
+				<h:panelGrid columns="1" rendered="#{sessionBean.userLoggedIn}">
+				<h:panelGroup id="userHeader">
+-->
+				<div id="userHeader">
+					<h:form id="user-quickbar">
+						<h:panelGrid columns="3">
+							<h:outputText value="#{sessionBean.userLogin.nickname}"/>
+<!--
+							<f:verbatim><![CDATA[&#160;]]></f:verbatim>
+							<h:commandLink action="#{headerBean.languageChangeAction}">
+								<h:graphicImage	value="/resources/theme/current/img/flags/#{sessionBean.userLogin.language}.png"
+										alt="#{sessionBean.userLogin.language}"
+										title="#{sessionBean.userLogin.prettyLanguage}"
+										style="vertical-align: middle;"/>
+							</h:commandLink>
+-->
+<!--
+							<rich:dropDownMenu id="langsMenu" binding="#{headerBean.supportedLanguagesMenu}" submitMode="server" style="color:#000;">
+								<f:facet name="label">
+									<h:panelGrid cellpadding="0" cellspacing="0" columns="2" style="vertical-align:middle">
+									<h:graphicImage	value="/resources/theme/current/img/flags/#{sessionBean.userLogin.language}.png"
+											alt="#{sessionBean.userLogin.language}"
+											title="#{sessionBean.userLogin.prettyLanguage}"
+											style="vertical-align: middle;"/>
+									</h:panelGrid>
+								</f:facet>
+							</rich:dropDownMenu>
+-->
+							<h:panelGroup>
+							<rich:dropDownMenu id="langsMenu" submitMode="server">
+								<f:facet name="label">
+									<h:panelGrid cellpadding="0" cellspacing="0" columns="2" style="vertical-align:middle">
+										<h:graphicImage	value="/resources/theme/current/img/flags/#{sessionBean.userLogin.language}.png"
+												alt="#{sessionBean.userLogin.language}"
+												title="#{sessionBean.userLogin.prettyLanguage}"
+												style="vertical-align: middle;"/>
+									</h:panelGrid>
+								</f:facet>
+<!--
+								<c:forEach items="#{headerBean.languages}" var="lang">
+-->
+								<dcsjsf:forEach items="#{headerBean.languages}" var="lang">
+<!--
+								<dcsjsf:dataIterator value="#{headerBean.languages}" var="lang">
+-->
+<!--
+									<rich:menuItem value="#{lang.second}"
+-->
+									<rich:menuItem
+											action="#{headerBean.languageChangeAction}">
+										<f:setPropertyActionListener target="#{headerBean.currentLanguage}" value="#{lang.first}"/>
+										<f:facet name="icon">
+											<h:graphicImage	value="/resources/theme/current/img/flags/#{lang.first}.png"/>
+										</f:facet>
+										<h:outputText value="#{lang.second}"/>
+									</rich:menuItem>
+<!--
+								</dcsjsf:dataIterator>
+-->
+								</dcsjsf:forEach>
+<!--
+								</c:forEach>
+-->
+							</rich:dropDownMenu>
+							</h:panelGroup>
+
+							<h:commandLink action="#{headerBean.logoutAction}" value="[#{lbls.logout}]" title="#{lbls.logout}"/>
+						</h:panelGrid>
+					</h:form>
+				</div>
+<!--
+				</h:panelGroup>
+			</h:panelGrid>
+-->
+			</c:if>
+			<noscript>
+					<div class="dcs-sg-javascriptWarning">
+					This page requires JavaScript to function properly.
+					<br/>
+					<br/>
+					If you are using Microsoft Internet Explorer you may need to click on the yellow bar above and select 'Allow Blocked Content'. You must then click 'Yes' on the following security warning.
+					</div>
+			</noscript>
+		</div>
+
+	</f:subview>
+
+</jsp:root>

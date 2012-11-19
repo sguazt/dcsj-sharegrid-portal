@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ - Copyright (C) 2008  Distributed Computing System (DCS) Group, Computer
+ - Science Department - University of Piemonte Orientale, Alessandria (Italy).
+ -
+ - This program is free software: you can redistribute it and/or modify
+ - it under the terms of the GNU General Public License as published
+ - by the Free Software Foundation, either version 3 of the License, or
+ - (at your option) any later version.
+ -
+ - This program is distributed in the hope that it will be useful,
+ - but WITHOUT ANY WARRANTY; without even the implied warranty of
+ - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ - GNU General Public License for more details.
+ -
+ - You should have received a copy of the GNU General Public License
+ - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -
+ - Author: Marco Guazzone (marco.guazzone@gmail.com)
+-->
+
+<jsp:root version="2.1"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
+	<jsp:output	omit-xml-declaration="no"
+			doctype-root-element="html"
+			doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+			doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<!--
+			doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN"
+			doctype-system="http://www.w3.org/TR/html4/loose.dtd"/>
+-->
+
+	<f:view>
+
+	<!-- Prepare info for content management -->
+	<jsp:scriptlet>
+		pageContext.setAttribute(it.unipmn.di.dcs.sharegrid.web.portal.view.util.ViewConstants.PageIdAttribute,"/admin/userlist", PageContext.REQUEST_SCOPE);
+	</jsp:scriptlet>
+
+	<jsp:directive.include file="/WEB-INF/jspf/usercheck-onlylogged.jspf"/>
+
+	<html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<meta http-equiv="Content-Type" content="text/xhtml; charset=UTF-8"/>
+			<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+			<link rel="stylesheet" href="${facesContext.externalContext.requestContextPath}/resources/theme/current/css/screen.css" type="text/css"/>
+			<link rel="shortcut icon" href="${facesContext.externalContext.requestContextPath}/resources/theme/current/img/favicon.ico" type="image/x-icon"/>
+			<script type="text/javascript" src="${facesContext.externalContext.requestContextPath}/resources/scripts/dcssg.js"><![CDATA[<!-- // -->]]></script>
+			<!-- This is needed for a broken behaviour with PNG images on IE browsers less than v.7 -->
+			<f:verbatim>
+			<![CDATA[
+			<!--[if lt IE 7]>
+			]]>
+			</f:verbatim>
+			<script defer="defer" type="text/javascript" src="${facesContext.externalContext.requestContextPath}/resources/scripts/pngfix.js"><![CDATA[<!-- // -->]]></script>
+			<f:verbatim>
+			<![CDATA[
+			<![endif]-->
+			]]>
+			</f:verbatim>
+			<f:verbatim>
+			<script type="text/javascript">
+			<![CDATA[
+			<!--
+				function confirmDeletion()
+				{
+					var answer;
+
+					answer = confirm( "Confirm deletion?" ); // no I18N
+
+					return answer;
+				}
+			//-->
+			]]>
+			</script>
+			</f:verbatim>
+			<title><h:outputText value="#{msgs.adminUserListTitle}"/></title>
+		</head>
+		<body id="pgHome">
+			<div id="document">
+
+				<jsp:directive.include file="/WEB-INF/jspf/header.jspf"/>
+
+				<div id="container">
+<!--
+					<jsp:directive.include file="/WEB-INF/jspf/admin-sidebar.jspf"/>
+-->
+					<div id="sidebar">
+						<jsp:directive.include file="/WEB-INF/jspf/common-sidebar.jspf"/>
+					</div>
+
+					<div id="content">
+						<div class="dcs-sg-section">
+							<h:outputText styleClass="dcs-sg-head1" value="#{msgs.adminUserListWelcomeTitle}"/>
+							<div class="dcs-sg-para">
+								<h:outputText styleClass="dcs-sg-normal" value="#{msgs.adminUserListWelcomeMsg}"/>
+							</div>
+						</div>
+
+						<div class="dcs-sg-entry dcs-sg-errors">
+							<h:messages globalOnly="true"
+								fatalClass="dcs-sg-fatalMessage"
+								errorClass="dcs-sg-errorMessage"
+								warnClass="dcs-sg-warnMessage"
+								infoClass="dcs-sg-infoMessage"/>
+						</div>
+
+						<div class="dcs-sg-section dcs-sg-centerAlign">
+
+							<!--
+							<rich:separator align="center" width="50%" lineType="solid"/>
+							<br/>
+							-->
+							<rich:spacer height="10" style="display:block;"/>
+
+							<h:form id="user-list">
+								<!--
+									See <richfaces-svn>/samples/richfaces-art-datatable/ for an example of
+									how to implement a sortable table.
+									See also ICEFACES components
+								-->
+								<rich:dataTable	value="#{userAdminBean.users}"
+										var="user"
+										id="usersTbl"
+										onRowMouseOver="DcsShareGrid(this).addClass(this,'dcs-sg-activeRow')"
+										onRowMouseOut="DcsShareGrid(this).removeClass(this,'dcs-sg-activeRow')"
+										rowClasses="dcs-sg-oddRow,dcs-sg-evenRow"
+										align="center">
+<!--
+										onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+										onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+										onRowMouseOver="jQuery(this).addClass('dcs-sg-activeRow')"
+										onRowMouseOut="jQuery(this).removeClass('dcs-sg-activeRow')"
+-->
+									<f:facet name="header">
+										<rich:columnGroup>
+											<rich:column>
+												<h:outputText value="#{lbls.id}"/>
+											</rich:column>
+											<rich:column>
+												<h:outputText value="#{lbls.nickname}"/>
+											</rich:column>
+											<rich:column>
+												<h:outputText value="#{lbls.name}"/>
+											</rich:column>
+											<rich:column>
+												<h:outputText value="#{lbls.actions}"/>
+											</rich:column>
+										</rich:columnGroup>
+									</f:facet>
+
+									<rich:column styleClass="dcs-sg-rightAlign">
+										<h:outputText value="#{user.id}"/>
+									</rich:column>
+									<rich:column>
+										<h:outputText value="#{user.nickname}"/>
+									</rich:column>
+									<rich:column>
+										<h:outputText value="#{user.name}"/>
+									</rich:column>
+									<rich:column styleClass="dcs-sg-centerAlign">
+										<h:outputLink id="edit" value="#{facesContext.externalContext.requestContextPath}/faces/admin/userdetail.jspx">
+                        								<f:param name="id" value="#{user.id}"/>
+											<h:graphicImage value="/resources/theme/current/img/stock/small/edit.png" title="#{msgs.cmdEditTip}" alt="#{lbls.edit}"/>
+										</h:outputLink>
+										<f:verbatim><![CDATA[&#160;]]></f:verbatim>
+										<h:commandLink id="delete" action="#{userAdminBean.doDeleteAction}" onclick="return confirmDeletion();">
+											<h:graphicImage value="/resources/theme/current/img/stock/small/delete.png" title="#{msgs.cmdDeleteTip}" alt="#{lbls.delete}"/>
+										</h:commandLink>
+									</rich:column>
+								</rich:dataTable>
+								<!-- FIXME: code for making a "zebra" table ... doesn't work properly
+								<rich:jQuery selector="#usersTbl tr:odd" query="addClass('dcs-sg-oddRow')" />
+								<rich:jQuery selector="#usersTbl tr:even" query="addClass('dcs-sg-evenRow')" />
+								<rich:jQuery selector="#usersTbl tr" query="mouseover(function(){jQuery(this).addClass('dcs-sg-activeRow')})"/>
+								<rich:jQuery selector="#usersTbl tr" query="mouseout(function(){jQuery(this).removeClass('dcs-sg-activeRow')})"/>
+								-->
+							</h:form>
+						</div>
+					</div>
+				</div>
+
+				<jsp:directive.include file="/WEB-INF/jspf/footer.jspf"/>
+
+			</div>
+		</body>
+		</html>
+	</f:view>
+</jsp:root>

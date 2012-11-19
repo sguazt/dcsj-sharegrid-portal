@@ -1,0 +1,135 @@
+#!/bin/sh
+#
+# This script will be executed *after* all the other init scripts.
+# You can put your own initialization stuff in here if you don't
+# want to do the full Sys V style init stuff.
+
+touch /var/lock/subsys/local
+
+### [ShareGrid start-up scripts] ###
+
+SG_USER=sharegrid
+SG_HOME=/home/$SG_USER
+SG_LOGFILE=/var/log/sharegrid/startup.log
+
+## Set the Java HOME
+## (Needed if JAVA does not ship installed with the operating system)
+#JAVA_HOME=/opt/java
+#export JAVA_HOME
+
+## Set the Java options for fine tuning
+#JAVA_OPTS=-Xmx512m -XX:PermSize=256m
+#JAVA_OPTS='-client -server -Xms512m -Xmx512m'
+#JAVA_OPTS=-Xmx512m
+#export JAVA_OPTS
+
+## Set the MySQL HOME
+## (Needed if MySQL does not automatically start at boot time)
+MYSQL_HOME=/opt/mysql
+export MYSQL_HOME
+
+## Set the Tomcat HOME
+CATALINA_HOME=/opt/apache-tomcat
+export CATALINA_HOME
+
+## Set the OurGrid HOME
+OG3_HOME=$SG_HOME/OurGrid/v3
+export OG3_HOME
+
+## Set the OurGrid Web Status HOME
+## (Needed when the host runs a corepeer and the web status)
+OG3STATUS_HOME=$CATALINA_HOME/webapps/status
+OG3STATUS_COREPEER_NAME=corepeer.mydomain.com
+OG3STATUS_COREPEER_PORT=10800
+OG3STATUS_STATUS_PORT=8080
+export OG3STATUS_HOME OG3STATUS_COREPEER_NAME OG3STATUS_COREPEER_PORT OG3STATUS_STATUS_PORT
+
+## Set the OurGrid mygrid HOME
+MGROOT=$OG3_HOME/mygrid
+export MGROOT
+
+## Run Tomcat and the other ShareGrid component with GMT timezone
+## Portal users will use a timezone that is relative to $TZ
+TZ='GMT'
+export TZ
+
+su $SG_USER -c "touch $SG_LOGFILE"
+
+echo -n `date +"[%F %T] "` >>$SG_LOGFILE
+echo "Starting ShareGrid..." >>$SG_LOGFILE
+
+## Starts ShareGrid core-peer
+## (Needed when the host runs a corepeer)
+echo -n `date +"[%F %T] "` >>$SG_LOGFILE
+echo "Starting ShareGrid core-peer..." >>$SG_LOGFILE
+su $SG_USER -c "$OG3_HOME/corepeer/bin/corepeer start >>$SG_LOGFILE"
+echo -n `date +"[%F %T] "` >>$SG_LOGFILE
+echo "... ShareGrid core-peer started" >>$SG_LOGFILE
+
+## Starts ShareGrid ABC peer
+echo -n `date +"[%F %T] "` >>$SG_LOGFILE
+echo "Starting ShareGrid ABC peer..." >>$SG_LOGFILE
+su $SG_USER -c "$OG3_HOME/ABCpeer/bin/peer start >>$SG_LOGFILE"
+su $SG_USER -c "$OG3_HOME/ABCpeer/bin/peer setgums $OG3_HOME/ABCpeer/mysite.sdf >>$SG_LOGFILE"
+echo -n `date +"[%F %T] "` >>$SG_LOGFILE
+echo "... ShareGrid ABC peer started" >>$SG_LOGFILE
+
+## Starts ShareGrid XYZ peer
+echo -n `date +"[%F %T] "` >>$SG_LOGFILE
+echo "Starting ShareGrid XYZ peer..." >>$SG_LOGFILE
+su $SG_USER -c "$OG3_HOME/XYZpeer/bin/peer start >>$SG_LOGFILE"
+su $SG_USER -c "$OG3_HOME/XYZpeer/bin/peer setgums $OG3_HOME/XYZpeer/mysite.sdf >>$SG_LOGFILE"
+echo -n `date +"[%F %T] "` >>$SG_LOGFILE
+echo "... ShareGrid XYZ peer started" >>$SG_LOGFILE
+
+## Add other peers if needed...
+
+## Starts the mygrid for ShareGrid portal
+echo -n `date +"[%F %T] "` >>$SG_LOGFILE
+echo "Starting ShareGrid portal mygrid ..." >>$SG_LOGFILE
+su $SG_USER -c "$MGROOT/bin/mygrid start >>$SG_LOGFILE"
+su $SG_USER -c "$MGROOT/bin/mygrid setgrid $MGROOT/mypeer.gdf >>$SG_LOGFILE"
+echo -n `date +"[%F %T] "` >>$SG_LOGFILE
+echo "... ShareGrid portal mygrid started" >>$SG_LOGFILE
+
+## Starts MySQL
+## (Needed if MySQL does not automatically start at boot time)
+echo -n `date +"[%F %T] "` >>$SG_LOGFILE
+echo "Starting ShareGrid DB-Server (MySQL)..." >>$SG_LOGFILE
+$MYSQL_HOME/support-files/mysql.server start >>$SG_LOGFILE
+echo -n `date +"[%F %T] "` >>$SG_LOGFILE
+echo "... ShareGrid DB-Server (MySQL) started" >>$SG_LOGFILE
+
+## Starts Apache Tomcat
+## (Needed if Apache Tomcat does not automatically start at boot time)
+echo -n `date +"[%F %T] "` >>$SG_LOGFILE
+echo "Starting ShareGrid Web-Server (Apache Tomcat)..." >>$SG_LOGFILE
+$CATALINA_HOME/bin/catalina.sh start >>$SG_LOGFILE
+echo -n `date +"[%F %T] "` >>$SG_LOGFILE
+echo "... ShareGrid Web-Server (Apache Tomcat) started" >>$SG_LOGFILE
+
+## Starts ShareGrid core-peer web-status
+## (Needed when the host runs a corepeer and the web status)
+echo -n `date +"[%F %T] "` >>$SG_LOGFILE
+echo "Starting ShareGrid Web-Status..." >>$SG_LOGFILE
+java -cp $OG3STATUS_HOME/WEB-INF/classes:$OG3STATUS_HOME/WEB-INF/lib/log4j.jar:$OG3STATUS_HOME/WEB-INF/lib/ourgrid.jar \
+     -Dcorepeer.url=$OG3STATUS_COREPEER_NAME \
+     -Dcorepeer.port=$OG3STATUS_COREPEER_PORT \
+     -Dwebstatus.port=$OG3STATUS_STATUS_PORT \
+     -Dsun.net.inetaddr.ttl=0 \
+     org.ourgrid.webstatus.WebStatusImpl > $OG3STATUS_HOME/thread.log.$$ &
+echo -n `date +"[%F %T] "` >>$SG_LOGFILE
+echo "... ShareGrid Web-Status started" >>$SG_LOGFILE
+
+## Starts ShareGrid job monitor
+## (Needed if the job notification system is used)
+echo -n `date +"[%F %T] "` >>$SG_LOGFILE
+echo "Starting ShareGrid Grid Job Monitor..." >>$SG_LOGFILE
+su -c "$SG_HOME/scripts/job-monitor.sh start >>$SG_LOGFILE"
+echo -n `date +"[%F %T] "` >>$SG_LOGFILE
+echo "... ShareGrid Grid Job Monitor started" >>$SG_LOGFILE
+
+echo -n `date +"[%F %T] "` >>$SG_LOGFILE
+echo "... ShareGrid started" >>$SG_LOGFILE
+
+### [/ShareGrid start-up scripts] ###

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<attribute>
+	<name>converter</name>
+	<description>
+		<![CDATA[Converter instance registered with this component.]]>
+	</description>
+	<required>false</required>
+	<deferred-value>
+		<type>javax.faces.convert.Converter</type>
+	</deferred-value>
+</attribute>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jsp:root version="2.1"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:dcsjsf="http://dcs.di.unipmn.it/tld/dcsjsf"
+	xmlns:ft="http://sourceforge.net/projects/facestrace">
+
+	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
+        <jsp:output	omit-xml-declaration="no"
+			doctype-root-element="html"
+			doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+			doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+	<f:view>
+
+	<html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<title>DCS OUTPUTFILE component test</title>
+		</head>
+		<body>
+			<h1>DCS OUTPUTFILE component test</h1>
+
+			<h:panelGrid columns="2">
+				<h:outputText value="PNG download"/>
+				<dcsjsf:outputFile method="download" mimeType="image/png" fileName="duke_weave.png" data="#{outputFileBean.png}">
+					<h:outputText value="Download PNG"/>
+				</dcsjsf:outputFile>
+
+				<h:outputText value="PDF download"/>
+				<dcsjsf:outputFile method="download" mimeType="application/pdf" fileName="duke_weave.pdf" data="#{outputFileBean.pdf}">
+					<h:outputText value="Download PDF"/>
+				</dcsjsf:outputFile>
+
+				<h:outputText value="PNG inline"/>
+				<dcsjsf:outputFile method="inline" mimeType="image/png" fileName="duke_weave.png" data="#{outputFileBean.png}" var="duke">
+					<h:outputText value="View PNG"/>
+					<h:graphicImage url="#{duke}"/>
+				</dcsjsf:outputFile>
+
+				<h:outputText value="PDF inline"/>
+				<dcsjsf:outputFile method="inline" mimeType="application/pdf" fileName="duke_weave.pdf" data="#{outputFileBean.pdf}" width="750px" height="550px"/>
+			</h:panelGrid>
+		</body>
+	</html>
+
+<!--
+	<ft:trace/>
+-->
+
+	</f:view>
+</jsp:root>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jsp:root version="2.1"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:dcsjsf="http://dcs.di.unipmn.it/tld/dcsjsf"
+	xmlns:ft="http://sourceforge.net/projects/facestrace">
+
+	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
+        <jsp:output	omit-xml-declaration="no"
+			doctype-root-element="html"
+			doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+			doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+	<f:view>
+
+	<html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<title>DCS INPUTRADIO component test</title>
+		</head>
+		<body>
+			<h1>DCS INPUTRADIO component test</h1>
+
+			<h:form id="myform">
+				<h:panelGrid columns="2">
+					<h:outputLabel for="inputRadio1" value="Radio1"/>
+					<dcsjsf:inputRadio id="inputRadio1" groupName="radio-group" value="Radio1"/>
+
+					<h:outputLabel for="inputRadio2" value="Radio2"/>
+					<dcsjsf:inputRadio id="inputRadio2" groupName="radio-group" checked="true" value="Radio2"/>
+
+					<h:outputLabel for="inputRadio3" value="Radio3"/>
+					<dcsjsf:inputRadio id="inputRadio3" groupName="radio-group" value="Radio3"/>
+
+					<h:panelGroup>
+						<h:commandButton action="#{inputRadioBean.doSubmitAction}" value="Submit!"/>
+					</h:panelGroup>
+				</h:panelGrid>
+			</h:form>
+		</body>
+	</html>
+
+<!--
+	<ft:trace/>
+-->
+
+	</f:view>
+</jsp:root>

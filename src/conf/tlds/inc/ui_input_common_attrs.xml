@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+	<attribute>
+	<name>accesskey</name>
+	<description>
+		<![CDATA[Access key that, when pressed, transfers focus
+		to this element.]]>
+	</description>
+	<required>false</required>
+	<deferred-value>
+		<type>java.lang.String</type>
+	</deferred-value>
+</attribute>
+
+<attribute>
+	<name>converter</name>
+	<description>
+		<![CDATA[Converter instance registered with this component.]]>
+	</description>
+	<required>false</required>
+	<deferred-value>
+		<type>javax.faces.convert.Converter</type>
+	</deferred-value>
+</attribute>
+
+<attribute>
+	<name>converterMessage</name>
+	<description>
+		<![CDATA[A ValueExpression enabled attribute that, if present, will be
+		used as the text of the converter message, replacing any message
+		that comes from the converter.]]>
+	</description>
+	<required>false</required>
+	<deferred-value>
+		<type>java.lang.String</type>
+	</deferred-value>
+</attribute>
+
+<attribute>
+	<name>immediate</name>
+	<description>
+		<![CDATA[Flag indicating that, if this component is activated by the user,
+		notifications should be delivered to interested listeners and actions
+		immediately (that is, during Apply Request Values phase) rather than
+		waiting until Invoke Application phase.]]>
+	</description>
+	<required>false</required>
+	<deferred-value>
+		<type>boolean</type>
+	</deferred-value>
+</attribute>
+
+<attribute>
+	<name>disabled</name>
+	<description>
+		<![CDATA[Flag indicating that this element must never receive focus or
+		be included in a subsequent submit.  A value of false causes
+		no attribute to be rendered, while a value of true causes the
+		attribute to be rendered as disabled="disabled".]]>
+	</description>
+	<required>false</required>
+	<deferred-value>
+		<type>boolean</type>
+	</deferred-value>
+</attribute>
+
+<attribute>
+	<name>onblur</name>
+	<description>
+		<![CDATA[Javascript code executed when this element loses focus.]]>
+	</description>
+	<required>false</required>
+	<deferred-value>
+		<type>java.lang.String</type>
+	</deferred-value>
+</attribute>
+
+<attribute>
+	<name>onchange</name>
+	<description>
+		<![CDATA[Javascript code executed when this element loses focus
+		and its value has been modified since gaining focus.]]>
+	</description>
+	<required>false</required>
+	<deferred-value>
+		<type>java.lang.String</type>
+	</deferred-value>
+</attribute>
+
+<attribute>
+	<name>onfocus</name>
+	<description>
+		<![CDATA[Javascript code executed when this element receives focus.]]>
+	</description>
+	<required>false</required>
+	<deferred-value>
+		<type>java.lang.String</type>
+	</deferred-value>
+</attribute>
+
+<attribute>
+	<name>readonly</name>
+	<description>
+		<![CDATA[Flag indicating that this component will prohibit changes by
+		the user.  The element may receive focus unless it has also
+		been disabled.  A value of false causes
+		no attribute to be rendered, while a value of true causes the
+		attribute to be rendered as readonly="readonly".]]>
+	</description>
+	<required>false</required>
+	<deferred-value>
+		<type>boolean</type>
+	</deferred-value>
+</attribute>
+
+<attribute>
+	<name>required</name>
+	<description>
+		<![CDATA[Flag indicating that the user is required to provide a submitted
+		value for this input component.]]>
+	</description>
+	<required>false</required>
+	<deferred-value>
+		<type>boolean</type>
+	</deferred-value>
+</attribute>
+
+<attribute>
+	<name>requiredMessage</name>
+	<description>
+		<![CDATA[A ValueExpression enabled attribute that, if present, will be
+		used as the text of the validation message for the "required"
+		facility, if the "required" facility is used.]]>
+	</description>
+	<required>false</required>
+	<deferred-value>
+		<type>java.lang.String</type>
+	</deferred-value>
+</attribute>
+
+<attribute>
+	<name>tabindex</name>
+	<description>
+		<![CDATA[Position of this element in the tabbing order
+		for the current document.  This value must be
+		an integer between 0 and 32767.]]>
+	</description>
+	<required>false</required>
+	<deferred-value>
+		<type>int</type>
+	</deferred-value>
+</attribute>
+
+<attribute>
+	<name>validator</name>
+	<description>
+		<![CDATA[MethodExpression representing a validator method that will be called
+		during Process Validations to perform correctness checks on the
+		value of this component.  The expression must evaluate to a public
+		method that takes FacesContext, UIComponent, and Object parameters,
+		with a return type of void.]]>
+	</description>
+	<required>false</required>
+	<deferred-method>
+		<method-signature>void validate(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.Object)</method-signature>
+	</deferred-method>
+</attribute>
+
+<attribute>
+	<name>validatorMessage</name>
+	<description>
+		<![CDATA[A ValueExpression enabled attribute that, if present, will be
+		used as the text of the validator message, replacing any
+		message that comes from the validator.]]>
+	</description>
+	<required>false</required>
+	<deferred-value>
+		<type>java.lang.String</type>
+	</deferred-value>
+</attribute>
+
+<attribute>
+	<name>valueChangeListener</name>
+	<description>
+		<![CDATA[MethodExpression representing a value change listener method that will be
+		notified when a new value has been set for this input component.  The
+		expression must evaluate to a public method that takes a
+		ValueChangeEvent parameter, with a return type of void.]]>
+	</description>
+	<required>false</required>
+	<deferred-method>
+		<method-signature>void valueChange(javax.faces.event.ValueChangeEvent)</method-signature>
+	</deferred-method>
+</attribute>

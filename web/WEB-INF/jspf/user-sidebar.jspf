@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ - Copyright (C) 2008  Distributed Computing System (DCS) Group, Computer
+ - Science Department - University of Piemonte Orientale, Alessandria (Italy).
+ -
+ - This program is free software: you can redistribute it and/or modify
+ - it under the terms of the GNU General Public License as published
+ - by the Free Software Foundation, either version 3 of the License, or
+ - (at your option) any later version.
+ -
+ - This program is distributed in the hope that it will be useful,
+ - but WITHOUT ANY WARRANTY; without even the implied warranty of
+ - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ - GNU General Public License for more details.
+ -
+ - You should have received a copy of the GNU General Public License
+ - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -
+ - Author: Marco Guazzone (marco.guazzone@gmail.com)
+-->
+
+<jsp:root version="2.1"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:dcsjsf="http://dcs.di.unipmn.it/tld/dcsjsf">
+
+	<f:subview id="user-sidebar-view">
+
+		<div class="dcs-sg-sidebar-item">
+			<rich:panelBar selectedPanel="#{sidebarBean.navigatorSectionId}">
+<!-- OK
+			<rich:panelBar selectedPanel="#{facesContext.externalContext.requestMap['it.unipmn.di.dcs.sharegrid.web.portal.NavigatorSectionId']}">
+-->
+<!-- OK
+			<rich:panelBar selectedPanel="#{facesContext.externalContext.requestMap[sidebarBean.navigatorSectionIdAttr]}">
+-->
+<!-- KO
+			<rich:panelBar selectedPanel="#{facesContext.externalContext.requestMap[it.unipmn.di.dcs.sharegrid.web.portal.view.util.ViewConstants.NavigatorSectionIdAttribute]}">
+-->
+<!-- KO
+			<rich:panelBar selectedPanel="#{applicationBean.currentViewSection}">
+-->
+				<rich:panelBarItem label="#{lbls.userMenu}" name="#{sidebarBean.userSiteSectionNavId}" rendered="#{sidebarBean.userSiteSectionAccessible}">
+					<ul>
+						<li><h:outputLink value="#{facesContext.externalContext.requestContextPath}/faces/user/profile.jspx" title="#{lbls.profile}"><h:outputText value="#{lbls.profile}"/></h:outputLink></li>
+						<li><h:outputLink value="#{facesContext.externalContext.requestContextPath}/faces/user/chpasswd.jspx" title="#{lbls.changePasswd}"><h:outputText value="#{lbls.changePasswd}"/></h:outputLink></li>
+						<li><h:outputLink value="#{facesContext.externalContext.requestContextPath}/faces/user/storageview.jspx" title="#{lbls.storageArea}"><h:outputText value="#{lbls.storageArea}"/></h:outputLink></li>
+					</ul>
+				</rich:panelBarItem>
+				<rich:panelBarItem label="#{lbls.adminMenu}" name="#{sidebarBean.adminSiteSectionNavId}" rendered="#{sidebarBean.adminSiteSectionAccessible}">
+					<ul>
+						<li><h:outputLink value="#{facesContext.externalContext.requestContextPath}/faces/admin/userlist.jspx" title="#{lbls.userList}"><h:outputText value="#{lbls.userList}"/></h:outputLink></li>
+						<li><h:outputLink value="#{facesContext.externalContext.requestContextPath}/faces/admin/trypasswd.jspx" title="#{lbls.tryPassword}"><h:outputText value="#{lbls.tryPassword}"/></h:outputLink></li>
+					</ul>
+				</rich:panelBarItem>
+				<rich:panelBarItem label="#{lbls.gridJobMenu}" name="#{sidebarBean.gridSiteSectionNavId}" rendered="#{sidebarBean.gridSiteSectionAccessible}">
+					<ul>
+						<li>
+							<h:outputLink value="#{facesContext.externalContext.requestContextPath}/faces/grid/submitjob.jspx" title="#{lbls.jobSubmit}"><h:outputText value="#{lbls.jobSubmit}"/>
+								<f:param name="new" value="1"/>
+							</h:outputLink>
+						</li>
+						<li><h:outputLink value="#{facesContext.externalContext.requestContextPath}/faces/grid/joblist.jspx" title="#{lbls.jobList}"><h:outputText value="#{lbls.jobList}"/></h:outputLink></li>
+					</ul>
+				</rich:panelBarItem>
+			</rich:panelBar>
+		</div>
+
+	</f:subview>
+
+</jsp:root>

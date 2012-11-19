@@ -1,0 +1,317 @@
+<?xml version="1.0"?>
+
+<faces-config version="1.2"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+
+	<!--@{ Navigation Rules -->
+	<navigation-rule>
+		<from-view-id>/*</from-view-id>
+		<navigation-case>
+			<from-outcome>logout-ko</from-outcome>
+			<to-view-id>/index.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>logout-ok</from-outcome>
+			<to-view-id>/index.jspx</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/grid/jobdetail.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/grid/joblist.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>delete-ok</from-outcome>
+			<to-view-id>/grid/joblist.jspx</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/grid/submitjob.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/index.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>jobfile-submit-ok</from-outcome>
+			<to-view-id>/grid/joblist.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>manjob-submit-ok</from-outcome>
+			<to-view-id>/grid/joblist.jspx</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/index.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>login-ko</from-outcome>
+			<to-view-id>/index.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>login-ok</from-outcome>
+			<to-view-id>/index.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>logout-ko</from-outcome>
+			<to-view-id>/index.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>logout-ok</from-outcome>
+			<to-view-id>/index.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>register</from-outcome>
+			<to-view-id>/registeruser.jspx</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/registeruser.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/index.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>registration-ok</from-outcome>
+			<to-view-id>/registeruser.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>registration-ko</from-outcome>
+			<to-view-id>/registeruser.jspx</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!--@} Navigation Rules -->
+
+	<!--@{ Managed Beans -->
+	<managed-bean>
+		<managed-bean-name>aboutBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.AboutBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>actBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.user.UserActivationBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>uid</property-name>
+			<value>#{param.uid}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>aid</property-name>
+			<value>#{param.aid}</value>
+		</managed-property>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>adminSkinBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.admin.ChangeSkinBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>adminTryPasswdBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.admin.TryPasswordBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>applicationBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.ApplicationBean</managed-bean-class>
+		<managed-bean-scope>application</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>changePasswdBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.user.UserPasswordChangeBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>headerBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.HeaderBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>jobBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.grid.JobSubmitBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>jobDetailBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.grid.JobDetailBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>jobListBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.grid.JobListBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>loginBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.LoginInfoBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>regBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.user.UserRegistrationBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>sessionBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.SessionBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>sidebarBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.SidebarBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>userAdminBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.admin.UserAdminBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>userProfileBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.user.UserProfileBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>userStorageBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.user.UserStorageBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<!--@{ Test-only managed beans -->
+<!-- FIXME: uncomment only for testing purpose (i.e. ant test)
+-->
+	<managed-bean>
+		<managed-bean-name>dropDownMenuBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.test.TestRichDropDownMenuBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>forEachBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.test.TestForEachBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>ifBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.test.TestIfBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>ifThenElseBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.test.TestIfThenElseBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>inputDateBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.test.TestInputDateBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>inputFileBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.test.TestInputFileBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>inputRadioBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.test.TestInputRadioBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>outputFileBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.test.TestOutputFileBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>setBeanPropertyTestBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.test.TestSetBeanPropertyBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>testRichDataScrollBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.test.TestRichDataScrollBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<!--@} Test-only managed beans -->
+
+	<!--@} Managed Beans -->
+
+	<!--@{ Application Settings -->
+	<application>
+		<view-handler>it.unipmn.di.dcs.sharegrid.web.faces.view.ViewHandlerImpl</view-handler>
+		<action-listener>it.unipmn.di.dcs.sharegrid.web.faces.view.ActionListenerImpl</action-listener>
+		<message-bundle>it.unipmn.di.dcs.sharegrid.web.portal.view.res.Messages</message-bundle>
+		<locale-config>
+			<default-locale>en</default-locale>
+			<supported-locale>en</supported-locale>
+			<supported-locale>it</supported-locale>
+		</locale-config>
+		<resource-bundle>
+			<base-name>it.unipmn.di.dcs.sharegrid.web.portal.view.res.Messages</base-name>
+			<var>msgs</var>
+		</resource-bundle>
+		<resource-bundle>
+			<base-name>it.unipmn.di.dcs.sharegrid.web.portal.view.res.Labels</base-name>
+			<var>lbls</var>
+		</resource-bundle>
+		<resource-bundle>
+			<base-name>it.unipmn.di.dcs.sharegrid.web.portal.view.res.HelpMessages</base-name>
+			<var>hlpmsgs</var>
+		</resource-bundle>
+<!--
+		<default-render-kit-id>org.apache.myfaces.trinidad.core</default-render-kit-id>
+-->
+	</application>
+	<!--@} Application Settings -->
+
+	<!--@{ Validators -->
+	<validator>
+		<validator-id>it.unipmn.di.dcs.sharegrid.web.portal.view.validator.Email</validator-id>
+		<validator-class>it.unipmn.di.dcs.sharegrid.web.portal.view.validator.EmailValidator</validator-class>
+	</validator>
+	<!--@} Validators -->
+
+<!--
+	<component>
+		<display-name>Input File</display-name>
+		<component-type>it.unipmn.di.dcs.sharegrid.web.faces.InputFile</component-type>
+		<component-class>it.unipmn.di.dcs.sharegrid.web.faces.component.UIInputFileComponent</component-class>
+		<component-extension>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.HtmlInputFile</renderer-type>
+		</component-extension>
+	</component>
+
+	<render-kit>
+		<description>
+		<![CDATA[Render-kit for InputFile component]]>
+		</description>
+		<renderer>
+			<component-family>it.unipmn.di.dcs.sharegrid.web.faces.InputFile</component-family>
+			<renderer-type>it.unipmn.di.dcs.sharegrid.web.faces.HtmlInputFile</renderer-type>
+			<renderer-class>it.unipmn.di.dcs.sharegrid.web.faces.renderer.html.HtmlInputFileRenderer</renderer-class>
+		</renderer>
+	</render-kit>
+-->
+<!-- FIXME: the code below is a workaround to temporarily fix the problem
+            introduced by the RAVE appbase.jar library.
+            In fact this library replace the original HtmlCommandLink renderer
+            with a new one, masking the onclick attribute (see NetBeans issue
+            #125913). -->
+  <render-kit>
+    <renderer>
+      <display-name>Link Action Renderer</display-name>
+      <component-family>javax.faces.Command</component-family>
+      <renderer-type>javax.faces.Link</renderer-type>
+      <renderer-class>com.sun.faces.renderkit.html_basic.CommandLinkRenderer</renderer-class>
+    </renderer>
+  </render-kit>
+<!-- End of FIXME -->
+
+<!-- experimental -->
+<!--
+	<lifecycle>
+		<phase-listener>it.unipmn.di.dcs.sharegrid.web.faces.servlet.AjaxListener</phase-listener>
+	</lifecycle>
+-->
+<!-- /experimental -->
+
+</faces-config>

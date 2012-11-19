@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ - Copyright (C) 2008  Distributed Computing System (DCS) Group, Computer
+ - Science Department - University of Piemonte Orientale, Alessandria (Italy).
+ -
+ - This program is free software: you can redistribute it and/or modify
+ - it under the terms of the GNU General Public License as published
+ - by the Free Software Foundation, either version 3 of the License, or
+ - (at your option) any later version.
+ -
+ - This program is distributed in the hope that it will be useful,
+ - but WITHOUT ANY WARRANTY; without even the implied warranty of
+ - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ - GNU General Public License for more details.
+ -
+ - You should have received a copy of the GNU General Public License
+ - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -
+ - Author: Marco Guazzone (marco.guazzone@gmail.com)
+-->
+
+<jsp:root version="2.1"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="https://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<f:subview id="upload-view">
+
+		<div styleClass="dcs-sg-upload-view">
+		  
+			<script type="text/javascript">
+			<!--		
+			// global object, no good...TODO: move all functions to class
+			var updater;
+			// main function for upload monitoring
+			function submitPostUsingAjax() {
+				try {
+					var isFirstCall = true;
+					// get upload status
+					updater = new Ajax.PeriodicalUpdater('uploadStatusDiv','${facesContext.externalContext.requestContextPath}/upload?query=3',
+					asynchronous:true,
+					frequency:1,
+					method:'get',
+					onSuccess:function(request) {
+							if(isFirstCall){
+							isFirstCall=false;
+						    $('progressBar').style.visibility = 'visible';
+						    $('progressBar').style.width = '1%';
+						} else {
+							if (request.responseText.length > 1) {
+							$('progressBar').style.width = request.responseText + '%';
+								$('statusText').update(request.responseText + '% uploaded');
+							}
+						}
+					}
+					});
+				} catch(e) {
+					alert('submitPostUsingAjax() failed, reason: ' + e);
+				} finally {
+				}
+
+				return false;
+			}
+
+			// executes function after page loaded
+			function addLoadEvent(func) {
+				var oldonload = window.onload;
+				if (typeof window.onload != 'function') {
+					window.onload = func;
+				} else {
+					window.onload = function() {
+						oldonload();
+						func();
+					}
+				}
+			}
+			// update uploaded file list manually
+			function updateUploadedFileList() {
+
+				// stop updater manually
+			if (typeof updater != 'undefined') {
+					updater.stop();
+					updater = null;
+				}
+
+				// Hide Modal Dialog
+				Richfaces.hideModalPanel('uploadDlg');
+
+				// update uploaded attachments
+				var attForm = $('attachmentsFormID').value;
+				$(attForm + ':btnUpdateFileList').click();
+				$('statusText').update('Upload finished!');
+			$('progressBar').style.width = '100%';
+
+				// remove all input tags except first
+				$('attUploadForm').getInputs('file').each( function(i, index) {
+					i.remove();
+				});
+
+			// remove all <br> tags except first
+				$$('br.formBR').each( function(i, index) {
+					i.remove();
+				});
+				// add one file input
+				appendInput();
+
+				// reset submit form
+				$('attUploadForm').reset();
+			}
+			// observe IFrame object for "load" event to update uploaded file list
+			function observeFormSubmit() {
+				// add event to observe upload target
+				Event.observe('uploadTargetID', 'load', updateUploadedFileList);
+			}
+			// add event handler only after page loaded
+			addLoadEvent(observeFormSubmit);
+
+			// appends new input to form
+			function appendInput() {
+				try {
+					// test inputs values, if even one of them empty, do not add new input
+					var testInputs = true;
+					$('attUploadForm').getInputs('file').each( function(i) {
+						var str = i.value;
+						str = str.replace(' ','');
+						str = str.replace('\t','');
+						if (str.length < 1) {
+							testInputs = false;
+						}
+					});
+					if (testInputs==false) {
+						return;
+					}
+
+					// add new input to form
+			    new Insertion.Before('submitID1', '<input type=\"file\" name="txtFile" id="txtFile" class=\"rsInput\" onchange=\"appendInput()\"/><br class=\"formBR\"/>');
+			} catch (e) {
+				alert('appendInput() failed, reason: ' + e);
+			    }
+			}
+			//-->
+			</script>
+
+			<h:outputLink value="javascript:Richfaces.showModalPanel('jobsubmission:upload-view:uploadDlg')">
+				Upload New Files
+			</h:outputLink>
+
+			<!-- Upload Dialog -->
+			<rich:modalPanel id="uploadDlg" autosized="true" resizeable="false" zindex="2000">
+				<f:facet name="header">
+					<h:outputText value="Upload New Files" />
+				</f:facet>
+				<f:facet name="controls">
+					<h:graphicImage value="/resources/theme/current/img/close.png" style="cursor:pointer" onclick="Richfaces.hideModalPanel('jobsubmission:upload-view:uploadDlg')"/>
+				</f:facet>
+
+				<form id="attUploadForm" enctype="multipart/form-data" method="post" target="uploadTrg" action="${facesContext.externalContext.requestContextPath}/upload?query=1&amp;page={page}" onsubmit="submitPostUsingAjax();" style="bottom:50px;">
+					<input type="file" name="txtFile0" id="txtFile0" onchange="appendInput();" class="rsInput"/><br class="formBR"/>
+					<input type="submit" id="submitID1" name="submit" class="rsButton" value="Upload"/>
+<!--
+					<input type="hidden" id="attachmentsFormID" value="${formId}"/>
+-->
+				</form>
+
+				<div id="uploadStatusDiv" style="width:0px; height:0px; visibility:hidden;"/>
+
+				<div style="width:33%; border:1px; background-color:white;">
+					<table id="progressBar" width="0px" class="progressBar" style="visibility:hidden; ">
+					<tr>
+						<td>
+							<div id="statusText" style="height:16px; overflow:hidden;"/>
+						</td>
+					</tr>
+					</table>
+				</div>
+			</rich:modalPanel>
+
+			<iframe id="uploadTargetID" name="uploadTrg" height="0" width="0" frameborder="0" scrolling="yes"/>
+
+		</div>
+
+	</f:subview>
+
+</jsp:root>

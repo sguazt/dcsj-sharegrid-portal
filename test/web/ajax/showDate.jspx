@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jsp:root version="2.1"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:dcsjsf="http://dcs.di.unipmn.it/tld/dcsjsf"
+	xmlns:ft="http://sourceforge.net/projects/facestrace">
+
+	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
+        <jsp:output	omit-xml-declaration="no"
+			doctype-root-element="html"
+			doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+			doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+	<f:view>
+
+	<html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<title>DCS *AJAX Date and Time (Servlet version)* test</title>
+			<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/scripts/XMLHttpRequest.js"><![CDATA[<!- - // - ->]]></script>
+			<style type="text/css">
+			<![CDATA[
+			.banner {
+				background: #ddd;
+				border: thin solid darkgray;
+				width: 95%;
+				padding: 10px;
+			}
+			.bannerText {
+				font-size: 1.5em;
+			}
+			.dateDiv {
+				font-size: 1.5em;
+				font-style: italic;
+				padding-top: 10px;
+			}
+			.button {
+				margin-top: 10px;
+			}
+			]]>
+			</style>
+			<script type="text/javascript">
+			<![CDATA[
+			<!--
+			var xhr;
+			function showDateAndTime()
+			{
+    			//var uri = "http://localhost:8080/sgportal/faces/test/ajax/showDate.jspx";
+				var uri = window.location + "";
+				alert("Current URI: " + uri);//XXX
+				var re = new RegExp("/faces/");
+				uri = uri.replace(re, '/ajax.dt/');
+    			alert("New URI: " + uri);
+				sendRequest(
+					//uri, // the URL
+					"/ajax.di/test/ajax/showDate.jspx", // the URL
+					processAjaxCall // the callback function
+				);
+			}
+			function sendRequest(url, handler)
+			{
+				initXHR();
+				xhr.onreadystatechange = handler; // set callback function
+				xhr.open("GET", url, true); // open asynchronous GET request
+				xhr.send(null); // send the request without params
+			}
+			function initXHR()
+			{
+				if(window.XMLHttpRequest)
+				{ // Not a Microsoft browser
+					xhr = new XMLHttpRequest();
+				}
+				else if(window.ActiveXObject)
+				{ // Microsoft browser
+					xhr = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				else
+				{
+					alert("The browser does not support AJAX");
+				}
+			}
+
+			function processAjaxCall()
+			{
+				alert("Processing Ajax Call: [" + xhr.readyState + "," + xhr.status + ", text: " + xhr.responseText + "]");
+				if(xhr.readyState == 4)
+				{ // if the request is finished...
+					if(xhr.status == 200)
+					{ // ...and everything's okay
+						// Get the dateDiv DIV and configure it
+						// with the response text
+alert("Got response: " + xhr.responseText);
+						var dateDiv = window.document.getElementById("dateDIV")
+						dateDiv.innerHTML = xhr.responseText;
+					}
+				}
+			}
+
+			// -->
+			]]>
+			</script>
+		</head>
+		<body>
+			<h1>DCS *AJAX Date and Time (Servlet version)* test</h1>
+
+			<h:form id="form">
+<!-- No this creates a submit button!
+			<h:commandButton type="button"
+				value="Show Date and Time"
+				onclick="showDateAndTime();"
+				styleClass="button"/>
+-->
+			<button onclick="showDateAndTime();" class="button">Show Date and Time</button>
+			</h:form>
+			<div id="dateDIV" class="dateDiv"/>
+		</body>
+	</html>
+
+<!--
+	<ft:trace/>
+-->
+
+	</f:view>
+</jsp:root>

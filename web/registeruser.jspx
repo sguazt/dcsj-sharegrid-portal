@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ - Copyright (C) 2008  Distributed Computing System (DCS) Group, Computer
+ - Science Department - University of Piemonte Orientale, Alessandria (Italy).
+ -
+ - This program is free software: you can redistribute it and/or modify
+ - it under the terms of the GNU General Public License as published
+ - by the Free Software Foundation, either version 3 of the License, or
+ - (at your option) any later version.
+ -
+ - This program is distributed in the hope that it will be useful,
+ - but WITHOUT ANY WARRANTY; without even the implied warranty of
+ - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ - GNU General Public License for more details.
+ -
+ - You should have received a copy of the GNU General Public License
+ - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -
+ - Author: Marco Guazzone (marco.guazzone@gmail.com)
+-->
+
+<jsp:root version="2.1"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:dcsjsf="http://dcs.di.unipmn.it/tld/dcsjsf">
+
+	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
+	<jsp:output omit-xml-declaration="no"
+		doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+	<f:view>
+
+	<!-- Prepare info for content management -->
+	<jsp:scriptlet>
+		pageContext.setAttribute(it.unipmn.di.dcs.sharegrid.web.portal.view.util.ViewConstants.PageIdAttribute,"/registeruser", PageContext.REQUEST_SCOPE);
+	</jsp:scriptlet>
+
+	<jsp:directive.include file="/WEB-INF/jspf/usercheck-onlyanon.jspf"/>
+
+	<html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<meta http-equiv="Content-Type" content="text/xhtml; charset=UTF-8"/>
+			<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+			<link rel="stylesheet" href="${facesContext.externalContext.requestContextPath}/resources/theme/current/css/screen.css" type="text/css"/>
+			<link rel="shortcut icon" href="${facesContext.externalContext.requestContextPath}/resources/theme/current/img/favicon.ico" type="image/x-icon" />
+			<script type="text/javascript" src="${facesContext.externalContext.requestContextPath}/resources/scripts/dcs_passwordmeter.js"><![CDATA[<!-- // -->]]></script>
+			<title><h:outputText value="#{msgs.userRegistrationTitle}"/></title>
+		</head>
+		<body id="pgHome">
+			<div id="document">
+
+				<jsp:directive.include file="/WEB-INF/jspf/header.jspf"/>
+
+				<div id="container">
+					<div id="sidebar">
+<!--
+						<c:if test="${!regBean.registered}">
+							<div class="dcs-sg-sidebar-item dcs-sg-help">
+								<span class="dcs-sg-head1"><h:outputText value="#{msgs.userRegistrationHelpTitle}"/></span>
+
+								<div class="dcs-sg-para dcs-sg-justifyAlign">
+									<h:outputText value="#{msgs.userRegistrationHelpMsg}"/>
+								</div>
+							</div>
+						</c:if>
+-->
+
+						<jsp:directive.include file="/WEB-INF/jspf/common-sidebar.jspf"/>
+					</div>
+					<div id="content">
+						<div class="dcs-sg-section">
+							<h:outputText styleClass="dcs-sg-head1" value="#{msgs.userRegistrationWelcomeTitle}"/>
+						</div>
+						<div class="dcs-sg-section">
+							<div class="dcs-sg-entry dcs-sg-errors">
+								<h:messages globalOnly="true"
+									fatalClass="dcs-sg-fatalMessage"
+									errorClass="dcs-sg-errorMessage"
+									warnClass="dcs-sg-warnMessage"
+									infoClass="dcs-sg-infoMessage"/>
+							</div>
+						</div>
+						<div class="dcs-sg-section dcs-sg-justifyAlign">
+							<c:choose>
+								<c:when test="${regBean.registered}">
+									<dcsjsf:outputTextFilter layout="block" styleClass="dcs-sg-head2">
+										<h:outputFormat value="#{msgs.userRegistrationWelcomeDoneMsg}">
+											<f:param value="#{regBean.nickname}"/>
+											<f:param value="#{regBean.email}"/>
+										</h:outputFormat>
+									</dcsjsf:outputTextFilter>
+								</c:when>
+								<c:otherwise>
+									<dcsjsf:outputTextFilter layout="block" styleClass="dcs-sg-head2">
+										<h:outputText value="#{msgs.userRegistrationWelcomeToDoMsg}"/>
+									</dcsjsf:outputTextFilter>
+								</c:otherwise>
+							</c:choose>
+						</div>
+						<div class="dcs-sg-section">
+
+							<h:form id="user-registration">
+								<fieldset>
+									<c:if test="${!regBean.registered}">
+										<div class="dcs-sg-note">
+											<h:outputText value="#{msgs.mandatoryNotePart1}"/>
+											<h:outputText styleClass="dcs-sg-mandatory" value=" * "/>
+											<h:outputText value="#{msgs.mandatoryNotePart2}"/>
+										</div>
+										<h:panelGrid columns="4" styleClass="dcs-sg-borderless">
+											<h:outputLabel for="nickname" value="#{lbls.loginName}"/>
+											<h:outputText styleClass="dcs-sg-mandatory" value="*"/>
+											<h:inputText	id="nickname"
+													value="#{regBean.nickname}"
+													required="true"
+													maxlength="#{regBean.nicknameMaxLen}"
+													title="#{lbls.loginName}">
+												<f:validateLength minimum="#{regBean.nicknameMinLen}" maximum="#{regBean.nicknameMaxLen}"/>
+											</h:inputText>
+											<h:message for="nickname"/>
+
+											<h:outputLabel for="name" value="#{lbls.realName}"/>
+											<f:verbatim><![CDATA[&#160;]]></f:verbatim> <!-- no mandatory -->
+											<h:inputText	id="name"
+													value="#{regBean.name}"
+													maxlength="#{regBean.nameMaxLen}"
+													title="#{lbls.realName}">
+												<f:validateLength minimum="#{regBean.nameMinLen}" maximum="#{regBean.nameMaxLen}"/>
+											</h:inputText>
+											<h:message for="name"/>
+
+											<h:outputLabel for="email" value="#{lbls.email}"/>
+											<h:outputText styleClass="dcs-sg-mandatory" value="*"/>
+											<h:inputText	id="email"
+													value="#{regBean.email}"
+													required="true"
+													maxlength="#{regBean.emailMaxLen}"
+													title="#{lbls.email}">
+												<f:validateLength minimum="#{regBean.emailMinLen}" maximum="#{regBean.emailMaxLen}"/>
+												<f:validator validatorId="it.unipmn.di.dcs.sharegrid.web.portal.view.validator.Email"/>
+											</h:inputText>
+											<h:message for="email"/>
+
+											<h:outputLabel for="password" value="#{lbls.password}"/>
+											<h:outputText styleClass="dcs-sg-mandatory" value="*"/>
+											<h:inputSecret	id="password"
+													value="#{regBean.password}"
+													onkeyup="dcs_updatePasswordStrength('user-registration:nickname','user-registration:email','user-registration:password','user-registration:passwordStrength','user-registration:passwordStrengthText')"
+													required="true"
+													maxlength="#{regBean.passwordMaxLen}"
+													title="#{lbls.password}">
+											</h:inputSecret>
+											<h:message for="password"/>
+
+											<h:outputLabel for="passwordStrengthBlock" value="#{lbls.passwordStrength}"/>
+											<f:verbatim><![CDATA[&#160;]]></f:verbatim> <!-- no mandatory -->
+											<h:panelGroup id="passwordStrengthBlock" layout="block">
+												<h:outputText id="passwordStrengthText" value="None"/>
+												<h:panelGrid columns="1" style="border: 1px solid #000" width="100%" cellpadding="0" cellspacing="0">
+													<h:panelGrid columns="1" id="passwordStrength" styleClass="dcs-sg-passwordStrengthEmpty" style="height:0.1em;" width="100%">
+														<h:panelGroup/>
+													</h:panelGrid>
+												</h:panelGrid>
+											</h:panelGroup>
+											<h:message for="passwordStrengthBlock"/>
+
+											<h:outputLabel for="password2" value="#{lbls.verifyPassword}"/>
+											<h:outputText styleClass="dcs-sg-mandatory" value="*"/>
+											<h:inputSecret	id="password2"
+													value="#{regBean.password2}"
+													required="true"
+													maxlength="#{regBean.passwordMaxLen}"
+													title="#{lbls.verifyPassword}">
+											</h:inputSecret>
+											<h:message for="password2"/>
+
+											<h:outputLabel for="language" value="#{lbls.language}"/>
+											<h:outputText styleClass="dcs-sg-mandatory" value="*"/>
+											<!-- TODO: Use a List -->
+											<h:selectOneMenu id="language"
+														value="#{regBean.language}"
+														title="#{lbls.language}">
+												<dcsjsf:selectItems	value="#{applicationBean.supportedLanguages}"
+															var="lang"
+															itemLabel="#{lang.second}"
+															itemValue="#{lang.first}"/>
+											</h:selectOneMenu>
+											<h:message for="language"/>
+
+											<h:outputLabel for="tzoffset" value="#{lbls.timezone}"/>
+											<f:verbatim><![CDATA[&#160;]]></f:verbatim>
+											<rich:inputNumberSpinner	id="tzoffset"
+															value="#{regBean.timeZoneOffset}"
+															enableManualInput="true"
+															minValue="-12"
+															maxValue="12"
+															step="1"/>
+
+											<h:message for="tzoffset"/>
+
+											<f:facet name="footer">
+												<h:panelGroup>
+												<div class="dcs-sg-buttonBox">
+													<h:commandButton id="register" value="#{lbls.register}" action="#{regBean.registrationAction}" title="#{lbls.register}"/>
+													<f:verbatim><![CDATA[&#160;]]></f:verbatim>
+													<h:commandButton id="cancel" value="#{lbls.cancel}" action="cancel" immediate="true" title="#{lbls.cancel}"/>
+												</div>
+												</h:panelGroup>
+											</f:facet>
+										</h:panelGrid>
+									</c:if>
+									<h:inputHidden value="#{regBean.registered}"/>
+								</fieldset>
+							</h:form>
+						</div>
+					</div>
+				</div>
+
+				<jsp:directive.include file="/WEB-INF/jspf/footer.jspf"/>
+			</div>
+		</body>
+	</html>
+	</f:view>
+</jsp:root>

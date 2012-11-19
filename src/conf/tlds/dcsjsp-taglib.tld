@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 2.1//EN" "http://java.sun.com/dtd/web-jsptaglibrary_2_1.dtd" [
+
+<!ENTITY input_common_attrs SYSTEM "./inc/input_common_attrs.xml">
+
+]>
+-->
+
+<taglib	xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+	version="2.1">
+
+	<short-name>dcsjsp</short-name>
+	<uri>http://dcs.di.unipmn.it/tld/dcsjsp</uri>
+	<tlib-version>1.0</tlib-version>
+	<jsp-version>2.1</jsp-version>
+	<description>
+	<![CDATA[The core DCS Java Server Pages custom components.]]>
+	</description>
+
+	<!--@{ forEach -->
+	<tag>
+		<name>forEach</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.jsp.tag.ForEachTag</tag-class>
+		<body-content>scriptless</body-content>
+		<description>
+		<![CDATA['For-Each' looping tag.]]>
+		</description>
+		<attribute>
+			<description>
+			<![CDATA[The array of elements.]]>
+			</description>
+			<name>items</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.Object</type>
+			<deferred-value>
+				<type>java.lang.Object</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The name of the local variable that each entry of the array will be assigned to.]]>
+			</description>
+			<name>var</name>
+			<required>true</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+	</tag>
+	<!--@} forEach -->
+
+	<!--@{ htmlFilter -->
+	<tag>
+		<description>
+		<![CDATA[Converts special HTML characters such as less than and greater than signs to their corresponding HTML character entities such as < and >.]]>
+		</description>
+		<name>htmlFilter</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.jsp.tag.HtmlFilterTag</tag-class>
+		<body-content>scriptless</body-content>
+	</tag>
+	<!--@} htmlFilter -->
+
+	<!--@{ ifThenElse -->
+	<tag>
+		<name>ifThenElse</name>
+		<description>
+		<![CDATA[Allows conditional inclusion of content. If the given condition is true, the 'then' body is rendered; otherwise, the 'else' body is rendered.]]>
+		</description>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.jsp.tag.IfThenElseTag</tag-class>
+		<body-content>scriptless</body-content>
+		<description>
+		<![CDATA['If' part of the 'If-Then-Else' tag.]]>
+		</description>
+		<attribute>
+			<description>
+			<![CDATA[The test condition that determines whether or not the body content should be processed.]]>
+			</description>
+			<name>test</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+	</tag>
+	<tag>
+		<name>then</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.jsp.tag.IfThenElseThenTag</tag-class>
+		<body-content>scriptless</body-content>
+		<description>
+		<![CDATA['Then' part of the 'If-Then-Else' tag.]]>
+		</description>
+	</tag>
+	<tag>
+		<name>else</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.jsp.tag.IfThenElseElseTag</tag-class>
+		<body-content>scriptless</body-content>
+		<description>
+		<![CDATA['Else' part of the 'If-Then-Else' tag.]]>
+		</description>
+	</tag>
+	<!--@} ifThenElse -->
+
+	<!--@{ setBeanProperty -->
+	<tag>
+		<name>setBeanProperty</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.tag.SetBeanPropertyTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>bean</name>
+			<type>String</type>
+		</attribute>
+		<attribute>
+			<name>name</name>
+			<type>String</type>
+		</attribute>
+		<attribute>
+			<name>value</name>
+			<rtexprvalue>true</rtexprvalue>
+			<deferred-value>
+				<type>Object</type>
+			</deferred-value>
+		</attribute>
+	</tag>
+	<!--@} setBeanProperty -->
+
+</taglib>

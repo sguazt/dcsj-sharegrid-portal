@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ - Copyright (C) 2008  Distributed Computing System (DCS) Group, Computer
+ - Science Department - University of Piemonte Orientale, Alessandria (Italy).
+ -
+ - This program is free software: you can redistribute it and/or modify
+ - it under the terms of the GNU General Public License as published
+ - by the Free Software Foundation, either version 3 of the License, or
+ - (at your option) any later version.
+ -
+ - This program is distributed in the hope that it will be useful,
+ - but WITHOUT ANY WARRANTY; without even the implied warranty of
+ - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ - GNU General Public License for more details.
+ -
+ - You should have received a copy of the GNU General Public License
+ - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -
+ - Author: Marco Guazzone (marco.guazzone@gmail.com)
+-->
+
+<jsp:root version="2.1"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
+	<jsp:output	omit-xml-declaration="no"
+			doctype-root-element="html"
+			doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+			doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+	<f:view>
+
+	<!-- Prepare info for content management -->
+	<jsp:scriptlet>
+		pageContext.setAttribute(it.unipmn.di.dcs.sharegrid.web.portal.view.util.ViewConstants.PageIdAttribute,"/err/404", PageContext.REQUEST_SCOPE);
+	</jsp:scriptlet>
+
+	<html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<meta http-equiv="Content-Type" content="text/xhtml; charset=UTF-8"/>
+			<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+			<meta http-equiv="Refresh" content="10; URL=${facesContext.externalContext.requestContextPath}/faces/index.jspx"/>
+			<link rel="stylesheet" href="${facesContext.externalContext.requestContextPath}/resources/theme/current/css/screen.css" type="text/css" />
+			<link rel="shortcut icon" href="${facesContext.externalContext.requestContextPath}/resources/theme/current/img/favicon.ico" type="image/x-icon"/>
+			<title><h:outputText value="#{msgs.err404Title}"/></title>
+		</head>
+		<body id="pgHome">
+			<div id="document">
+
+				<jsp:directive.include file="/WEB-INF/jspf/header.jspf"/>
+
+				<div id="container">
+					<div id="sidebar">
+						<f:verbatim><![CDATA[&#160;]]></f:verbatim>
+						<!--
+						<jsp:directive.include file="/WEB-INF/jspf/anon-sidebar.jspf"/>
+						-->
+					</div>
+					<div id="content">
+						<div class="dcs-sg-section">
+							<h:outputText styleClass="dcs-sg-head1" value="#{msgs.err404WelcomeTitle}"/>
+							<h:panelGrid columns="2" cellspacing="5">
+								<h:panelGroup layout="block" styleClass="dcs-sg-leftAlign">
+									<h:graphicImage value="/resources/theme/current/img/stock/large/err404.png"/>
+								</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="dcs-sg-leftAlign">
+									<div class="dcs-sg-para">
+										<h:outputText styleClass="dcs-sg-normal" value="#{msgs.err404WelcomeMsg1}"/>
+									</div>
+									<div class="dcs-sg-para">
+										<h:outputText styleClass="dcs-sg-normal" value="#{msgs.err404WelcomeMsg2}"/>
+										<f:verbatim><![CDATA[&#160;]]></f:verbatim>
+										<h:outputLink value="#{facesContext.externalContext.requestContextPath}/faces/index.jspx">
+											<h:outputText value="#{lbls.loginPage}"/>
+										</h:outputLink>
+										<f:verbatim><![CDATA[&#160;]]></f:verbatim>
+										<h:outputText value="#{lbls.dots}"/>
+									</div>
+								</h:panelGroup>
+							</h:panelGrid>
+						</div>
+					</div>
+				</div>
+
+				<jsp:directive.include file="/WEB-INF/jspf/footer.jspf"/>
+
+			</div>
+		</body>
+		</html>
+	</f:view>
+</jsp:root>

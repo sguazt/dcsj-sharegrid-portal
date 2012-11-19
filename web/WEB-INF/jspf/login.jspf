@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ - Copyright (C) 2008  Distributed Computing System (DCS) Group, Computer
+ - Science Department - University of Piemonte Orientale, Alessandria (Italy).
+ -
+ - This program is free software: you can redistribute it and/or modify
+ - it under the terms of the GNU General Public License as published
+ - by the Free Software Foundation, either version 3 of the License, or
+ - (at your option) any later version.
+ -
+ - This program is distributed in the hope that it will be useful,
+ - but WITHOUT ANY WARRANTY; without even the implied warranty of
+ - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ - GNU General Public License for more details.
+ -
+ - You should have received a copy of the GNU General Public License
+ - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -
+ - Author: Marco Guazzone (marco.guazzone@gmail.com)
+-->
+
+<jsp:root version="2.1"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+	<f:subview id="login-sidebar-view">
+
+		<div class="dcs-sg-sidebar-item">
+			<h:form id="login">
+				<fieldset>
+					<div>
+						<h:outputLabel for="username" value="#{lbls.loginName}"/>
+						<h:inputText id="username" value="#{loginBean.nickname}" style="width: 175px;" title="#{lbls.loginName}"/>
+						<div class="dcs-sg-errors">
+							<h:message for="username"/>
+						</div>
+					</div>
+					<div>
+						<h:outputLabel for="password" value="#{lbls.password}"/>
+						<h:inputSecret id="password" value="#{loginBean.password}" style="width: 175px;" title="#{lbls.password}"/>
+					</div>
+					<div class="dcs-sg-errors">
+						<h:messages globalOnly="true"
+							fatalClass="dcs-sg-fatalMessage"
+							errorClass="dcs-sg-errorMessage"
+							warnClass="dcs-sg-warnMessage"
+							infoClass="dcs-sg-infoMessage"/>
+					</div>
+					<div class="dcs-sg-buttonBox">
+						<h:commandButton id="login" action="#{loginBean.loginAction}" value="#{lbls.login}" title="#{lbls.login}"/>
+					</div>
+					<div class="dcs-sg-notes">
+						<h:outputLink value="#{facesContext.externalContext.requestContextPath}/faces/registeruser.jspx"><h:outputText value="#{lbls.register}"/></h:outputLink>
+	<!-- TODO
+						<f:verbatim><![CDATA[&#160;]]></f:verbatim>
+						<h:outputLink value="#{facesContext.externalContext.requestContextPath}/faces/passwdremind.jspx"><h:outputText value="#{lbls.passwdRemind}"/></h:outputLink>
+	-->
+					</div>
+				</fieldset>
+			</h:form>
+		</div>
+
+	</f:subview>
+
+</jsp:root>

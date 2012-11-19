@@ -1,0 +1,3025 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 2.1//EN" "http://java.sun.com/dtd/web-jsptaglibrary_2_1.dtd" [
+
+<!ENTITY ui_common_attrs SYSTEM "./inc/ui_common_attrs.xml">
+<!ENTITY ui_input_common_attrs SYSTEM "./inc/ui_input_common_attrs.xml">
+
+]>
+
+<taglib xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+	version="2.1">
+
+	<short-name>dcsjsf</short-name>
+	<uri>http://dcs.di.unipmn.it/tld/dcsjsf</uri>
+	<tlib-version>1.0</tlib-version>
+	<jsp-version>2.1</jsp-version>
+	<description>
+		<![CDATA[The core DCS Java Server Faces custom components.]]>
+	</description>
+
+<!--
+	<listener>
+		<listener-class>it.unipmn.di.dcs.sharegrid.web.faces.servlet.LifecycleListener</listener-class>
+	</listener>
+-->
+
+<!--
+	<tag>
+		<name>dummy</name>
+		<description>
+		This tag exists solely to register our lifecycle listener.
+		The specified tag is a dummy, to satisfy the DTD requirement.
+		</description>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.servlet.DummyTag</tag-class>
+	</tag>
+-->
+
+	<!--@{ outputPopupPanel -->
+	<tag>
+		<name>outputAccordion</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.OutputAccordionTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+		<![CDATA[]]>
+		</description>
+
+		&ui_common_attrs;
+
+		<attribute>
+			<name>panelHeight</name>
+			<required>false</required>
+			<deferred-value>
+				<type>String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>headerClass</name>
+			<required>false</required>
+			<deferred-value>
+				<type>String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>contentClass</name>
+			<required>false</required>
+			<deferred-value>
+				<type>String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>panelClass</name>
+			<required>false</required>
+			<deferred-value>
+				<type>String</type>
+			</deferred-value>
+		</attribute>
+	</tag>
+	<!--@} outputPopupPanel -->
+
+	<!--@{ attribute -->
+	<tag>
+		<name>attribute</name>
+		<description>
+		<![CDATA[Add an attribute to the UIComponent associated with the closest
+		parent UIComponent custom action.]]>
+		</description>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.AttributeTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<description>
+			The name of the component attribute to be set.
+			</description>
+			<name>name</name>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			The value of the component attribute to be set.
+			</description>
+			<name>value</name>
+			<deferred-value>
+				<type>java.lang.Object</type>
+			</deferred-value>
+		</attribute>
+	</tag>
+	<!--@} attribute -->
+
+	<!--@{ choose -->
+	<tag>
+		<name>choose</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.ChooseTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+		<![CDATA[The 'Choose-When-Otherwise' idiom: establishes a
+		context for mutually exclusive conditional operations, marked by
+		<when> and <otherwise>.]]>
+		</description>
+	</tag>
+	<tag>
+		<name>when</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.ChooseWhenTag</tag-class>
+		<body-content>scriptless</body-content>
+		<description>
+		<![CDATA['When' part of the 'Choose-When-Otherwise' idiom.]]>
+		</description>
+		<attribute>
+			<description>
+			<![CDATA[Scope for attribute 'var'.]]>
+			</description>
+			<name>scope</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The test condition that determines whether or not the body content should be processed.]]>
+			</description>
+			<name>test</name>
+			<required>true</required>
+<!--
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+-->
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Name of the exported scoped variable for the
+			resulting value of the test condition. The type
+			of the scoped variable is Boolean.]]>
+			</description>
+			<name>var</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>otherwise</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.ChooseOtherwiseTag</tag-class>
+		<body-content>scriptless</body-content>
+		<description>
+		<![CDATA['Otherwise' part of the 'Choose-When-Otherwise' idiom.]]>
+		</description>
+	</tag>
+	<!--@} choose -->
+
+	<!--@{ creditCardInput -->
+	<tag>
+		<name>creditCardInput</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.CreditCardInputTag</tag-class>
+		<body-content>empty</body-content>
+		<description>
+			<![CDATA[This is the tag for the credit card input component.]]>
+		</description>
+
+		&ui_common_attrs;
+		&ui_input_common_attrs;
+
+		<attribute>
+			<description>
+				<![CDATA[Converter instance registered with this component.]]>
+			</description>
+			<name>converter</name>
+			<required>false</required>
+			<deferred-value>
+			<type>javax.faces.convert.Converter</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+				<![CDATA[A ValueExpression enabled attribute that, if present, will be used as the text of the converter message, replacing any message that comes from the converter.]]>
+			</description>
+			<name>converterMessage</name>
+			<required>false</required>
+			<deferred-value>
+			<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The component identifier for this component.  This value must be
+			unique within the closest parent component that is a naming
+			container.]]>
+			</description>
+			<name>id</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Flag indicating that this component's value must be
+			converted and validated immediately (that is, during
+			Apply Request Values phase), rather than waiting
+			until Process Validations phase.]]>
+			</description>
+			<name>immediate</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Flag indicating whether or not this component should be rendered
+			(during Render Response Phase), or processed on any subsequent
+			form submit.  The default value for this property is true.]]>
+			</description>
+			<name>rendered</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Flag indicating that the user is required to provide a submitted
+			value for this input component.]]>
+			</description>
+			<name>required</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[A ValueExpression enabled attribute that, if present, will be
+			used as the text of the validation message for the "required"
+			facility, if the "required" facility is used.]]>
+			</description>
+			<name>requiredMessage</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[MethodExpression representing a validator method that will be called
+			during Process Validations to perform correctness checks on the
+			value of this component.  The expression must evaluate to a public
+			method that takes FacesContext, UIComponent, and Object parameters,
+			with a return type of void.]]>
+			</description>
+			<name>validator</name>
+			<required>false</required>
+			<deferred-method>
+				<method-signature>void validate(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.Object)</method-signature>
+			</deferred-method>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[A ValueExpression enabled attribute that, if present, will be
+			used as the text of the validator message, replacing any
+			message that comes from the validator.]]>
+			</description>
+			<name>validatorMessage</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The current value of this component.]]>
+			</description>
+			<name>value</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.Object</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[MethodExpression representing a value change listener method that will be
+			notified when a new value has been set for this input component.  The
+			expression must evaluate to a public method that takes a
+			ValueChangeEvent parameter, with a return type of void.]]>
+			</description>
+			<name>valueChangeListener</name>
+			<required>false</required>
+			<deferred-method>
+				<method-signature>void valueChange(javax.faces.event.ValueChangeEvent)</method-signature>
+			</deferred-method>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Access key that, when pressed, transfers focus
+			to this element.]]>
+			</description>
+			<name>accesskey</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Direction indication for text that does not inherit directionality.
+			Valid values are "LTR" (left-to-right) and "RTL" (right-to-left).]]>
+			</description>
+			<name>dir</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Flag indicating that this element must never receive focus or
+			be included in a subsequent submit.  A value of false causes
+			no attribute to be rendered, while a value of true causes the
+			attribute to be rendered as disabled="disabled".]]>
+			</description>
+			<name>disabled</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<!--
+		<attribute>
+			<description>
+			<![CDATA[A localized user presentable name for this component.]]>
+			</description>
+			<name>label</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		-->
+		<attribute>
+			<description>
+			<![CDATA[Code describing the language used in the generated markup
+			for this component.]]>
+			</description>
+			<name>lang</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when this element loses focus.]]>
+			</description>
+			<name>onblur</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when this element loses focus
+			and its value has been modified since gaining focus.]]>
+			</description>
+			<name>onchange</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			clicked over this element.]]>
+			</description>
+			<name>onclick</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			double clicked over this element.]]>
+			</description>
+			<name>ondblclick</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when this element receives focus.]]>
+			</description>
+			<name>onfocus</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a key is
+			pressed down over this element.]]>
+			</description>
+			<name>onkeydown</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a key is
+			pressed and released over this element.]]>
+			</description>
+			<name>onkeypress</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a key is
+			released over this element.]]>
+			</description>
+			<name>onkeyup</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			pressed down over this element.]]>
+			</description>
+			<name>onmousedown</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			moved within this element.]]>
+			</description>
+			<name>onmousemove</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			moved away from this element.]]>
+			</description>
+			<name>onmouseout</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			moved onto this element.]]>
+			</description>
+			<name>onmouseover</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			released over this element.]]>
+			</description>
+			<name>onmouseup</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when text within this
+			element is selected by the user.]]>
+			</description>
+			<name>onselect</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Flag indicating that this component will prohibit changes by
+			the user.  The element may receive focus unless it has also
+			been disabled.  A value of false causes
+			no attribute to be rendered, while a value of true causes the
+			attribute to be rendered as readonly="readonly".]]>
+			</description>
+			<name>readonly</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The number of characters used to determine
+			the width of this field.]]>
+			</description>
+			<name>size</name>
+			<required>false</required>
+			<deferred-value>
+				<type>int</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[CSS style(s) to be applied when this component is rendered.]]>
+			</description>
+			<name>style</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Space-separated list of CSS style class(es) to be applied when
+			this element is rendered.  This value must be passed through
+			as the "class" attribute on generated markup.]]>
+			</description>
+			<name>styleClass</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Position of this element in the tabbing order
+			for the current document.  This value must be
+			an integer between 0 and 32767.]]>
+			</description>
+			<name>tabindex</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Advisory title information about markup elements generated
+			for this component.]]>
+			</description>
+			<name>title</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The ValueExpression linking this component to a property in a backing bean.]]>
+			</description>
+			<name>binding</name>
+			<required>false</required>
+			<deferred-value>
+				<type>javax.faces.component.UIComponent</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Value reference expression pointing the attribute that will have the credit card number.]]>
+			</description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+	</tag>
+	<!--@} creditCardNumber -->
+
+	<!--@{ dataIterator -->
+	<tag>
+		<name>dataIterator</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.DataIteratorTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+		<![CDATA[Render the components of the child UIColumn components under the UIData component associated with this tag, once per row.
+		The actual renderer class (IteratorRenderer) can serve as the base class for more specialized markup generation.]]>
+		</description>
+		<attribute>
+			<name>binding</name>
+			<description>
+			<![CDATA[Value binding expression to bind this component to a backing bean.]]>
+			</description>
+			<required>false</required>
+			<deferred-value>
+				<type>javax.faces.component.UIData</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>first</name>
+			<description>
+			<![CDATA[Zero-relative row index of the first row to be displayed.
+			If not specified, the default value is zero (i.e. the first row of the underlying data model).]]>
+			</description>
+			<required>false</required>
+			<deferred-value>
+				<type>int</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>id</name>
+			<description>
+			<![CDATA[Component identifier of this component.]]>
+			</description>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>rendered</name>
+			<description>
+			<![CDATA[Flag indicating whether or not this component should be rendered.
+			If not specified, the default value is "true".]]>
+			</description>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>rows</name>
+			<description>
+			<![CDATA[The maximum number of rows (from the underlying data model) to be rendered.
+			If not specified, the default value is zero, which indicates that all remaining rows should be rendered.]]>
+			</description>
+			<required>false</required>
+			<deferred-value>
+				<type>int</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>styleClass</name>
+			<description>
+			<![CDATA[The CSS style class to use when rendering the entire table, if any.]]>
+			</description>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>value</name>
+			<description>
+			<![CDATA[Value binding expression pointing at (a) a DataModel instance, (b) an array of objects, (c) a List of objects, (d) a java.sql.ResultSet (or RowSet), (d) a javax.servlet.jsp.jstl.sql.Result object, or (e) a JavaBean (which will be treated as a one-row dataset).]]>
+			</description>
+			<required>true</required>
+			<deferred-value>
+				<type>java.lang.Object</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>var</name>
+			<description>
+			<![CDATA[Attribute key under which an object representing the current row will be exposed as a request scope attribute.
+			If not specified, no such row data object will be exposed.]]>
+			</description>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+	</tag>
+	<!--@} dataIterator -->
+
+	<!--@{ forEach -->
+	<tag>
+		<name>forEach</name>
+		<description>
+		<![CDATA[The forEach tag is a replacement for the JSTL &amp;lt;c:forEach&amp;gt; tag.
+		As of JSF 1.2/JSP 2.1/JSTL 1.2, the regular &amp;lt;c:forEach&amp;gt; tag does work with JSF components. However, it does not support varStatus with JSF!
+		(Unlike c:forEach, dcsjsf:forEach doesn't currently support anything for "items" other than arrays and lists.)]]>
+		</description>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.ForEachTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<description>
+			<![CDATA[the items over which iteration takes place]]>
+			</description>
+			<name>items</name>
+			<deferred-value/>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[the name of the variable to expose]]>
+			</description>
+			<name>var</name>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Name of the exported scoped variable for the status of the iteration.]]>
+			</description>
+			<name>varStatus</name>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[the beginning index]]>
+			</description>
+			<name>begin</name>
+			<deferred-value>
+				<type>java.lang.Integer</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[the ending index]]>
+			</description>
+			<name>end</name>
+			<deferred-value>
+				<type>java.lang.Integer</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[the number of steps per iteration]]>
+			</description>
+			<name>step</name>
+			<deferred-value>
+				<type>java.lang.Integer</type>
+			</deferred-value>
+		</attribute>
+	</tag>
+	<!--@} forEach -->
+
+	<!--@{ if -->
+	<tag>
+		<name>if</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.IfTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+		<![CDATA['If' idiom.]]>
+		</description>
+		<attribute>
+			<description>
+			<![CDATA[Scope for attribute 'var'.]]>
+			</description>
+			<name>scope</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The test condition that determines whether or not the body content should be processed.]]>
+			</description>
+			<name>test</name>
+			<required>true</required>
+<!--
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+-->
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Name of the exported scoped variable for the
+			resulting value of the test condition. The type
+			of the scoped variable is Boolean.]]>
+			</description>
+			<name>var</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+	</tag>
+	<!--@} if -->
+
+	<!--@{ ifThenElse -->
+	<tag>
+		<name>ifThenElse</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.IfThenElseTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+		<![CDATA['If-Then-Else' idiom.]]>
+		</description>
+		<attribute>
+			<description>
+			<![CDATA[Scope for attribute 'var'.]]>
+			</description>
+			<name>scope</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The test condition that determines whether or not the body content should be processed.]]>
+			</description>
+			<name>test</name>
+			<required>true</required>
+<!--
+			<rtexprvalue>true</rtexprvalue>
+			<type>boolean</type>
+-->
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Name of the exported scoped variable for the
+			resulting value of the test condition. The type
+			of the scoped variable is Boolean.]]>
+			</description>
+			<name>var</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>then</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.IfThenElseThenTag</tag-class>
+		<body-content>scriptless</body-content>
+		<description>
+		<![CDATA['Then' part of the 'If-Then-Else' idiom.]]>
+		</description>
+	</tag>
+	<tag>
+		<name>else</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.IfThenElseElseTag</tag-class>
+		<body-content>scriptless</body-content>
+		<description>
+		<![CDATA['Else' part of the 'If-Then-Else' idiom.]]>
+		</description>
+	</tag>
+	<!--@} ifThenElse -->
+
+	<!--@{ inputDate -->
+	<tag>
+		<name>inputDate</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.InputDateTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+		<![CDATA[
+		Show a calendar for setting a date.
+		]]>
+		</description>
+<!--
+		&input_common_attrs;
+-->
+		<attribute>
+			<description>
+			<![CDATA[Converter instance registered with this component.]]>
+			</description>
+			<name>converter</name>
+			<required>false</required>
+			<deferred-value>
+				<type>javax.faces.convert.Converter</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[A ValueExpression enabled attribute that, if present, will be
+			used as the text of the converter message, replacing any message
+			that comes from the converter.]]>
+			</description>
+			<name>converterMessage</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The component identifier for this component.  This value must be
+			unique within the closest parent component that is a naming
+			container.]]>
+			</description>
+			<name>id</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Flag indicating that this component's value must be
+			converted and validated immediately (that is, during
+			Apply Request Values phase), rather than waiting
+			until Process Validations phase.]]>
+			</description>
+			<name>immediate</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Flag indicating whether or not this component should be rendered
+			(during Render Response Phase), or processed on any subsequent
+			form submit.  The default value for this property is true.]]>
+			</description>
+			<name>rendered</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Flag indicating that the user is required to provide a submitted
+			value for this input component.]]>
+			</description>
+			<name>required</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[A ValueExpression enabled attribute that, if present, will be
+			used as the text of the validation message for the "required"
+			facility, if the "required" facility is used.]]>
+			</description>
+			<name>requiredMessage</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[MethodExpression representing a validator method that will be called
+			during Process Validations to perform correctness checks on the
+			value of this component.  The expression must evaluate to a public
+			method that takes FacesContext, UIComponent, and Object parameters,
+			with a return type of void.]]>
+			</description>
+			<name>validator</name>
+			<required>false</required>
+			<deferred-method>
+				<method-signature>void validate(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.Object)</method-signature>
+			</deferred-method>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[A ValueExpression enabled attribute that, if present, will be
+			used as the text of the validator message, replacing any
+			message that comes from the validator.]]>
+			</description>
+			<name>validatorMessage</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The current value of this component. Value binding expression
+			pointing to a <code>org.apache.commons.fileupload.FileItem</code> property
+			to store the uploaded file.]]>
+			</description>
+			<name>value</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.Object</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[MethodExpression representing a value change listener method that will be
+			notified when a new value has been set for this input component.  The
+			expression must evaluate to a public method that takes a
+			ValueChangeEvent parameter, with a return type of void.]]>
+			</description>
+			<name>valueChangeListener</name>
+			<required>false</required>
+			<deferred-method>
+				<method-signature>void valueChange(javax.faces.event.ValueChangeEvent)</method-signature>
+			</deferred-method>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Access key that, when pressed, transfers focus
+			to this element.]]>
+			</description>
+			<name>accesskey</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Direction indication for text that does not inherit directionality.
+			Valid values are "LTR" (left-to-right) and "RTL" (right-to-left).]]>
+			</description>
+			<name>dir</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Flag indicating that this element must never receive focus or
+			be included in a subsequent submit.  A value of false causes
+			no attribute to be rendered, while a value of true causes the
+			attribute to be rendered as disabled="disabled".]]>
+			</description>
+			<name>disabled</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<!--
+		<attribute>
+			<description>
+			<![CDATA[A localized user presentable name for this component.]]>
+			</description>
+			<name>label</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		-->
+		<attribute>
+			<description>
+			<![CDATA[Code describing the language used in the generated markup
+			for this component.]]>
+			</description>
+			<name>lang</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when this element loses focus.]]>
+			</description>
+			<name>onblur</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when this element loses focus
+			and its value has been modified since gaining focus.]]>
+			</description>
+			<name>onchange</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			clicked over this element.]]>
+			</description>
+			<name>onclick</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			double clicked over this element.]]>
+			</description>
+			<name>ondblclick</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when this element receives focus.]]>
+			</description>
+			<name>onfocus</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a key is
+			pressed down over this element.]]>
+			</description>
+			<name>onkeydown</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a key is
+			pressed and released over this element.]]>
+			</description>
+			<name>onkeypress</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a key is
+			released over this element.]]>
+			</description>
+			<name>onkeyup</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			pressed down over this element.]]>
+			</description>
+			<name>onmousedown</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			moved within this element.]]>
+			</description>
+			<name>onmousemove</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			moved away from this element.]]>
+			</description>
+			<name>onmouseout</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			moved onto this element.]]>
+			</description>
+			<name>onmouseover</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			released over this element.]]>
+			</description>
+			<name>onmouseup</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when text within this
+			element is selected by the user.]]>
+			</description>
+			<name>onselect</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Flag indicating that this component will prohibit changes by
+			the user.  The element may receive focus unless it has also
+			been disabled.  A value of false causes
+			no attribute to be rendered, while a value of true causes the
+			attribute to be rendered as readonly="readonly".]]>
+			</description>
+			<name>readonly</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The number of characters used to determine
+			the width of this field.]]>
+			</description>
+			<name>size</name>
+			<required>false</required>
+			<deferred-value>
+				<type>int</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[CSS style(s) to be applied when this component is rendered.]]>
+			</description>
+			<name>style</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Space-separated list of CSS style class(es) to be applied when
+			this element is rendered.  This value must be passed through
+			as the "class" attribute on generated markup.]]>
+			</description>
+			<name>styleClass</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Position of this element in the tabbing order
+			for the current document.  This value must be
+			an integer between 0 and 32767.]]>
+			</description>
+			<name>tabindex</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Advisory title information about markup elements generated
+			for this component.]]>
+			</description>
+			<name>title</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The ValueExpression linking this component to a property in a backing bean]]>
+			</description>
+			<name>binding</name>
+			<required>false</required>
+			<deferred-value>
+				<type>javax.faces.component.UIComponent</type>
+			</deferred-value>
+		</attribute>
+	</tag>
+	<!--@} inputDate -->
+
+	<!--@{ inputFile -->
+	<tag>
+		<name>inputFile</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.InputFileTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+		<![CDATA[
+		You must enable the MultiPart Filter to make this component
+		work (see web.xml). Also, don't forget to set the form's
+		attribute "enctype" to "multipart/form-data".
+		See "examples/web/fileupload.jsp" for an example!
+
+		Unless otherwise specified, all attributes accept static values
+		or EL expressions.
+		]]>
+		</description>
+<!--
+		&input_common_attrs;
+-->
+		<attribute>
+			<description>
+			<![CDATA[Converter instance registered with this component.]]>
+			</description>
+			<name>converter</name>
+			<required>false</required>
+			<deferred-value>
+				<type>javax.faces.convert.Converter</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[A ValueExpression enabled attribute that, if present, will be
+			used as the text of the converter message, replacing any message
+			that comes from the converter.]]>
+			</description>
+			<name>converterMessage</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The component identifier for this component.  This value must be
+			unique within the closest parent component that is a naming
+			container.]]>
+			</description>
+			<name>id</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Flag indicating that this component's value must be
+			converted and validated immediately (that is, during
+			Apply Request Values phase), rather than waiting
+			until Process Validations phase.]]>
+			</description>
+			<name>immediate</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Flag indicating whether or not this component should be rendered
+			(during Render Response Phase), or processed on any subsequent
+			form submit.  The default value for this property is true.]]>
+			</description>
+			<name>rendered</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Flag indicating that the user is required to provide a submitted
+			value for this input component.]]>
+			</description>
+			<name>required</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[A ValueExpression enabled attribute that, if present, will be
+			used as the text of the validation message for the "required"
+			facility, if the "required" facility is used.]]>
+			</description>
+			<name>requiredMessage</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[MethodExpression representing a validator method that will be called
+			during Process Validations to perform correctness checks on the
+			value of this component.  The expression must evaluate to a public
+			method that takes FacesContext, UIComponent, and Object parameters,
+			with a return type of void.]]>
+			</description>
+			<name>validator</name>
+			<required>false</required>
+			<deferred-method>
+				<method-signature>void validate(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.Object)</method-signature>
+			</deferred-method>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[A ValueExpression enabled attribute that, if present, will be
+			used as the text of the validator message, replacing any
+			message that comes from the validator.]]>
+			</description>
+			<name>validatorMessage</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The current value of this component. Value binding expression
+			pointing to a <code>org.apache.commons.fileupload.FileItem</code> property
+			to store the uploaded file.]]>
+			</description>
+			<name>value</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.Object</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[MethodExpression representing a value change listener method that will be
+			notified when a new value has been set for this input component.  The
+			expression must evaluate to a public method that takes a
+			ValueChangeEvent parameter, with a return type of void.]]>
+			</description>
+			<name>valueChangeListener</name>
+			<required>false</required>
+			<deferred-method>
+				<method-signature>void valueChange(javax.faces.event.ValueChangeEvent)</method-signature>
+			</deferred-method>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Access key that, when pressed, transfers focus
+			to this element.]]>
+			</description>
+			<name>accesskey</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Direction indication for text that does not inherit directionality.
+			Valid values are "LTR" (left-to-right) and "RTL" (right-to-left).]]>
+			</description>
+			<name>dir</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Flag indicating that this element must never receive focus or
+			be included in a subsequent submit.  A value of false causes
+			no attribute to be rendered, while a value of true causes the
+			attribute to be rendered as disabled="disabled".]]>
+			</description>
+			<name>disabled</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<!--
+		<attribute>
+			<description>
+			<![CDATA[A localized user presentable name for this component.]]>
+			</description>
+			<name>label</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		-->
+		<attribute>
+			<description>
+			<![CDATA[Code describing the language used in the generated markup
+			for this component.]]>
+			</description>
+			<name>lang</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when this element loses focus.]]>
+			</description>
+			<name>onblur</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when this element loses focus
+			and its value has been modified since gaining focus.]]>
+			</description>
+			<name>onchange</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			clicked over this element.]]>
+			</description>
+			<name>onclick</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			double clicked over this element.]]>
+			</description>
+			<name>ondblclick</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when this element receives focus.]]>
+			</description>
+			<name>onfocus</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a key is
+			pressed down over this element.]]>
+			</description>
+			<name>onkeydown</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a key is
+			pressed and released over this element.]]>
+			</description>
+			<name>onkeypress</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a key is
+			released over this element.]]>
+			</description>
+			<name>onkeyup</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			pressed down over this element.]]>
+			</description>
+			<name>onmousedown</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			moved within this element.]]>
+			</description>
+			<name>onmousemove</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			moved away from this element.]]>
+			</description>
+			<name>onmouseout</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			moved onto this element.]]>
+			</description>
+			<name>onmouseover</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			released over this element.]]>
+			</description>
+			<name>onmouseup</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when text within this
+			element is selected by the user.]]>
+			</description>
+			<name>onselect</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Flag indicating that this component will prohibit changes by
+			the user.  The element may receive focus unless it has also
+			been disabled.  A value of false causes
+			no attribute to be rendered, while a value of true causes the
+			attribute to be rendered as readonly="readonly".]]>
+			</description>
+			<name>readonly</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The number of characters used to determine
+			the width of this field.]]>
+			</description>
+			<name>size</name>
+			<required>false</required>
+			<deferred-value>
+				<type>int</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[CSS style(s) to be applied when this component is rendered.]]>
+			</description>
+			<name>style</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Space-separated list of CSS style class(es) to be applied when
+			this element is rendered.  This value must be passed through
+			as the "class" attribute on generated markup.]]>
+			</description>
+			<name>styleClass</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Position of this element in the tabbing order
+			for the current document.  This value must be
+			an integer between 0 and 32767.]]>
+			</description>
+			<name>tabindex</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Advisory title information about markup elements generated
+			for this component.]]>
+			</description>
+			<name>title</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The ValueExpression linking this component to a property in a backing bean]]>
+			</description>
+			<name>binding</name>
+			<required>false</required>
+			<deferred-value>
+				<type>javax.faces.component.UIComponent</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[MIME type that the server should accept.]]>
+			</description>
+			<name>accept</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+	</tag>
+	<!--@} inputFile -->
+
+	<!--@{ inputRadio -->
+	<tag>
+		<name>inputRadio</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.InputRadioTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+		<![CDATA[
+		Radio control.
+		]]>
+		</description>
+		<attribute>
+			<description>
+			<![CDATA[Converter instance registered with this component.]]>
+			</description>
+			<name>converter</name>
+			<required>false</required>
+			<deferred-value>
+				<type>javax.faces.convert.Converter</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[A ValueExpression enabled attribute that, if present, will be
+			used as the text of the converter message, replacing any message
+			that comes from the converter.]]>
+			</description>
+			<name>converterMessage</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The component identifier for this component.  This value must be
+			unique within the closest parent component that is a naming
+			container.]]>
+			</description>
+			<name>id</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Flag indicating that this component's value must be
+			converted and validated immediately (that is, during
+			Apply Request Values phase), rather than waiting
+			until Process Validations phase.]]>
+			</description>
+			<name>immediate</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Flag indicating whether or not this component should be rendered
+			(during Render Response Phase), or processed on any subsequent
+			form submit.  The default value for this property is true.]]>
+			</description>
+			<name>rendered</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Flag indicating that the user is required to provide a submitted
+			value for this input component.]]>
+			</description>
+			<name>required</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[A ValueExpression enabled attribute that, if present, will be
+			used as the text of the validation message for the "required"
+			facility, if the "required" facility is used.]]>
+			</description>
+			<name>requiredMessage</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[MethodExpression representing a validator method that will be called
+			during Process Validations to perform correctness checks on the
+			value of this component.  The expression must evaluate to a public
+			method that takes FacesContext, UIComponent, and Object parameters,
+			with a return type of void.]]>
+			</description>
+			<name>validator</name>
+			<required>false</required>
+			<deferred-method>
+				<method-signature>void validate(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.Object)</method-signature>
+			</deferred-method>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[A ValueExpression enabled attribute that, if present, will be
+			used as the text of the validator message, replacing any
+			message that comes from the validator.]]>
+			</description>
+			<name>validatorMessage</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The current value of this component. Value binding expression
+			pointing to a <code>org.apache.commons.fileupload.FileItem</code> property
+			to store the uploaded file.]]>
+			</description>
+			<name>value</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.Object</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[MethodExpression representing a value change listener method that will be
+			notified when a new value has been set for this input component.  The
+			expression must evaluate to a public method that takes a
+			ValueChangeEvent parameter, with a return type of void.]]>
+			</description>
+			<name>valueChangeListener</name>
+			<required>false</required>
+			<deferred-method>
+				<method-signature>void valueChange(javax.faces.event.ValueChangeEvent)</method-signature>
+			</deferred-method>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Access key that, when pressed, transfers focus
+			to this element.]]>
+			</description>
+			<name>accesskey</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Direction indication for text that does not inherit directionality.
+			Valid values are "LTR" (left-to-right) and "RTL" (right-to-left).]]>
+			</description>
+			<name>dir</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Flag indicating that this element must never receive focus or
+			be included in a subsequent submit.  A value of false causes
+			no attribute to be rendered, while a value of true causes the
+			attribute to be rendered as disabled="disabled".]]>
+			</description>
+			<name>disabled</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Code describing the language used in the generated markup
+			for this component.]]>
+			</description>
+			<name>lang</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when this element loses focus.]]>
+			</description>
+			<name>onblur</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when this element loses focus
+			and its value has been modified since gaining focus.]]>
+			</description>
+			<name>onchange</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			clicked over this element.]]>
+			</description>
+			<name>onclick</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			double clicked over this element.]]>
+			</description>
+			<name>ondblclick</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when this element receives focus.]]>
+			</description>
+			<name>onfocus</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a key is
+			pressed down over this element.]]>
+			</description>
+			<name>onkeydown</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a key is
+			pressed and released over this element.]]>
+			</description>
+			<name>onkeypress</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a key is
+			released over this element.]]>
+			</description>
+			<name>onkeyup</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			pressed down over this element.]]>
+			</description>
+			<name>onmousedown</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			moved within this element.]]>
+			</description>
+			<name>onmousemove</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			moved away from this element.]]>
+			</description>
+			<name>onmouseout</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			moved onto this element.]]>
+			</description>
+			<name>onmouseover</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			released over this element.]]>
+			</description>
+			<name>onmouseup</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Flag indicating that this component will prohibit changes by
+			the user.  The element may receive focus unless it has also
+			been disabled.  A value of false causes
+			no attribute to be rendered, while a value of true causes the
+			attribute to be rendered as readonly="readonly".]]>
+			</description>
+			<name>readonly</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The number of characters used to determine
+			the width of this field.]]>
+			</description>
+			<name>size</name>
+			<required>false</required>
+			<deferred-value>
+				<type>int</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[CSS style(s) to be applied when this component is rendered.]]>
+			</description>
+			<name>style</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Space-separated list of CSS style class(es) to be applied when
+			this element is rendered.  This value must be passed through
+			as the "class" attribute on generated markup.]]>
+			</description>
+			<name>styleClass</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Position of this element in the tabbing order
+			for the current document.  This value must be
+			an integer between 0 and 32767.]]>
+			</description>
+			<name>tabindex</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Advisory title information about markup elements generated
+			for this component.]]>
+			</description>
+			<name>title</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The ValueExpression linking this component to a property in a backing bean]]>
+			</description>
+			<name>binding</name>
+			<required>false</required>
+			<deferred-value>
+				<type>javax.faces.component.UIComponent</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[TRUE if this radio control is checked.]]>
+			</description>
+			<name>checked</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Name of the to which this radio control belongs.]]>
+			</description>
+			<name>groupName</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+	</tag>
+	<!--@} inputRadio -->
+
+	<!--@{ outputFile -->
+	<tag>
+		<name>outputFile</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.OutputFileTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+		<![CDATA[]]>
+		</description>
+		<attribute>
+			<name>binding</name>
+			<required>false</required>
+			<deferred-value>
+				<type>it.unipmn.di.dcs.sharegrid.web.faces.component.UIOutputFileComponent</type>
+			</deferred-value>
+			<description>
+			<![CDATA[A ValueExpression that resolves to the UIComponent that corresponds
+			to this tag. This binding allows the Java bean that contains the UIComponent
+			to manipulate the UIComponent, its properties, and its children.]]>
+			</description>
+		</attribute>
+		<attribute>
+			<name>mimeType</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>width</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>text</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>fileName</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>height</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>data</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.Object</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>iframe</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>var</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>method</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+	</tag>
+	<!--@} outputFile -->
+
+	<!--@{ outputPopupPanel -->
+	<tag>
+		<name>outputPopupPanel</name>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.OutputPopupPanelTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+		<![CDATA[]]>
+		</description>
+		<attribute>
+			<name>autoHide</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>borderWidth</name>
+			<required>false</required>
+			<deferred-value>
+				<type>int</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>caption</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>closable</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>cornerRadius</name>
+			<required>false</required>
+			<deferred-value>
+				<type>int</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>hideDelay</name>
+			<required>false</required>
+			<deferred-value>
+				<type>int</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>hideOthers</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>showDelay</name>
+			<required>false</required>
+			<deferred-value>
+				<type>int</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>showOn</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>targetId</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>visible</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>width</name>
+			<required>false</required>
+			<deferred-value>
+				<type>int</type>
+			</deferred-value>
+		</attribute>
+
+		<!-- Inherited attributes -->
+
+		<attribute>
+			<name>binding</name>
+			<required>false</required>
+			<deferred-value>
+				<type>it.unipmn.di.dcs.sharegrid.web.faces.component.UIOutputPopupPanelComponent</type>
+			</deferred-value>
+			<description>
+			<![CDATA[A ValueExpression that resolves to the UIComponent that corresponds
+			to this tag. This binding allows the Java bean that contains the UIComponent
+			to manipulate the UIComponent, its properties, and its children.]]>
+			</description>
+		</attribute>
+	</tag>
+	<!--@} outputPopupPanel -->
+
+	<!--@{ panelGrid -->
+	<tag>
+		<name>panelGrid</name>
+		<description>
+		<![CDATA[Renders an HTML "table" element, conforming to the
+		rules in the HTML 4.01 specification.  Render the "caption" facet,
+		if present, inside a "caption" element immediately below the "table" element.
+		If the "captionClass" attribute is specified, render its value as the value
+		of the "class" attribute on the "caption" element.  If the "captionStyle" attribute
+		is specified, render its value as the value of the "style" attribute
+		on the "caption" element.  If the "styleClass" attribute is specified, render
+		its value as the value of the "class" attribute.  Render the pass-through
+		attributes in the table below.  Render the "header" facet, if present, inside of
+		"thead", "tr", and "th" elements, nested in that order.  If the
+		"headerClass" attribute is specifed, render its value as the value
+		of the "class" attribute on the "th" element.  Render "colgroup"
+		as the value of the "scope" attribute.  Render the value of the
+		"columns" attribute as the value of the "colspan" attribute on the
+		"th" element.  Render the "footer" facet if present, using similar
+		logic to the rendering of the "header", but replacing "thead" with
+		"tfoot", "th" with "td", and "headerClass" with "footerClass".
+		Render the children of the <code>UIPanel</code> component inside
+		of a "tbody" element.  Render the children based on the value of
+		the "columns" attribute, creating a new row each time a "columns"
+		worth of children have been rendered.  For the start of each row,
+		render a "tr" element.  Output the value of the "rowClasses" per
+		the attribute description below.  For each child, output a "td"
+		element, attaching the value of the "columnClasses" attribute per
+		the attribute description below.  Recursively encode each child.
+		Close out the "td" element.  When done with the row, close out the
+		"tr" element.  If a child has "rendered==false" it is not rendered,
+		and the column counter must not be incremented.]]>
+		</description>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.PanelGridTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<description>
+			<![CDATA[The component identifier for this component.  This value must be
+			unique within the closest parent component that is a naming
+			container.]]>
+			</description>
+			<name>id</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Flag indicating whether or not this component should be rendered
+			(during Render Response Phase), or processed on any subsequent
+			form submit.  The default value for this property is true.]]>
+			</description>
+			<name>rendered</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Name or code of the background color for this table.]]>
+			</description>
+			<name>bgcolor</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Width (in pixels) of the border to be drawn
+			around this table.]]>
+			</description>
+			<name>border</name>
+			<required>false</required>
+			<deferred-value>
+				<type>int</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Space-separated list of CSS style class(es) that will be
+			applied to any caption generated for this table.]]>
+			</description>
+			<name>captionClass</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[CSS style(s) to be applied when this caption is rendered.]]>
+			</description>
+			<name>captionStyle</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Definition of how much space the user agent should
+			leave between the border of each cell and its contents.]]>
+			</description>
+			<name>cellpadding</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Definition of how much space the user agent should
+			leave between the left side of the table and the
+			leftmost column, the top of the table and the top of
+			the top side of the topmost row, and so on for the
+			right and bottom of the table.  It also specifies
+			the amount of space to leave between cells.]]>
+			</description>
+			<name>cellspacing</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Comma-delimited list of CSS style classes that will be applied
+			to the columns of this table.  A space separated list of
+			classes may also be specified for any individual column.  If
+			the number of elements in this list is less than the number of
+			columns specified in the "columns" attribute, no "class"
+			attribute is output for each column greater than the number of
+			elements in the list.  If the number of elements in the list
+			is greater than the number of columns specified in the
+			"columns" attribute, the elements at the posisiton in the list
+			after the value of the "columns" attribute are ignored.]]>
+			</description>
+			<name>columnClasses</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The number of columns to render before
+			starting a new row.]]>
+			</description>
+			<name>columns</name>
+			<required>false</required>
+			<deferred-value>
+				<type>int</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Direction indication for text that does not inherit directionality.
+			Valid values are "LTR" (left-to-right) and "RTL" (right-to-left).]]>
+			</description>
+			<name>dir</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Space-separated list of CSS style class(es) that will be
+			applied to any footer generated for this table.]]>
+			</description>
+			<name>footerClass</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Code specifying which sides of the frame surrounding
+			this table will be visible.  Valid values are:
+			none (no sides, default value); above (top side only);
+			below (bottom side only); hsides (top and bottom sides
+			only); vsides (right and left sides only); lhs (left
+			hand side only); rhs (right hand side only); box
+			(all four sides); and border (all four sides).]]>
+			</description>
+			<name>frame</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Space-separated list of CSS style class(es) that will be
+			applied to any header generated for this table.]]>
+			</description>
+			<name>headerClass</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.Strin </type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Code describing the language used in the generated markup
+			for this component.]]>
+			</description>
+			<name>lang</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			clicked over this element.]]>
+			</description>
+			<name>onclick</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			double clicked over this element.]]>
+			</description>
+			<name>ondblclick</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a key is
+			pressed down over this element.]]>
+			</description>
+			<name>onkeydown</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a key is
+			pressed and released over this element.]]>
+			</description>
+			<name>onkeypress</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a key is
+			released over this element.]]>
+			</description>
+			<name>onkeyup</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			pressed down over this element.]]>
+			</description>
+			<name>onmousedown</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			moved within this element.]]>
+			</description>
+			<name>onmousemove</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			moved away from this element.]]>
+			</description>
+			<name>onmouseout</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			moved onto this element.]]>
+			</description>
+			<name>onmouseover</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Javascript code executed when a pointer button is
+			released over this element.]]>
+			</description>
+			<name>onmouseup</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Comma-delimited list of CSS style classes that will be applied
+			to the rows of this table.  A space separated list of classes
+			may also be specified for any individual row.  Thes styles are
+			applied, in turn, to each row in the table.  For example, if
+			the list has two elements, the first style class in the list
+			is applied to the first row, the second to the second row, the
+			first to the third row, the second to the fourth row, etc.  In
+			other words, we keep iterating through the list until we reach
+			the end, and then we start at the beginning again.]]>
+			</description>
+			<name>rowClasses</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Code specifying which rules will appear between cells
+			within this table.  Valid values are:  none (no rules,
+			default value); groups (between row groups); rows
+			(between rows only); cols (between columns only); and
+			all (between all rows and columns).]]>
+			</description>
+			<name>rules</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[CSS style(s) to be applied when this component is rendered.]]>
+			</description>
+			<name>style</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Space-separated list of CSS style class(es) to be applied when
+			this element is rendered.  This value must be passed through
+			as the "class" attribute on generated markup.]]>
+			</description>
+			<name>styleClass</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Summary of this table's purpose and structure, for
+			user agents rendering to non-visual media such as
+			speech and Braille.]]>
+			</description>
+			<name>summary</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Advisory title information about markup elements generated
+			for this component.]]>
+			</description>
+			<name>title</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Width of the entire table, for visual user agents.]]>
+			</description>
+			<name>width</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The ValueExpression linking this component to a property in a backing bean.]]>
+			</description>
+			<name>binding</name>
+			<required>false</required>
+			<deferred-value>
+				<type>javax.faces.component.UIComponent</type>
+			</deferred-value>
+		</attribute>
+	</tag>
+	<!--@} panelGrid -->
+
+	<!--@{ panelGroup -->
+	<tag>
+		<name>panelGroup</name>
+		<description>
+		<![CDATA[Intended for use in situations when only one
+		UIComponent child can be nested, such as in the case of facets.
+		If the "style" or "styleClass" attributes are present, and the "layout"
+		attribute is present with a value of "block", render a "div" element,
+		outputting the value of the "style" attribute as the value of the
+		"style" attribute and the value of the "styleClass" attribute as the
+		value of the "class" attribute.  Otherwise, if the "layout" attribute
+		is not present, or the "layout" attribute contains a value other than
+		"block", render a "span" element, outputting the value of the
+		"style" attribute as the value of the "style" attribute, and the value
+		of the "styleClass" attribute as the value of the "class"
+		attribute.]]>
+		</description>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.PanelGroupTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<description>
+			<![CDATA[The component identifier for this component.  This value must be
+			unique within the closest parent component that is a naming
+			container.]]>
+			</description>
+			<name>id</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Flag indicating whether or not this component should be rendered
+			(during Render Response Phase), or processed on any subsequent
+			form submit.  The default value for this property is true.]]>
+			</description>
+			<name>rendered</name>
+			<required>false</required>
+			<deferred-value>
+				<type>boolean</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The number of columns this component will span.]]>
+			</description>
+			<name>colSpan</name>
+			<required>false</required>
+			<deferred-value>
+				<type>int</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The type of layout markup to use when rendering this group.
+			If the value is "block" the renderer must produce an HTML
+			"div" element.  Otherwise HTML "span" element must
+			be produced.]]>
+			</description>
+			<name>layout</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[CSS style(s) to be applied when this component is rendered.]]>
+			</description>
+			<name>style</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[Space-separated list of CSS style class(es) to be applied when
+			this element is rendered.  This value must be passed through
+			as the "class" property on generated markup.]]>
+			</description>
+			<name>styleClass</name>
+			<required>false</required>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<description>
+			<![CDATA[The ValueExpression linking this component to a property in a backing bean.]]>
+			</description>
+			<name>binding</name>
+			<required>false</required>
+			<deferred-value>
+				<type>javax.faces.component.UIComponent</type>
+			</deferred-value>
+		</attribute>
+	</tag>
+	<!--@} panelGroup -->
+
+	<!--@{ selectItems -->
+	<tag>
+		<name>selectItems</name>
+		<description>
+		<![CDATA[Add a child UISelectItems component to the UIComponent
+		    associated with the closed parent UIComponent custom action.]]>
+		</description>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.SelectItemsTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>binding</name>
+			<description>
+			<![CDATA[Value binding expression to a backing bean
+			property bound to the component instance for
+			the UIComponent created by this custom action.]]>
+			</description>
+			<required>false</required>
+			<deferred-value>
+				<type>javax.faces.component.UIComponent</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>id</name>
+			<description>
+			<![CDATA[Component identifier of the UISelectItems
+			component to be created.]]>
+			</description>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>value</name>
+			<description>
+			<![CDATA[An EL expression that specifies the contents of the selection list.
+			The expression can refer to one of the following:
+			<ol>
+			<li>A single SelectItem</li>
+			<li>An array or Collection of SelectItem instances</li>
+			<li>A Map. The contents of the Map are used to create SelectItem
+			instances, where the SelectItem's label is the map's key value,
+			and the SelectItem's value is the map's value. When using a
+			map, it is recommended that an ordered implementation such as
+			java.util.TreeMap is used.</li>
+			</ol>
+			The value properties of each of the SelectItems must be of the same
+			basic type as the parent component's value.]]>
+			</description>
+			<deferred-value>
+				<type>java.lang.Object</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>var</name>
+			<description>
+			<![CDATA[Name of the iterator variable.]]>
+			</description>
+			<required>true</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>itemLabel</name>
+			<description>
+			<![CDATA[Label to be displayed to the user for this option.]]>
+			</description>
+			<required>true</required>
+			<deferred-value>
+				<type>java.lang.Object</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>itemValue</name>
+			<description>
+			<![CDATA[Value to be returned to the server if this option is selected by the user.]]>
+			</description>
+			<required>true</required>
+			<deferred-value>
+				<type>java.lang.Object</type>
+			</deferred-value>
+		</attribute>
+	</tag>
+	<!--@} selectItems -->
+
+	<!--@{ setBeanProperty -->
+	<tag>
+		<name>setBeanProperty</name>
+		<description>
+		<![CDATA[...]]>
+		</description>
+		<tag-class>it.unipmn.di.dcs.sharegrid.web.faces.tag.SetBeanPropertyTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>bean</name>
+			<rtexprvalue>false</rtexprvalue>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>name</name>
+			<rtexprvalue>false</rtexprvalue>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+		<attribute>
+			<name>value</name>
+			<rtexprvalue>false</rtexprvalue>
+			<deferred-value>
+				<type>java.lang.String</type>
+			</deferred-value>
+		</attribute>
+	</tag>
+	<!--@} setBeanProperty -->
+
+</taglib>

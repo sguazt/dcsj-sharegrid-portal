@@ -1,0 +1,203 @@
+--------------------------------------------------------------------------------
+------------ DCS SHAREGRID PORTAL: A VERY-QUICK INSTALLATION GUIDE -------------
+--------------------------------------------------------------------------------
+
+Quick installation guide for the DCS ShareGrid Portal an its components.
+
+
+--------------------------------------------------------------------------------
+-- COMPONENTS:
+
+* dcsj-commons: a set of utility classes.
+
+* dcsj-grid-core: interfaces defining the Grid layer for abstracting from
+  different Grid middlewares.
+  Dependencies: dcsj-commons
+
+* dcsj-grid-ourgrid: the implementation of the DcsGridCore interfaces for the
+  OurGrid (version 3.3.x) middleware.
+  Dependencies: dcsj-commons dcsj-grid-core
+
+* dcsj-sharegrid-portal: the ShareGrid Portal classes.
+  Dependencies: dcsj-commons dcsj-grid-core dcsj-grid-ourgrid
+
+
+-- REQUIREMENTS:
+
+* MySQL >= 5.x          (==> http://www.mysql.com)
+* Java JDK >= 6         (==> http://java.sun.com)
+* Apache Tomcat >= 6.x  (==> http://tomcat.apache.org)
+* Apache Ant >= 1.7.1   (==> http://ant.apache.org)
+* sendmail              (==> http://www.sendmail.org)
+  (Required if the job notification system is used)
+* OurGrid v3            (==> http://www.ourgrid.org)
+
+
+--------------------------------------------------------------------------------
+-- NOTATIONS:
+
+In the rest of this document we use the following variables:
+* $SGPORTALBUNDLE_HOME: the path to the directory containing the sources of the
+  portal and its dependencies.
+  Example: $ export SGPORTALBUNDLE_PATH='/tmp/dcsj-sharegrid-portal-bundle'
+* $SG_USER: the user under which the ShareGrid components will run.
+  Example: $ export SG_USER='sharegrid'
+* $SG_HOME: the path where ShareGrid component and resources will be installed.
+  Example: $ export SG_HOME="/home/$SG_USER"
+* $CATALINA_HOME: the path to the directory where the Apache Tomcat is
+  installed.
+  Example: $ export CATALINA_HOME='/opt/apache-tomcat'
+* $ANT_HOME: the path to the directory where the Apache Ant is installed.
+  Example: $ export ANT_HOME='/opt/apache-ant'
+* $OG3_HOME: the path to the directory where the OurGrid v3.3.x is
+  installed.
+  Example: $ export OG3_HOME='$SG_HOME/OurGrid/v3'
+
+
+--------------------------------------------------------------------------------
+-- BUILDING STEPS:
+
+1. Build the dcsj-commons JAR 'dcs-jcommons-xxx.jar':
+  $ cd $SGPORTALBUNDLE_HOME/dcsj-commons
+  $ $ANT_HOME/bin/ant clean dist
+
+2. Build the dcsj-grid-core JAR 'dcs-jgrid-core-xxx.jar':
+  $ cd $SGPORTALBUNDLE_HOME/dcsj-grid-core
+  $ rm lib/dcs-jcommons-xxx.jar
+  $ cp ../dcsj-commons/dist/dcs-jcommons-xxx.jar lib/.
+  $ $ANT_HOME/bin/ant clean dist
+
+3. Build the dcsj-grid-ourgrid JAR 'dcs-jgrid-ourgrid-xxx.jar':
+  $ cd $SGPORTALBUNDLE_HOME/dcsj-grid-ourgrid
+  $ rm lib/dcs-jcommons-xxx.jar
+  $ cp ../dcsj-commons/dist/dcs-jcommons-xxx.jar lib/.
+  $ rm lib/dcs-jgrid-core-xxx.jar
+  $ cp ../dcsj-grid-core/dist/dcs-jgrid-core-xxx.jar lib/.
+  $ $ANT_HOME/bin/ant clean dist
+ 
+4. Build the dcsj-sharegrid-portal WAR 'dcsj-sharegrid-portal-xxx.war':
+  $ cd $SGPORTALBUNDLE_HOME/dcsj-sharegrid-portal
+  $ rm lib/dcs-jcommons-xxx.jar
+  $ cp ../dcsj-commons/dist/dcs-jcommons-xxx.jar lib/.
+  $ rm lib/dcs-jgrid-core-xxx.jar
+  $ cp ../dcsj-grid-core/dist/dcs-jgrid-core-xxx.jar lib/.
+  $ rm lib/dcs-jgrid-ourgrid-xxx.jar
+  $ cp ../dcsj-grid-core/dist/dcs-jgrid-ourgrid-xxx.jar lib/.
+  $ $ANT_HOME/bin/ant clean dist
+ 
+
+--------------------------------------------------------------------------------
+-- FIRST INSTALLATION STEPS:
+
+1. Unpack the ShareGrid Portal bundle archive in $SGPORTALBUNDLE_HOME:
+  $ tar zxvf dcsj-sharegrid-portal-bundle-xxx.tar.gz -C $SGPORTALBUNDLE_HOME
+
+2. Create the ShareGrid standard directory layout
+  $ cd $SG_HOME
+  $ mkdir scripts
+  $ mkdir sgportal
+   (This path (and its subpaths) MUST be writable both by the Apache Tomcat user
+    and by the user under which the Grid scheduler (e.g., OurGrid mygrid) runs.
+    Furthermore, this path MUST have the same value assigned to the
+    'user.basepath' property.
+    -- See step #1 in INSTALLATION STEPS section).
+  $ mkdir sgportal/users
+
+3. Install OurGrid "mygrid", "corepeer" and "peer" components in $OG3_HOME.
+   Note: while the ShareGrid Portal and mygrid must stay on the same server,
+   the other OurGrid components (corepeer and peer) might be hosted by different
+   servers.
+
+4. Edit and install the utility scripts
+  $ cp $SGPORTALBUNDLE_HOME/dcsj-sharegrid-portal/setup/scripts/job-monitor.sh $SG_HOME/scripts/job-monitor.sh
+
+5. Set the environment variables TZ (timezone) and MGROOT (OurGrid mygrid home).
+  There are two alternatives:
+  a) Set the environment variables system-wide, like in the rc.local script.
+    For an example see the file
+    $SGPORTALBUNDLE_HOME/dcsj-sharegrid-portal/setup/scripts/rc.local
+  b) Create a local start-up script for Tomcat like the one
+    $SGPORTALBUNDLE_HOME/dcsj-sharegrid-portal/setup/scripts/tomcat.sh
+
+6. Set the MySQL server and the Apache Tomcat server to start at system
+  start-up.
+  There are two alternatives:
+  a) If your system distribution support these servers then it should provide
+    simple mechanisms to do that.
+  b) Alternatively you can take a look at the local start-up script in:
+    $SGPORTALBUNDLE_HOME/dcsj-sharegrid-portal/setup/scripts/rc.local
+
+7. Start MySQL and create the sharegrid DB:
+  $ cd $SGPORTALBUNDLE_HOME/dcsj-sharegrid-portal
+  $ mysqladmin -u root create sharegrid
+  $ mysql -uroot < setup/sql/mysql/sharegrid-dbusers.sql
+  $ mysql -uroot < setup/sql/mysql/sharegrid-db.sql
+
+8. Copy the MySQL Connector/J into Apache Tomcat:
+  $ cp $SGPORTALBUNDLE_HOME/dcsj-sharegrid-portal/lib/mysql-connector-java-xxx-bin.jar $CATALINE_HOME/lib
+  (see also $SGPORTALBUNDLE_HOME/docs/FAQ.txt for more informations)
+
+9. Start the Apache Tomcat.
+
+10. Start the sendmail server.
+
+
+--------------------------------------------------------------------------------
+-- INSTALLATION STEPS:
+
+1. Unwar the 'dcsj-sharegrid-portal' WAR file and edit the configuration properties.
+  1.1. Unwar the 'dcsj-sharegrid-portal' WAR file:
+    $ jar xvf dcsj-sharegrid-portal-xxx.war
+  1.2. Edit file META-INF/conf.properties for changing:
+    * The 'dao.*' properties:
+      + dao.jdbc.url: the JDBC url for the 'sharegrid' database.
+      + dao.jdbc.user: the user name for connecting to the 'sharegrid' database.
+      + dao.jdbc.password: the password for the user 'dao.jdbc.user'.
+
+    * The 'mail.smtp.*' properties:
+      (Currently only SMTP mail server is supported)
+      + mail.smtp.host: the host of SMTP server.
+      + mail.smtp.port: the port where the SMTP server listen to.
+      + mail.smtp.user: the user for accessing to the SMTP server
+      + mail.smtp.password: the password for the user 'mail.smtp.user'.
+      + mail.smtp.usetls: boolean flag for setting the use of TLS.
+
+    * The 'grid.middleware.*' properties
+      + grid.middleware.id: the GRID middleware identifier (used by the
+        portal middleware factory classes).
+      + grid.middleware.ourgrid.mgroot: the mygrid path.
+        This is the same value of MGROOT environment variable.
+      + grid.middleware.ourgrid.mgname: the mygrid host name.
+        This is the 'mg.name' property used by mygrid.
+      + grid.middleware.ourgrid.mgport: the mygrid port used by mygrid 
+        This is the 'mg.port' property used by mygrid.
+
+    * The 'user.*' properties.
+      + user.basepath: the path where storing the job files of users portal.
+        Should be readable and writable by the $SG_USER user.
+      + user.password.obfuscator: method for storing users password inside the
+        DB. 'none' for storing clear password. 'md5' for storing the MD5
+        representation of the password.
+
+    * the 'web.baseurl' property: the base URL of the ShareGrid portal
+
+2. Rebuild the 'dcsj-sharegrid-portal' WAR file:
+  $ jar cvf ../dcsj-sharegrid-portal-xxx.war .
+
+3. Stop the job monitor script (if running):
+  $ $SG_HOME/scripts/job-monitor stop
+
+4. Deploy the ShareGrid Portal into Apache Tomcat.
+  Two alternatives:
+  a) Use the Apache Tomcat manager interface
+  b) Do it manually:
+    3.b.1. Stop Apache Tomcat (if running)
+    3.b.2. Copy the 'dcsj-sharegrid-portal' WAR into Apache Tomcat
+      $ cp dcsj-sharegrid-portal-xxx.war $CATALINA_HOME/webapps/.
+    3.b.3. Start Apache Tomcat
+
+5. Start the job monitor script:
+  $ $SG_HOME/scripts/job-monitor start
+
+
+--------------------------------------------------------------------------------

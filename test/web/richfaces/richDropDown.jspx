@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jsp:root version="2.1"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ft="http://facestrace.sourceforge.net"
+	xmlns:dcsjsf="http://dcs.di.unipmn.it/tld/dcsjsf"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
+        <jsp:output	omit-xml-declaration="no"
+			doctype-root-element="html"
+			doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+			doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+	<f:view>
+	<html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<title>RichFaces *DROP-DOWN-MENU* component test</title>
+		</head>
+		<body>
+			<h1>RichFaces *DROP-DOWN-MENU* component test</h1>
+
+			<h:form id="menu-test">
+
+			<rich:dropDownMenu id="myMenu-cforEach" submitMode="server">
+				<f:facet name="label">
+					<h:panelGrid cellpadding="0" cellspacing="0" columns="1" style="vertical-align:middle">
+						<h:outputText value="#{dropDownMenuBean.myChoice}"/>
+					</h:panelGrid>
+				</f:facet>
+				<dcsjsf:forEach items="#{dropDownMenuBean.pairList}" var="item">
+					<rich:menuItem action="#{dropDownMenuBean.choiceChangeAction}">
+						<f:setPropertyActionListener target="#{dropDownMenuBean.currentChoice}" value="#{item.first}"/>
+						<f:facet name="icon">
+							<h:outputText value="#{item.first}"/>
+						</f:facet>
+						<h:outputText value="#{item.second}"/>
+					</rich:menuItem>
+				</dcsjsf:forEach>
+			</rich:dropDownMenu>
+
+<!--
+			<br/>
+			<rich:dropDownMenu id="myMenu-dcsDataIterator" submitMode="server">
+				<f:facet name="label">
+					<h:panelGrid cellpadding="0" cellspacing="0" columns="2" style="vertical-align:middle">
+						<h:outputText value="MyChoice"/>
+					</h:panelGrid>
+				</f:facet>
+				<dcsjsf:dataIterator value="#{dropDownMenuBean.pairList}" var="item">
+					<rich:menuItem value="#{item.second}" action="#{dropDownMenuBean.menuChangeAction}">
+						<f:setPropertyActionListener target="#{dropDownMenuBean.currentChoice}" value="#{item.first}"/>
+						<f:facet name="icon">
+							<h:outputText value="#{item.first}"/>
+						</f:facet>
+						<h:outputText value="#{item.second}"/>
+					</rich:menuItem>
+				</dcsjsf:dataIterator>
+			</rich:dropDownMenu>
+
+			<br/>
+
+			<rich:dropDownMenu id="myMenu2" submitMode="server">
+				<f:facet name="label">
+					<h:panelGrid cellpadding="0" cellspacing="0" columns="2" style="vertical-align:middle">
+						<h:outputText value="MyChoice"/>
+					</h:panelGrid>
+				</f:facet>
+				<dcsjsf:forEach items="#{dropDownMenuBean.pairList}" var="item">
+					<rich:menuItem value="#{item.second}" action="#{dropDownMenuBean.menuChangeAction}">
+						<f:setPropertyActionListener target="#{dropDownMenuBean.currentChoice}" value="#{item.first}"/>
+						<f:facet name="icon">
+							<h:outputText value="#{item.first}"/>
+						</f:facet>
+						<h:outputText value="#{item.second}"/>
+					</rich:menuItem>
+				</dcsjsf:forEach>
+			</rich:dropDownMenu>
+-->
+
+<!--
+				<br/>
+				<h:commandButton action="#{dropDownMenuBean.doChooseAction}" value="Choose"/>
+-->
+			</h:form>
+		</body>
+	</html>
+<!--
+	<ft:trace/>
+-->
+	</f:view>
+</jsp:root>

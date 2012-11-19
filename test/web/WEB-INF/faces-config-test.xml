@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+
+<xxx-faces-config version="1.2"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+
+	<!--@{ Managed Beans -->
+<!--
+	<managed-bean>
+		<managed-bean-name>testBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.test.TestBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+-->
+	<managed-bean>
+		<managed-bean-name>dropDownMenuBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.test.TestRichDropDownMenuBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>forEachBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.test.TestForEachBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>ifBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.test.TestIfBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>ifThenElseBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.test.TestIfThenElseBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>setBeanPropertyTestBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.test.TestSetBeanPropertyBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>testRichDataScrollBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.test.TestRichDataScrollBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<!--@} Managed Beans -->
+
+</xxx-faces-config>

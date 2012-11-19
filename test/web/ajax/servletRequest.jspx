@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jsp:root version="2.1"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:dcsjsf="http://dcs.di.unipmn.it/tld/dcsjsf"
+	xmlns:ft="http://sourceforge.net/projects/facestrace">
+
+	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
+        <jsp:output	omit-xml-declaration="no"
+			doctype-root-element="html"
+			doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+			doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+	<f:view>
+
+	<html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<title>DCS *AJAX request with Servlet* test</title>
+<!--
+			<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/scripts/XMLHttpRequest.js"><![CDATA[<!- - // - ->]]></script>
+-->
+			<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/scripts/dcs.js"><![CDATA[<!-- // -->]]></script>
+			<script type="text/javascript">
+			<![CDATA[
+			<!--
+			function createRequestObject()
+			{
+/*
+				var methods = [
+					function() { return new XMLHttpRequest(); },
+					function() { return new ActiveXObject('Msxml2.XMLHTTP'); },
+					function() { return new ActiveXObject('Microsoft.XMLHTTP'); }
+				];
+
+				var returnVal;
+				for(var i = 0, len = methods.length; i < len; i++)
+				{
+					try
+					{
+						returnVal = methods[i]();
+					}
+					catch(e)
+					{
+						continue;
+					}
+					return returnVal;
+				}
+
+				throw new Error('Could not create an XHR object.');
+*/
+				return Dcs.Ajax.CreateXmlHttpRequest();
+			}
+
+			function handleResponse(xhr)
+			{
+				// readyState == 1 => open has been called
+				// readyState == 2 => send has been called
+				// readyState == 3 => data in process of being received from the server
+				// readyState == 4 => response from server has arrived
+
+				var inerr = false;
+				var errmsg;
+				try
+				{
+					if (xhr == 'undefined')
+					{
+						inerr = true;
+						errmsg = 'Null XML HTTP request in callback';
+					}
+
+					if (xhr.readyState == 4)
+					{
+						if (
+							xhr.status == null
+							|| typeof xhr.status == 'undefined'
+							|| xhr.status == 0
+							|| (
+								xhr.status >= 200
+								&& xhr.status < 300
+							)
+						) {
+							//var response = xhr.responseText;
+							if (xhr.status == 200)
+							{
+								var target = xhr.responseXML.getElementsByTagName("target")[0];
+								var targetName = target.childNodes[0].childNodes[0].nodeValue;
+								var targetValue = target.childNodes[1].childNodes[0].nodeValue;
+								document.getElementById('form1:txtout').childNodes[0].nodeValue = "You said: '" + targetValue + "'";
+							}
+						}
+						else
+						{
+							errmsg = 'Reponse was an error code';
+							inerr = true;
+						}
+					}
+				}
+				catch (e)
+				{
+					// ignore
+					inerr = true;
+					errmsg = e;
+				}
+				if (inerr)
+				{
+					throw new Error(errmsg);
+				}
+			}
+
+			function sendReq()
+			{
+/*
+				var requestString = document.getElementById('form1:txtin').value;
+				var xhr = createRequestObject();
+				//xhr.open('GET', 'http://localhost:8080/sgportal/dcsajax?ajaxtarget=txt&txt=' + escape(requestString), true);
+				xhr.open('GET', '/sgportal/dcsajax?ajaxtarget=txt&txt=' + escape(requestString), true);
+				xhr.onreadystatechange = function() { handleResponse(xhr); };
+				xhr.send(null);
+*/
+			}
+			// -->
+			]]>
+			</script>
+		</head>
+		<body>
+			<h1>DCS *AJAX request with Servlet* test</h1>
+
+			<h:form id="form1">
+			<h:panelGrid columns="1">
+				<h:panelGroup>
+					<h:inputText id="txtin"/>
+					&#xA0;
+					<h:outputText id="txtout" value="..." style="border: dashed 1px #BB0B25;"/>
+				</h:panelGroup>
+				<h:panelGroup>
+					<h:commandButton value="Traditional Submit"/>
+				</h:panelGroup>
+			</h:panelGrid>
+			</h:form>
+			<button id="ajaxbtn" onclick="setTimeout('sendReq()',100)">Ajax Submit</button>
+		</body>
+	</html>
+
+<!--
+	<ft:trace/>
+-->
+
+	</f:view>
+</jsp:root>

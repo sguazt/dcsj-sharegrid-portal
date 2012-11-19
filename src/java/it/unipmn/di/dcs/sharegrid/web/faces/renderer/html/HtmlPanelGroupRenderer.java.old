@@ -1,0 +1,176 @@
+package it.unipmn.di.dcs.sharegrid.web.faces.renderer.html;
+
+import it.unipmn.di.dcs.sharegrid.web.faces.component.UIPanelGroupComponent;
+
+import java.io.IOException;
+import java.util.Iterator;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIPanel;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+
+public class HtmlPanelGroupRenderer extends AbstractHtmlRenderer
+{
+	private GroupRenderer groupRenderer;
+
+	public HtmlPanelGroupRenderer()
+	{
+		super();
+	}
+
+	@Override
+	protected void doEncodingBegin(FacesContext context, UIComponent component) throws IOException
+	{
+		String style = (String) component.getAttributes().get("style");
+		String styleClass = (String) component.getAttributes().get("styleClass");
+		Integer colSpan = (Integer) component.getAttributes().get("colSpan");
+		ResponseWriter writer = context.getResponseWriter();
+
+		if (this.divOrSpan(component))
+		{
+			writer.startElement( this.getGroupElement(component), component);
+
+			this.writeIdAttributeIfNecessary(context, writer, component);
+
+			if (styleClass != null)
+			{
+				writer.writeAttribute("class", styleClass, "styleClass");
+			}
+			if (style != null)
+			{
+				writer.writeAttribute("style", style, "style");
+			}
+			if (colSpan != null)
+			{
+System.err.println("[HtmlPanelGroupRenderer::doEncodingBegin>> Found colspan");//XXX
+				parentComponent = this.findAncestorClass( component, UIPanel.class );
+				if ( parentComponent != null )
+				{
+					parentComponent.getAttributes().put( "colspan", colSpan );
+					//writer.writeAttribute("colspan", colSpan, "colSpan");
+				}
+			}
+		}
+
+//		// Don't render UIPanelGroupComponent parents
+//		UIPanelGroupComponent group = (UIPanelGroupComponent) component;
+//		Iterator children = group.getGroupChildren();
+//		if ( !children.hasNext() )
+//		{
+//			ResponseWriter writer = context.getResponseWriter();
+//			this.renderEnclosingTagStart(context, col, writer);
+//		}
+	}
+
+	@Override
+	public void doEncodingChildren(FacesContext context, UIComponent component) throws IOException
+	{
+		// Render our children recursively
+		Iterator<UIComponent> kids = this.getChildren(component);
+		while (kids.hasNext())
+		{
+			this.encodeRecursive(context, kids.next());
+		}
+	}
+
+	@Override
+	protected void doEncodingEnd(FacesContext context, UIComponent component) throws IOException
+	{
+		ResponseWriter writer = context.getResponseWriter();
+		if (this.divOrSpan(component))
+		{
+			writer.endElement( this.getGroupElement(component) );
+		}
+	}
+
+	@Override
+	public boolean getRendersChildren()
+	{
+		return true;
+	}
+
+	private String getGroupElement(UIComponent component)
+	{
+		if ( component instanceof UIPanelGroupComponent )
+		{
+			UIPanelGroupComponent group = (UIPanelGroupComponent) component;
+			if ( "block".equals( group.getLayout() ) )
+			{
+				return "div";
+			}
+		}
+		else if ( "block".equals( component.getAttributes().get("layout") ) )
+		{
+			return "div";
+		}
+
+		return "span";
+	}
+
+	/**
+	 * @param component <code>UIComponent</code> for this group
+	 *
+	 * @return <code>true</code> if we need to render a div or span element
+	 *  around this group.
+	 */
+	private boolean divOrSpan(UIComponent component)
+	{
+		return	(this.shouldWriteIdAttribute(component)
+			|| (component.getAttributes().get("style") != null)
+			|| (component.getAttributes().get("styleClass") != null));
+	}
+
+
+	protected void renderEnclosingTagStart(FacesContext context, TableColumn component, ResponseWriter writer) throws IOException
+	{
+		if (component == null)
+		{
+			log("renderEnclosingTagStart", //NOI18N
+			"Cannot render enclosing tag, UIComponent is null"); //NOI18N
+			return;
+		}
+
+		// Note: Row header is not valid for select column.
+		boolean isRowHeader = component.isRowHeader() && component.getSelectId() == null;
+		writer.writeText("\n", null); //NOI18N
+		writer.startElement(isRowHeader ? "th" : "td", component); //NOI18N
+		// Render client id.
+		writer.writeAttribute("id", component.getClientId(context), null); //NOI18N
+		// Render style class.
+		RenderingUtilities.renderStyleClass(context, writer, component,
+		getStyleClass(component));
+		// Render align.
+		if (component.getAlign() != null) {
+		writer.writeAttribute("align", component.getAlign(), null); //NOI18N
+		}
+		// Render scope.
+		if (isRowHeader) {
+		writer.writeAttribute("scope", "row", null); //NOI18N
+		} else if (component.getScope() != null) {
+		writer.writeAttribute("scope", component.getScope(), null); //NOI18N
+		}
+		// Render colspan.
+		if (component.getColSpan() > -1) {
+		writer.writeAttribute("colspan", //NOI18N
+		Integer.toString(component.getColSpan()), null); //NOI18N
+		}
+
+		// Render rowspan.
+		if (component.getRowSpan() > -1) {
+		writer.writeAttribute("rowspan", //NOI18N
+		Integer.toString(component.getRowSpan()), null); //NOI18N
+		}
+		// Render nowrap.
+		if (component.isNoWrap()) {
+		writer.writeAttribute("nowrap", "nowrap", null); //NOI18N
+		}
+		// Render tooltip.
+		if (component.getToolTip() != null) {
+		writer.writeAttribute("title", component.getToolTip(), "toolTip"); //NOI18N
+		}
+		// Render pass through attributes.
+		RenderingUtilities.writeStringAttributes(component, writer,
+		stringAttributes);
+	}
+}

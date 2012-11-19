@@ -1,0 +1,574 @@
+/* Setup defaults since variable in browsers
+ * ----------------------------------------------- */
+body, div, span, dd, dt, dl, img, ul, ol, li, p, h1, h2, h3, h4, h5, form, hr, fieldset {
+	margin: 0;
+	padding: 0;
+}
+
+/* Element Defaults
+ * ----------------------------------------------- */
+html {
+	height: 100%;
+	background-color: #DBD4C6;
+}
+img {
+	border: 0;
+}
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: small;
+	line-height: 1.25em;
+	color: #362F2D;
+	position: relative;
+	width: 760px;
+	height: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+.dcs-sg-label {
+	font-weight: bold;
+	color: #5E5147;
+}
+/*
+textarea, input {
+*/
+textarea, input[type="text"], input[type="password"] {
+	border: 1px solid #C3BBB6;
+	padding: 4px;
+	margin: 5px 0;
+	background: #fff url(../img/input.bg.gif) 0 0 repeat-x;
+}
+textarea:focus, input[type="text"]:focus, input[type="password"]:focus {
+/*
+	border: solid 1px #3b9acc;
+*/
+	border: solid 1px #831c1e;
+}
+select {
+	border: 1px solid #C3BBB6;
+	padding: 4px;
+	margin: 5px 0;
+	background: #fff url(../img/input.bg.gif) 0 0 repeat-x;
+}
+select:focus {
+/*
+	border: solid 1px #3b9acc;
+*/
+	border: solid 1px #831c1e;
+}
+ol, ul {
+	margin: 10px 0px 10px 6px;
+}
+li {
+	margin: 10px 12px;
+}
+fieldset {
+	border: 0;
+}
+table {
+	empty-cells: show;
+}
+
+/* Layout
+ * ----------------------------------------------- */
+#document {
+        padding: 0 1px;
+        background: #fff url(../img/bg.gif) 0 0 repeat-y;
+        float: left;
+        border-bottom: 1px solid #C3BBB6;
+}
+#header-view\:header, 
+#header,
+.dcs-sg-header {
+	float: left;
+	width: 758px;
+	height: 46px;
+	background: url(../img/hdr.bg.gif) 0 0 repeat-x;
+}
+#userHeader,
+.dcs-sg-userHeader {
+	float: right;
+	font-weight: bold;
+	color: #fff;
+	vertical-align: middle;
+}
+#userHeader *,
+.dcs-sg-userHeader * {
+	color: #fff;
+}
+#container,
+.dcs-sg-container {
+	float: left;
+	width: 758px;
+	background: url(../img/hdr.bar.jpg) 0 0 repeat-x;
+}
+#sidebar,
+.dcs-sg-sidebar {
+	float: left;
+	width: 190px;
+	margin-top: 96px;
+	padding: 20px 10px 0 10px;
+	background: url(../img/sdb.bg.gif) 0 0 no-repeat;
+}
+#content,
+.dcs-sg-content {
+	float: left;
+	width: 548px;
+	margin-top: 75px;
+	padding-top: 5px;
+	background: #fff url(../img/cnt.bg.gif) 0 0 repeat-x;
+}
+#footer-view\:footer, 
+#footer,
+.dcs-sg-footer {
+	clear: both;
+	margin-top: 40px;
+/*
+	float: left;
+*/
+	float: right;
+	padding: 20px;
+	border-top: 1px solid #C3BBB6;
+	background-color: #fff;
+	width: 718px;
+	text-align: right;
+}
+
+/* General
+ * ----------------------------------------------- */
+input[type="submit"], input[type="button"] {
+/*
+	font-weight: bold;
+	color: #fff;
+	border: 1px solid #5D1414;
+	height: 26px;
+	background: #fff url(../img/btn.bg.gif) 0 0 repeat-x;
+	border-style: none;
+*/
+	background-color: #bed6f8;
+}
+.dcs-sg-activeRow {
+/*
+	background-color: #f1f1f1 !important;
+*/
+	background-color: #ffebda !important;
+}
+.dcs-sg-boldText {
+	font-weight: bold;
+}
+.dcs-sg-borderless {
+	border: none;
+}
+.dcs-sg-bordered {
+	border: 1px solid #D2C9C4;
+}
+.dcs-sg-center { /* DEPRECATED */
+	text-align: center;
+}
+.dcs-sg-centerAlign {
+	text-align: center;
+}
+.dcs-sg-entry {
+	clear: both;
+	padding-top: 10px;
+}
+.dcs-sg-entry .dcs-sg-label {
+	float: left;
+	padding-right: 5px;
+	font-weight: bold;
+	width: 150px;
+	text-align: right;
+}
+.dcs-sg-entry .dcs-sg-output {
+	float: right;
+	width: 360px;
+	padding-top: 10px;
+	text-align: left;
+}
+.dcs-sg-entry .dcs-sg-input {
+	float: right;
+	width: 360px;
+	text-align: left;
+}
+.dcs-sg-entry .dcs-sg-error {
+	float: right;
+	width: 360px;
+	text-align: left;
+}
+.dcs-sg-evenRow {
+	background-color: #fcfffe;
+}
+.dcs-sg-justifyAlign {
+	text-align: justify;
+}
+.dcs-sg-leftAlign {
+	text-align: left;
+}
+.dcs-sg-mandatory {
+	color: #f00;
+}
+.dcs-sg-note {
+	font-size: small;
+	font-style: italic;
+	text-align: left;
+}
+.dcs-sg-oddRow {
+	background-color: #ecf3fe;
+}
+.dcs-sg-rightAlign {
+	text-align: right;
+}
+
+/* Sidebar
+ * ----------------------------------------------- */
+.dcs-sg-notes {
+	text-align: center;
+	font-size: small;
+}
+.dcs-sg-errors {
+	font-size: small;
+	font-weight: bold;
+	text-align: center;
+	color: #600;
+}
+.dcs-sg-errors div {
+	text-align: left;
+}
+.dcs-sg-errors span {
+	text-align: left;
+}
+.dcs-sg-errors input {
+	border: 1px solid #600;
+}
+.dcs-sg-errors ul {
+	list-style: none;
+}
+.dcs-sg-buttonBox {
+	text-align: center;
+	padding: 5px 0;
+	clear: both;
+}
+#sidebar p,
+#sidebar > .dcs-sg-para,
+#sidebar .dcs-sg-para,
+.dcs-sg-sidebar p,
+.dcs-sg-sidebar > .dcs-sg-para,
+.dcs-sg-sidebar .dcs-sg-para {
+	font-size: small;
+	color: #8B7869;
+	line-height: 150%;
+	padding-bottom: 10px;
+}
+#sidebar li,
+.dcs-sg-sidebar li {
+	font-size: small;
+	color: #8B7869;
+}
+#sidebar h1,
+#sidebar > .dcs-sg-head1,
+#sidebar .dcs-sg-head1,
+.dcs-sg-sidebar h1,
+.dcs-sg-sidebar > .dcs-sg-head1,
+.dcs-sg-sidebar .dcs-sg-head1 {
+	line-height: normal;
+	font-weight: bold;
+	font-size: small;
+}
+#sidebar h2,
+#sidebar > .dcs-sg-head2,
+#sidebar .dcs-sg-head2,
+.dcs-sg-sidebar h2,
+.dcs-sg-sidebar > .dcs-sg-head2,
+.dcs-sg-sidebar .dcs-sg-head2 {
+	line-height: normal;
+	font-weight: bold;
+	font-size: smaller;
+}
+/*
+#sidebar p:hover {
+	color: #362F2D;
+}
+*/
+
+/* Content
+ * ----------------------------------------------- */
+#content .dcs-sg-section,
+.dcs-sg-content .dcs-sg-section {
+	float: left;
+	width: 518px;
+	padding: 15px 15px 0 15px;
+}
+#content .dcs-sg-section h1,
+#content .dcs-sg-section .dcs-sg-head1,
+.dcs-sg-content .dcs-sg-section h1,
+.dcs-sg-content .dcs-sg-section .dcs-sg-head1 {
+	font-family: "Trebuchet MS", Arial, sans-serif;
+	line-height: normal;
+	font-weight: normal;
+	font-size: large;
+}
+#content .dcs-sg-section p,
+#content .dcs-sg-section .dcs-sg-para,
+.dcs-sg-content .dcs-sg-section p,
+.dcs-sg-content .dcs-sg-section .dcs-sg-para {
+	line-height: 150%;
+	padding: 10px 0;
+	font-size: small;
+}
+/*
+#content table {
+	width: 100%;
+	border: 1px solid #D2C9C4;
+	border-collapse: collapse;
+}
+#content table caption {
+	padding-bottom: 6px;
+	text-align: left;
+	font-weight: bold;
+}
+#content table thead th {
+	border-left: 1px solid #D2C9C4;
+	background: #fff url(../img/th.bg.gif) 0 100% repeat-x;
+	border-bottom: 1px solid #D2C9C4;
+	padding: 6px;
+	text-align: left;
+	font-size: small;
+}
+#content table tbody td {
+	border-left: 1px solid #E4DBD5;
+	padding: 4px;
+	border-bottom: 1px solid #D2C9C4;
+	font-size: small;
+}
+*/
+table.dcs-sg-bordered {
+	width: 100%;
+	border: 1px solid #D2C9C4;
+	border-collapse: collapse;
+}
+table.dcs-sg-bordered caption {
+	padding-bottom: 6px;
+	text-align: left;
+	font-weight: bold;
+}
+table.dcs-sg-bordered thead th {
+	border-left: 1px solid #D2C9C4;
+	background: #fff url(../img/th.bg.gif) 0 100% repeat-x;
+	border-bottom: 1px solid #D2C9C4;
+	padding: 6px;
+	text-align: left;
+	font-size: small;
+}
+table.dcs-sg-bordered tbody td {
+	border-left: 1px solid #E4DBD5;
+	padding: 4px;
+	border-bottom: 1px solid #D2C9C4;
+	font-size: small;
+}
+table.dcs-sg-outerBordered {
+	width: 100%;
+	border: 1px solid #D2C9C4;
+	border-collapse: collapse;
+}
+table.dcs-sg-outerBordered thead th {
+	border: none;
+}
+table.dcs-sg-outerBordered tbody td {
+	border: none;
+}
+#content dt,
+.dcs-sg-content dt {
+	font-weight: bold;
+	float: left;
+	width: 33%;
+}
+#content dd,
+.dcs-sg-content dd {
+	padding-left: 10px;
+	float: left;
+	width: 66%;
+}
+#content table.dcs-sg-radio,
+.dcs-sg-content table.dcs-sg-radio {
+	border: 0px;
+}
+#content table.dcs-sg-radio tbody tr td,
+.dcs-sg-content table.dcs-sg-radio tbody tr td {
+	border: 0px;
+	border-left: 0px;
+	border-bottom: 0px;
+}
+/*
+#content table.dcs-sg-borderless {
+	border: 0px none;
+}
+#content table.dcs-sg-borderless tbody tr {
+	border: none;
+	border-left: none;
+	border-bottom: none;
+}
+#content table.dcs-sg-borderless tbody tr td {
+	border: none;
+	border-left: none;
+	border-bottom: none;
+}
+*/
+
+/* Header
+ * ----------------------------------------------- */
+#title {
+	float: left;
+	padding: 1px 0 6px 15px;
+}
+#status {
+	color: #C7B299;
+	float: right;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: x-small;
+	text-align: right;
+	padding-top: 14px;
+	padding-right: 15px;
+}
+#status a {
+	color: #C7B299;
+	text-decoration: none;
+}
+.dcs-sg-javascriptWarning {
+	width:100%;
+	text-align:center;
+	font-weight:bold;
+	background-color:#dd1100;
+	color:#fff;
+	padding:1em 0em;
+}
+
+/* Homepage Modifications
+ * ----------------------------------------------- */
+#pgHome #container {
+	background: url(../img/hdr.ad.jpg) 0 0 repeat-x;
+}
+#pgHome #sidebar {
+	margin-top: 207px;
+}
+#pgHome #content {
+	margin-top: 183px;
+}
+
+/* Style rules to make data tables look better
+ * ----------------------------------------------- */
+.dcs-sg-list-header {
+	background-color: #eeeeee;
+	font-size: larger;
+	font-weight: bold;
+}
+
+.dcs-sg-list-paging-header {
+	background-color: white;
+}
+
+.dcs-sg-list-paging-footer {
+	background-color: white;
+}
+
+.dcs-sg-list-row-even { 
+}
+
+.dcs-sg-list-row-odd { 
+	background-color: #eeeeee;
+}
+
+/* Style rules for message severity levels
+ * ----------------------------------------------- */
+.dcs-sg-infoMessage {
+	color: #7f8ed3;
+	font-weight: bold;
+}
+
+.dcs-sg-warnMessage {
+	color: #f90;
+	font-weight: bold;
+}
+
+.dcs-sg-errorMessage {
+	color: #600;
+	font-weight: bold;
+}
+
+.dcs-sg-fatalMessage {
+	color: red;
+	font-style: italic;
+	font-weight: bold;
+}
+
+/* Style rules for skinning Trinidad components
+ * ----------------------------------------------- */
+/*
+.af_inputNumberSpinbox_increment-cell {
+	border: 1px solid #D2C9C4;
+}
+.af_inputNumberSpinbox_decrement-cell {
+	border: 1px solid #D2C9C4;
+}
+*/
+/* Style rules for skinning 'password-meter' component
+ * ------------------------------------------------------ */
+.dcs-sg-passwordStrengthEmpty {
+	background-color: #ccc;
+	width:100%;
+}
+.dcs-sg-passwordStrengthWeak {
+	background-color: red;
+	width:25%;
+}
+.dcs-sg-passwordStrengthFair {
+	background-color: yellow;
+	width:50%;
+}
+.dcs-sg-passwordStrengthGood {
+	background-color: #69c;
+	width:75%;
+}
+.dcs-sg-passwordStrengthStrong {
+	background-color: green;
+	width:100%;
+}
+
+/* Style rules for skinning 'property-table' component
+ * ------------------------------------------------------ */
+.dcs-sg-propertyTable {
+}
+.dcs-sg-propertyTablePropName,
+.dcs-sg-propertyTablePropNameEven,
+.dcs-sg-propertyTablePropNameOdd {
+	background-color: #ccc;
+	text-align: left;
+	vertical-align: middle;
+	color: black;
+	font-weight: bold;
+	border: 1px solid black;
+}
+.dcs-sg-propertyTablePropValue,
+.dcs-sg-propertyTablePropValueEven {
+	text-align: right;
+	vertical-align: middle;
+	background-color: #fcfffe;
+	border: 1px solid black;
+}
+.dcs-sg-propertyTablePropValueOdd {
+	text-align: right;
+	vertical-align: middle;
+	background-color: #ecf3fe;
+	border: 1px solid black;
+}
+.dcs-sg-propertyTablePropValue:hover,
+.dcs-sg-propertyTablePropValueEven:hover,
+.dcs-sg-propertyTablePropValueOdd:hover {
+	background-color: #ffebda !important;
+}
+
+/* Style rules for skinning 'rich:menuItem' component
+ * ------------------------------------------------------ */
+.rich-menu-item-label {
+	color: black !important;
+}

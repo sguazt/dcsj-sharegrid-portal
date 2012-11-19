@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jsp:root version="2.1"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:dcsjsf="http://dcs.di.unipmn.it/tld/dcsjsf"
+	xmlns:ft="http://sourceforge.net/projects/facestrace">
+
+	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
+        <jsp:output	omit-xml-declaration="no"
+			doctype-root-element="html"
+			doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+			doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+	<f:view>
+
+	<html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<title>DCS INPUTFILE component test</title>
+		</head>
+		<body>
+			<h1>DCS INPUTFILE component test</h1>
+
+			<h:form enctype="multipart/form-data">
+				<h:panelGrid columns="1">
+					<h:panelGrid rendered="#{inputFileBean.fileUploaded}">
+						<h:messages	globalOnly="true"
+								style="color:red; text-align: center; font-size: larger; font-wweight: bold;"/>
+					</h:panelGrid>
+
+					<h:panelGrid columns="2">
+						<h:outputLabel for="inputFile" value="File upload"/>
+						<dcsjsf:inputFile id="inputFile" value="#{inputFileBean.uploadedFile}"/>
+					</h:panelGrid>
+
+					<h:panelGroup>
+						<h:commandButton id="upload" action="#{inputFileBean.doUploadAction}" value="Upload"/>
+					</h:panelGroup>
+
+					<h:panelGroup rendered="#{inputFileBean.fileUploaded}">
+						<h:panelGrid columns="2">
+							<h:outputText value="Name:"/>
+							<h:outputText value="#{inputFileBean.uploadedFile.fileName}"/>
+
+							<h:outputText value="Content-type:"/>
+							<h:outputText value="#{inputFileBean.uploadedFile.contentType}"/>
+
+							<h:outputText value="Size:"/>
+							<h:outputText value="#{inputFileBean.uploadedFile.size}"/>
+						</h:panelGrid>
+					</h:panelGroup>
+				</h:panelGrid>
+			</h:form>
+		</body>
+	</html>
+
+<!--
+	<ft:trace/>
+-->
+
+	</f:view>
+</jsp:root>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jsp:root version="2.1"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:dcsjsf="http://dcs.di.unipmn.it/tld/dcsjsf"
+	xmlns:ft="http://sourceforge.net/projects/facestrace">
+
+	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
+        <jsp:output	omit-xml-declaration="no"
+			doctype-root-element="html"
+			doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+			doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+	<f:view>
+
+	<html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<title>DCS *outputAccordion* component test</title>
+			<style type="text/css">
+			<![CDATA[
+			.accordion {
+			   background : #ddd;
+			   width      : 350px;
+			   margin     : 10px;
+			}
+
+			.accordionPanel {
+				background: yellow;
+			}
+
+			.accordionPanelHeader {
+			   font-size           : 14px;
+			   padding             : 2px 3px 2px 3px;
+			   border-style        : solid none solid none;
+			   border-top-color    : #BDC7E7;
+			   border-bottom-color : #182052;
+			   border-width        : 1px 0px 1px 0px;
+			   border-top-width    : 1px;
+			   border-top-style    : solid;
+			   font-family         : Arial;
+			}
+
+			.accordionPanelContent {
+			   background       : #ddd;
+			   font-size        : 14px;
+			   border           : 1px solid #1f669b;
+			}
+
+			.accordionFiller {
+				padding: 10px;
+			}
+			]]>
+			</style>
+		</head>
+		<body>
+			<h1>DCS *outputAccordion* component test</h1>
+
+			<dcsjsf:outputAccordion id="bookAccordion"
+				panelHeight="175"
+				styleClass="accordion"
+				panelClass="accordionPanel"
+				headerClass="accordionHeader"
+				contentClass="accordionContent">
+				<dcsjsf:outputAccordionPanel heading="Here's some plain text...">
+					Just plain text inside this accordion panel.
+				</dcsjsf:outputAccordionPanel>
+				<dcsjsf:outputAccordionPanel heading="Here's some more plain text...">
+					Just more plain text inside this accordion panel.
+				</dcsjsf:outputAccordionPanel>
+				<dcsjsf:outputAccordionPanel heading="You can put anything inside...">
+					<jsp:directive.include file="/WEB-INF/jspf/footer.jspf"/>
+				</dcsjsf:outputAccordionPanel>
+			</dcsjsf:outputAccordion>
+		</body>
+	</html>
+
+<!--
+	<ft:trace/>
+-->
+
+	</f:view>
+</jsp:root>

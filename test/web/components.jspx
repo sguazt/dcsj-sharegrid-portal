@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jsp:root version="2.1"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:dcsjsf="http://dcs.di.unipmn.it/jsf/dcsjsf">
+
+<!--
+	xmlns:dcsjsf="/WEB-INF/taglib.tld"
+-->
+
+	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
+	<jsp:output     omit-xml-declaration="yes"
+			doctype-root-element="html"
+			doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN"
+			doctype-system="http://www.w3.org/TR/html4/loose.dtd"/>
+
+	<f:view>
+	<html>
+		<head>
+			<title>DCS Components Gallery</title>
+		</head>
+		<body>
+			<h1>DCS Components Gallery</h1>
+			<h:form id="components" enctype="multipart/form-data">
+				<h:panelGrid columns="3">
+					<!-- dcsjsf:inputFile -->
+					<h:outputLabel for="upload" value="Input File"/>
+					<dcsjsf:inputFile id="upload"/>
+					<h:message for="upload"/>
+
+					<!-- dcsjsf:creditCardInput -->
+					<h:outputLabel for="cc">
+						<h:outputText id="ccLabel" value="Credit Card Number:"/>
+					</h:outputLabel> 
+					<dcsjsf:creditCardInput id="cc" size="19" value=""/>
+					<h:message for="cc"/>
+
+					<!-- dcsjsf:panelGrid / ddcsjsf:panelGroup -->
+					<h:outputLabel for="panelgrid">
+						<h:outputText id="panelgridLabel" value="Panel Grid:"/>
+					</h:outputLabel> 
+					<dcsjsf:panelGrid id="panelgrid" columns="2">
+						<h:outputText value="row1, column1"/>
+						<h:outputText value="row1, column2"/>
+						<h:outputText value="row2, column1"/>
+						<h:outputText value="row2, column2"/>
+						<dcsjsf:panelGroup colSpan="1">
+							<h:outputText value="row3,column1 - Text1"/>
+							<br/>
+							<h:outputText value="row3,column1 - Text2"/>
+							<br/>
+							<h:outputText value="row3,column1 - Text3"/>
+						</dcsjsf:panelGroup>
+						<h:outputText value="row3, column2"/>
+						<dcsjsf:panelGroup colSpan="2">
+							<h:outputText value="row4,column1 - spanned"/>
+						</dcsjsf:panelGroup>
+					</dcsjsf:panelGrid>
+					<h:message for="panelgrid"/>
+
+					<!-- dcsjsf:attribute -->
+					<h:outputLabel for="attribute">
+						<h:outputText id="attributeLabel" value="Attribute:"/>
+					</h:outputLabel> 
+					<h:panelGrid columns="1" id="attribute">
+						<dcsjsf:attribute name="style" value="background-color: #f00;"/>
+						<h:outputText value="Ciao"/>
+						<h:panelGroup>
+							<dcsjsf:attribute name="style">
+								<f:verbatim>border: 1px solid #000;</f:verbatim>
+							</dcsjsf:attribute>
+							<h:outputText value="Aiooo!!"/>
+						</h:panelGroup>
+						<h:panelGroup>
+							<dcsjsf:attribute name="style" value="border: 1px solid #000;"/>
+							<h:outputText value="Bye!!"/>
+						</h:panelGroup>
+					</h:panelGrid>
+					<h:message for="attribute"/>
+
+					<!-- dcsjsf:if -->
+					<h:outputLabel for="if">
+						<h:outputText id="ifLabel" value="If:"/>
+					</h:outputLabel> 
+					<h:panelGrid columns="1" id="if">
+						<dcsjsf:if test="">
+							<h:outputText value="Ciao"/>
+						</dcsjsf:if>
+					</h:panelGrid>
+					<h:message for="attribute"/>
+
+					<h:panelGroup>
+						<h:commandButton value="Save" action="save"/>
+					</h:panelGroup>
+				</h:panelGrid>
+			</h:form>
+		</body>
+	</html>
+	</f:view>
+</jsp:root>

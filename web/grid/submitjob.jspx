@@ -1,0 +1,935 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ - Copyright (C) 2008  Distributed Computing System (DCS) Group, Computer
+ - Science Department - University of Piemonte Orientale, Alessandria (Italy).
+ -
+ - This program is free software: you can redistribute it and/or modify
+ - it under the terms of the GNU General Public License as published
+ - by the Free Software Foundation, either version 3 of the License, or
+ - (at your option) any later version.
+ -
+ - This program is distributed in the hope that it will be useful,
+ - but WITHOUT ANY WARRANTY; without even the implied warranty of
+ - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ - GNU General Public License for more details.
+ -
+ - You should have received a copy of the GNU General Public License
+ - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -
+ - Author: Marco Guazzone (marco.guazzone@gmail.com)
+-->
+
+<jsp:root version="2.1"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:dcsjsf="http://dcs.di.unipmn.it/tld/dcsjsf">
+<!--
+	xmlns:webuijsf="http://www.sun.com/webui/webuijsf"
+	xmlns:tr="http://myfaces.apache.org/trinidad">
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+-->
+
+	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
+
+	<jsp:output omit-xml-declaration="no"
+		doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+	<f:view>
+
+        <!-- Prepare info for content management -->
+	<jsp:scriptlet>
+		pageContext.setAttribute(it.unipmn.di.dcs.sharegrid.web.portal.view.util.ViewConstants.PageIdAttribute,"/grid/submitjob", PageContext.REQUEST_SCOPE);
+	</jsp:scriptlet>
+
+	<jsp:directive.include file="/WEB-INF/jspf/usercheck-onlylogged.jspf"/>
+
+	<html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<meta http-equiv="Content-Type" content="text/xhtml; charset=UTF-8"/>
+			<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+			<link rel="stylesheet" href="${facesContext.externalContext.requestContextPath}/resources/theme/current/css/screen.css" type="text/css" />
+			<link rel="shortcut icon" href="${facesContext.externalContext.requestContextPath}/resources/theme/current/img/favicon.ico" type="image/x-icon"/>
+			<script type="text/javascript">
+			<![CDATA[
+			<!--
+				function checkFileUpload(upldId)
+				{
+					if (document.getElementById( upldId ).value == '')
+					{
+						alert('Please select a file before clicking the upload button.');//NO-I18N
+						return false;
+					}
+					else
+					{
+						//submitCtl.submit();
+						return true;
+					}
+				}
+
+				function checkFileAdd(ctlId)
+				{
+					if (document.getElementById( ctlId ).value == '')
+					{
+						alert('Please insert a file name before clicking the add button.');//NO-I18N
+						return false;
+					}
+					else
+					{
+						//submitCtl.submit();
+						return true;
+					}
+				}
+
+				function showHideTaskSection(optCtl)
+				{
+					if (optCtl.value == 's')
+					{
+						document.getElementById('jobsubmission:tasksview_s').style.display='block';
+						document.getElementById('jobsubmission:tasksview_a').style.display='none';
+					}
+					else
+					{
+						document.getElementById('jobsubmission:tasksview_s').style.display='none';
+						document.getElementById('jobsubmission:tasksview_a').style.display='block';
+					}
+				}
+
+				function showHideExecCmdArgsFileUploadSection(checkCtl)
+				{
+					if (checkCtl.checked)
+					{
+						document.getElementById('jobsubmission:tasksview_a_execcmdargs_upl').style.display='block';
+						document.getElementById('jobsubmission:tasksview_a_execcmdargs_man').style.display='none';
+					}
+					else
+					{
+						document.getElementById('jobsubmission:tasksview_a_execcmdargs_upl').style.display='none';
+						document.getElementById('jobsubmission:tasksview_a_execcmdargs_man').style.display='block';
+					}
+				}
+
+				function showHideExecFileUploadSection(checkCtl)
+				{
+					if (checkCtl.checked)
+					{
+						document.getElementById('jobsubmission:tasksview_a_execfile_upl').style.display='none';
+						document.getElementById('jobsubmission:tasksview_a_execfile_man').style.display='block';
+					}
+					else
+					{
+						document.getElementById('jobsubmission:tasksview_a_execfile_upl').style.display='block';
+						document.getElementById('jobsubmission:tasksview_a_execfile_man').style.display='none';
+					}
+				}
+
+				function showHideOutFileFileUploadSection(checkCtl)
+				{
+					if (checkCtl.checked)
+					{
+						document.getElementById('jobsubmission:tasksview_a_outfile_upl').style.display='block';
+						document.getElementById('jobsubmission:tasksview_a_outfile_man').style.display='none';
+					}
+					else
+					{
+						document.getElementById('jobsubmission:tasksview_a_outfile_upl').style.display='none';
+						document.getElementById('jobsubmission:tasksview_a_outfile_man').style.display='block';
+					}
+				}
+
+				function showHideExecInFileOpSection(checkCtl)
+				{
+					if (checkCtl.checked)
+					{
+						document.getElementById('jobsubmission:tasksview_a_execinfileop').style.display='block';
+					}
+					else
+					{
+						document.getElementById('jobsubmission:tasksview_a_execinfileop').style.display='none';
+					}
+				}
+
+				function showHideExecExtraFileOpSection(checkCtl)
+				{
+					if (checkCtl.checked)
+					{
+						document.getElementById('jobsubmission:tasksview_a_execxfileop').style.display='block';
+					}
+					else
+					{
+						document.getElementById('jobsubmission:tasksview_a_execxfileop').style.display='none';
+					}
+				}
+
+				function showHideExecOutFileOpSection(checkCtl)
+				{
+					if (checkCtl.checked)
+					{
+						document.getElementById('jobsubmission:tasksview_a_execoutfileop').style.display='block';
+					}
+					else
+					{
+						document.getElementById('jobsubmission:tasksview_a_execoutfileop').style.display='none';
+					}
+				}
+
+				function confirmDeletion()
+				{
+					var answer;
+
+					answer = confirm( "Confirm deletion?" );//NO-I18N
+
+					return answer;
+				}
+			//-->
+			]]>
+			</script>
+			<title><h:outputText value="#{msgs.jobSubmitTitle}"/></title>
+		</head>
+		<body id="pgHome">
+			<div id="document">
+
+				<jsp:directive.include file="/WEB-INF/jspf/header.jspf"/>
+
+				<div id="container">
+					<div id="sidebar">
+<!--
+						<div class="dcs-sg-helpSidebar dcs-sg-justifyAlign">
+							<span class="dcs-sg-head1"><h:outputText value="#{msgs.jobSubmitWelcomeTitle}"/></span>
+
+							<div class="dcs-sg-para">
+								<h:outputText value="#{msgs.jobSubmitWelcomeMsg}"/>
+							</div>
+						</div>
+-->
+						<jsp:directive.include file="/WEB-INF/jspf/user-sidebar.jspf"/>
+<!-- XXX Useless: this page is visible only to logged user
+						<c:choose>
+							<c:when test="${sessionBean.userLoggedIn}">
+								<jsp:directive.include file="/WEB-INF/jspf/user-sidebar.jspf"/>
+							</c:when>
+							<c:otherwise>
+								<jsp:directive.include file="/WEB-INF/jspf/anon-sidebar.jspf"/>
+							</c:otherwise>
+						</c:choose>
+-->
+					</div>
+					<div id="content">
+						<div class="dcs-sg-section">
+							<h:outputText styleClass="dcs-sg-head1" value="#{msgs.jobSubmission}"/>
+						</div>
+						<div class="dcs-sg-section">
+							<div class="dcs-sg-entry dcs-sg-errors">
+								<h:messages globalOnly="true"
+									fatalClass="dcs-sg-fatalMessage"
+									errorClass="dcs-sg-errorMessage"
+									warnClass="dcs-sg-warnMessage"
+									infoClass="dcs-sg-infoMessage"/>
+							</div>
+
+							<h:form id="jobsubmission" enctype="multipart/form-data">
+								<fieldset>
+									<h:panelGrid columns="1">
+										<rich:panel id="jobpreview-panel" rendered="#{jobBean.jobPreviewed}">
+											<f:facet name="header">
+												<h:outputText value="#{lbls.jobPreview}"/>
+											</f:facet>
+
+											<h:form>
+												<h:inputTextarea readonly="true"
+														value="#{jobBean.jobPreview}"
+														title="#{msgs.jobPreviewTip}"
+														rows="15"
+														cols="65"/>
+											</h:form>
+										</rich:panel>
+
+										<h:panelGroup>
+											<div class="dcs-sg-note">
+												<h:outputText value="#{msgs.mandatoryNotePart1}"/>
+												<h:outputText styleClass="dcs-sg-mandatory" value=" * "/>
+												<h:outputText value="#{msgs.mandatoryNotePart2}"/>
+											</div>
+										</h:panelGroup>
+
+										<rich:tabPanel switchType="server" valueChangeListener="#{jobBean.jobInsertModeChangeHandler}">
+											<!--@{ Import Job insertion section -->
+											<rich:tab id="impJobInMode" label="#{lbls.importFile}" title="#{msgs.importFileTip}">
+												<h:panelGrid columns="5" styleClass="dcs-sg-borderless">
+													<!--@{ Job File -->
+													<h:outputLabel for="jobfile" value="#{lbls.jobFile}"/>
+													<h:outputText styleClass="dcs-sg-mandatory" value="*" title="#{msgs.mandatoryTip}"/>
+													<h:panelGroup>
+														<h:graphicImage id="jobfile_hlp" value="/resources/theme/current/img/stock/small/help.png" title="#{lbls.help}" alt="#{lbls.help}"/>
+														<dcsjsf:outputPopupPanel showOnId="jobfile_hlp" headerTitle="#{hlpmsgs.jobSubmit_jobFile_title}">
+															<dcsjsf:outputTextFilter value="#{hlpmsgs.jobSubmit_jobFile_msg}"/>
+														</dcsjsf:outputPopupPanel>
+													</h:panelGroup>
+													<h:panelGrid columns="1" styleClass="dcs-sg-outerBordered">
+														<dcsjsf:inputFile id="jobfile"
+																value="#{jobBean.jobFile}"
+																title="#{msgs.jobFileTip}"/>
+														<h:panelGroup styleClass="dcs-sg-buttonBox">
+															<h:commandButton	id="jobfileupload"
+																		value="#{lbls.upload}"
+																		action="#{jobBean.uploadJobFileAction}"
+																		title="#{msgs.uploadTip}"
+																		onclick="return checkFileUpload('jobsubmission:jobfile');"/>
+														</h:panelGroup>
+														<h:panelGrid columns="2" rendered="#{jobBean.jobFileUploaded}" styleClass="dcs-sg-oddRow" width="95%" style="border: 1px dashed #000;">
+															<h:commandLink	id="jobfileremove"
+																	action="#{jobBean.removeJobFileAction}"
+																	onclick="return confirmDeletion();">
+																<h:graphicImage value="/resources/theme/current/img/stock/small/delete.png" title="#{lbls.delete}" alt="#{lbls.delete}"/>
+															</h:commandLink>
+
+															<h:outputText>
+																<h:outputFormat value="#{msgs.uploadedFileInfo}">
+																	<f:param value="#{jobBean.jobFileInfo.name}"/>
+																	<f:param value="#{jobBean.jobFileInfo.type}"/>
+																	<f:param value="#{jobBean.jobFileInfo.prettySize}"/>
+																</h:outputFormat>
+															</h:outputText>
+														</h:panelGrid>
+													</h:panelGrid>
+													<h:message for="jobfile"/>
+													<!--@} Job File -->
+
+													<!--@{ Input Files -->
+													<h:outputLabel for="infiles" value="#{lbls.inFiles}"/>
+													<f:verbatim><![CDATA[&#160;]]></f:verbatim>
+													<h:panelGroup>
+														<h:graphicImage id="infiles_hlp" value="/resources/theme/current/img/stock/small/help.png" title="#{lbls.help}" alt="#{lbls.help}"/>
+														<dcsjsf:outputPopupPanel showOnId="infiles_hlp" headerTitle="#{hlpmsgs.jobSubmit_inFiles_title}">
+															<dcsjsf:outputTextFilter value="#{hlpmsgs.jobSubmit_inFiles_msg}"/>
+														</dcsjsf:outputPopupPanel>
+													</h:panelGroup>
+													<h:panelGrid columns="1" styleClass="dcs-sg-outerBordered">
+														<dcsjsf:inputFile id="infiles"
+																value="#{jobBean.inFile}"
+																title="#{msgs.inFilesTip}"/>
+														<h:panelGroup styleClass="dcs-sg-buttonBox">
+															<h:commandButton id="infilesupload"
+																		value="#{lbls.upload}"
+																		action="#{jobBean.uploadInFileAction}"
+																		title="#{msgs.uploadTip}"
+																		onclick="return checkFileUpload('jobsubmission:infiles');"/>
+														</h:panelGroup>
+														<h:selectManyCheckbox id="infilesinfo"
+																	value="#{jobBean.inFilesInfoRemoved}"
+																	rendered="#{jobBean.inFileUploaded}"
+																	layout="pageDirection"
+																	style="width: 95%; border: 1px dashed #000;"
+																	styleClass="dcs-sg-oddRow">
+															<dcsjsf:selectItems value="#{jobBean.inFilesInfo}" var="inFileInfo" itemLabel="#{inFileInfo.name} - [#{inFileInfo.type}; #{inFileInfo.prettySize}]" itemValue="#{inFileInfo.name}"/>
+														</h:selectManyCheckbox>
+														<h:panelGroup styleClass="dcs-sg-buttonBox" rendered="#{jobBean.inFileUploaded}">
+															<h:commandButton id="infileremove"
+																	value="#{lbls.delete}"
+																	action="#{jobBean.removeInFilesAction}"
+																	title="#{msgs.cmdDeleteTip}"
+																	onclick="return confirmDeletion();"/>
+														</h:panelGroup>
+													</h:panelGrid>
+													<h:message for="infiles"/>
+													<!--@} Input Files -->
+												</h:panelGrid>
+											</rich:tab>
+											<!--@} Import Job insertion section -->
+
+											<!--@{ Manual Job insertion section -->
+											<rich:tab id="manJobInMode" label="#{lbls.manualInsertion}" title="#{msgs.manualInsertionTip}">
+												<h:panelGrid columns="5" styleClass="dcs-sg-borderless">
+													<!--{@ Job Name -->
+													<h:outputLabel for="jobname" value="#{lbls.jobName}"/>
+													<f:verbatim>&#160;</f:verbatim> <!-- no mandatory -->
+													<h:panelGroup>
+														<h:graphicImage id="jobname_hlp" value="/resources/theme/current/img/stock/small/help.png" title="#{lbls.help}" alt="#{lbls.help}"/>
+														<dcsjsf:outputPopupPanel showOnId="jobname_hlp" headerTitle="#{hlpmsgs.jobSubmit_jobName_title}">
+															<dcsjsf:outputTextFilter value="#{hlpmsgs.jobSubmit_jobName_msg}"/>
+														</dcsjsf:outputPopupPanel>
+													</h:panelGroup>
+													<h:inputText	id="jobname"
+															value="#{jobBean.jobName}"
+															maxlength="#{jobBean.jobNameMaxLen}"
+															title="#{msgs.jobNameTip}">
+															<f:validateLength minimum="#{jobBean.jobNameMinLen}" maximum="#{jobBean.jobNameMaxLen}"/>
+													</h:inputText>
+													<h:message for="jobname"/>
+													<!--@} Job Name -->
+
+													<!--{@ Job Requirements -->
+													<h:outputLabel for="jobreqs" value="#{lbls.jobRequirements}"/>
+													<f:verbatim>&#160;</f:verbatim> <!-- no mandatory -->
+													<h:panelGroup>
+														<h:graphicImage id="jobreqs_hlp" value="/resources/theme/current/img/stock/small/help.png" title="#{lbls.help}" alt="#{lbls.help}"/>
+														<dcsjsf:outputPopupPanel showOnId="jobreqs_hlp" headerTitle="#{hlpmsgs.jobSubmit_jobRequirements_title}">
+															<dcsjsf:outputTextFilter value="#{hlpmsgs.jobSubmit_jobRequirements_msg}"/>
+														</dcsjsf:outputPopupPanel>
+													</h:panelGroup>
+													<h:inputText	id="jobreqs"
+															value="#{jobBean.jobReqs}"
+															maxlength="255"
+															title="#{msgs.jobRequirementsTip}">
+													</h:inputText>
+													<h:message for="jobreqs"/>
+													<!--@} Job Requirements -->
+
+													<!--@{ Task View -->
+													<h:outputLabel for="tasksview" value="#{lbls.tasksInsertion}"/>
+			<!--
+													<h:outputText styleClass="dcs-sg-mandatory" value="*" title="#{msgs.mandatoryTip}"/>
+			-->
+													<f:verbatim><![CDATA[&#160;]]></f:verbatim>
+													<h:panelGroup>
+														<h:graphicImage id="taskview_hlp" value="/resources/theme/current/img/stock/small/help.png" title="#{lbls.help}" alt="#{lbls.help}"/>
+														<dcsjsf:outputPopupPanel showOnId="taskview_hlp" headerTitle="#{hlpmsgs.jobSubmit_taskView_title}">
+															<dcsjsf:outputTextFilter value="#{hlpmsgs.jobSubmit_taskView_msg}"/>
+														</dcsjsf:outputPopupPanel>
+													</h:panelGroup>
+													<h:panelGrid columns="1" styleClass="dcs-sg-outerBordered">
+														<h:selectOneRadio id="tasksview" layout="lineDirection" value="#{jobBean.taskViewMode}" onclick="showHideTaskSection(this);">
+															<f:selectItem itemValue="#{jobBean.taskViewModeSimple}" itemLabel="#{lbls.simpleView}"/>
+															<f:selectItem itemValue="#{jobBean.taskViewModeAdvanced}" itemLabel="#{lbls.psaView}"/>
+														</h:selectOneRadio>
+
+														<!--@{ Simple View -->
+														<h:panelGroup id="tasksview_s" style="#{jobBean.simpleTaskViewMode ? 'display: block;' : 'display: none;'}">
+															<dcsjsf:panelGrid columns="5" styleClass="dcs-sg-outerBordered">
+																<!--@{ Init Section -->
+																<h:outputLabel for="infiles_s" value="#{lbls.inFiles}"/>
+																<f:verbatim><![CDATA[&#160;]]></f:verbatim>
+																<h:panelGroup>
+																	<h:graphicImage id="infiles_s_hlp" value="/resources/theme/current/img/stock/small/help.png" title="#{lbls.help}" alt="#{lbls.help}"/>
+																	<dcsjsf:outputPopupPanel showOnId="infiles_s_hlp" headerTitle="#{hlpmsgs.jobSubmit_taskView_simple_inFiles_title}">
+																		<dcsjsf:outputTextFilter value="#{hlpmsgs.jobSubmit_taskView_simple_inFiles_msg}"/>
+																	</dcsjsf:outputPopupPanel>
+																</h:panelGroup>
+																<h:panelGrid columns="1" styleClass="dcs-sg-outerBordered">
+																	<dcsjsf:inputFile id="infiles_s"
+																			value="#{jobBean.taskInFile}"
+																			title="#{msgs.inFilesTip}"/>
+																	<h:panelGroup styleClass="dcs-sg-buttonBox">
+																		<h:commandButton	id="infilesupload_s"
+																					value="#{lbls.upload}"
+																					action="#{jobBean.uploadTaskInFileAction}"
+																					title="#{msgs.uploadTip}"
+																					onclick="return checkFileUpload('jobsubmission:infiles_s');"/>
+																	</h:panelGroup>
+																	<h:selectManyCheckbox	id="infilesinfo_s"
+																				value="#{jobBean.taskInFilesInfoRemoved}"
+																				rendered="#{jobBean.taskInFileUploaded}"
+																				layout="pageDirection"
+																				style="width: 95%; border: 1px dashed #000;"
+																				styleClass="dcs-sg-oddRow">
+																		<dcsjsf:selectItems value="#{jobBean.taskInFilesInfo}" var="taskInFileInfo" itemLabel="#{taskInFileInfo.name} - [#{taskInFileInfo.type}; #{taskInFileInfo.prettySize}]" itemValue="#{taskInFileInfo.name}"/>
+																	</h:selectManyCheckbox>
+																	<h:panelGroup styleClass="dcs-sg-buttonBox" rendered="#{jobBean.taskInFileUploaded}">
+																		<h:commandButton id="infileremove_s"
+																				value="#{lbls.delete}"
+																				action="#{jobBean.removeTaskInFilesAction}"
+																				title="#{msgs.cmdDeleteTip}"
+																				onclick="return confirmDeletion();"/>
+																	</h:panelGroup>
+																</h:panelGrid>
+																<h:message for="infiles_s"/>
+																<!--@} Init Section -->
+
+																<!--@{ Executable Command Line -->
+																<h:outputLabel for="execcmd_s" value="#{lbls.execCmdLine}"/>
+																<h:outputText styleClass="dcs-sg-mandatory" value="*" title="#{msgs.mandatoryTip}"/>
+																<h:panelGroup>
+																	<h:graphicImage id="execcmd_s_hlp" value="/resources/theme/current/img/stock/small/help.png" title="#{lbls.help}" alt="#{lbls.help}"/>
+																	<dcsjsf:outputPopupPanel showOnId="execcmd_s_hlp" headerTitle="#{hlpmsgs.jobSubmit_taskView_simple_execCmd_title}">
+																		<dcsjsf:outputTextFilter value="#{hlpmsgs.jobSubmit_taskView_simple_execCmd_msg}"/>
+																	</dcsjsf:outputPopupPanel>
+																</h:panelGroup>
+																<h:inputText	id="execcmd_s"
+																		value="#{jobBean.taskExecCmd}"
+																		maxlength="#{jobBean.execCmdMaxLen}"
+																		title="#{msgs.execCmdLineTip}">
+																		<f:validateLength minimum="#{jobBean.execCmdMinLen}" maximum="#{jobBean.execCmdMaxLen}"/>
+																</h:inputText>
+																<h:message for="execcmd_s"/>
+																<!--@} Executable Command Line -->
+
+																<!--@{ Output Section -->
+																<h:outputLabel for="outfiles_s" value="#{lbls.outFiles}"/>
+																<f:verbatim><![CDATA[&#160;]]></f:verbatim>
+																<h:panelGroup>
+																	<h:graphicImage id="outfiles_s_hlp" value="/resources/theme/current/img/stock/small/help.png" title="#{lbls.help}" alt="#{lbls.help}"/>
+																	<dcsjsf:outputPopupPanel showOnId="outfiles_s_hlp"
+																		headerTitle="#{hlpmsgs.jobSubmit_taskView_simple_outFiles_title}">
+																		<dcsjsf:outputTextFilter value="#{hlpmsgs.jobSubmit_taskView_simple_outFiles_msg}"/>
+																	</dcsjsf:outputPopupPanel>
+																</h:panelGroup>
+																<h:panelGrid columns="1" styleClass="dcs-sg-outerBordered">
+																	<h:panelGrid columns="2">
+																		<h:inputText id="outfiles_s" value="#{jobBean.taskOutFile}" title="#{msgs.addOutFileTip}"/>
+																		<h:panelGroup styleClass="dcs-sg-buttonBox">
+																			<h:commandButton id="outfileadd_s"
+																					value="#{lbls.addOutFile}"
+																					action="#{jobBean.addTaskOutFileAction}"
+																					title="#{msgs.addOutFileTip}"
+																					onclick="return checkFileAdd('jobsubmission:outfiles_s');"/>
+																		</h:panelGroup>
+																	</h:panelGrid>
+																	<h:selectManyCheckbox	id="outfilesinfo_s"
+																				value="#{jobBean.taskOutFilesInfoRemoved}"
+																				rendered="#{jobBean.taskOutFileAdded}"
+																				layout="pageDirection"
+																				style="width: 95%; border: 1px dashed #000;"
+																				styleClass="dcs-sg-oddRow">
+																		<dcsjsf:selectItems value="#{jobBean.taskOutFilesInfo}"
+																					var="taskOutFileInfo"
+																					itemLabel="#{taskOutFileInfo}"
+																					itemValue="#{taskOutFileInfo}"/>
+																	</h:selectManyCheckbox>
+																	<h:panelGroup styleClass="dcs-sg-buttonBox" rendered="#{jobBean.taskOutFileAdded}">
+																		<h:commandButton id="outfileremove_s"
+																				value="#{lbls.delete}"
+																				action="#{jobBean.removeTaskOutFilesAction}"
+																				title="#{msgs.cmdDeleteTip}"
+																				onclick="return confirmDeletion();"/>
+																	</h:panelGroup>
+																</h:panelGrid>
+																<h:message for="outfiles_s"/>
+																<!--@} Output Section -->
+
+																<dcsjsf:panelGroup styleClass="dcs-sg-buttonBox" colSpan="5">
+																	<h:commandButton id="addtask_s"
+																			action="#{jobBean.addTaskAction}"
+																			value="#{lbls.addTask}"
+																			title="#{msgs.addTaskTip}"/>
+																</dcsjsf:panelGroup>
+
+																<!--@{ Task List -->
+																<dcsjsf:panelGroup rendered="#{jobBean.taskAdded}" colSpan="5">
+																	<h:selectManyCheckbox	id="tasklist_s"
+																				value="#{jobBean.tasksRemoved}"
+																				rendered="#{jobBean.taskAdded}"
+																				layout="pageDirection"
+																				style="width: 95%; border: 1px dashed #000;"
+																				styleClass="dcs-sg-oddRow">
+																		<dcsjsf:selectItems value="#{jobBean.taskInfos}"
+																					var="taskInfo"
+																					itemLabel="#{taskInfo.name}"
+																					itemValue="#{taskInfo.id}"/>
+																	</h:selectManyCheckbox>
+																</dcsjsf:panelGroup>
+																<dcsjsf:panelGroup styleClass="dcs-sg-buttonBox" rendered="#{jobBean.taskAdded}" colSpan="5">
+																	<h:commandButton id="taskremove_s"
+																			value="#{lbls.deleteTask}"
+																			action="#{jobBean.removeTaskAction}"
+																			title="#{msgs.cmdDeleteTip}"
+																			onclick="return confirmDeletion();"/>
+																</dcsjsf:panelGroup>
+																<!--@} Task List -->
+															</dcsjsf:panelGrid>
+			<!--
+															<f:verbatim><![CDATA[</div>]]></f:verbatim>
+			-->
+														</h:panelGroup>
+														<!--@} Simple View -->
+
+														<!--@{ Parameter Sweep (Advanced) View -->
+														<h:panelGroup id="tasksview_a" style="#{jobBean.advancedTaskViewMode ? 'display: block;' : 'display: none;'}">
+															<h:panelGrid columns="5" styleClass="dcs-sg-outerBordered">
+																<!--@{ Executable File -->
+																<h:outputLabel for="execfile_a" value="#{lbls.executable}"/>
+																<h:outputText styleClass="dcs-sg-mandatory" value="*" title="#{msgs.mandatoryTip}"/>
+																<h:panelGroup>
+																	<h:graphicImage id="execfile_a_hlp" value="/resources/theme/current/img/stock/small/help.png" title="#{lbls.help}" alt="#{lbls.help}"/>
+																	<dcsjsf:outputPopupPanel showOnId="execfile_a_hlp" headerTitle="#{hlpmsgs.jobSubmit_taskView_psa_execFile_title}">
+																		<dcsjsf:outputTextFilter value="#{hlpmsgs.jobSubmit_taskView_psa_execFile_msg}"/>
+																	</dcsjsf:outputPopupPanel>
+																</h:panelGroup>
+																<h:panelGroup styleClass="dcs-sg-bordered" layout="block">
+																	<h:selectBooleanCheckbox id="execfilemodeflag" value="#{jobBean.manualExecutable}" onclick="showHideExecFileUploadSection(this);" title="#{msgs.manualExecutableTip}"/>
+																	<h:outputLabel for="execfilemodeflag" value="#{msgs.manualExecutableMsg}"/>
+<!--
+																	<h:panelGrid id="tasksview_a_execfile_upl" columns="1" styleClass="dcs-sg-outerBordered" style="#{jobBean.manualExecFile ? 'display: none;' : 'display: block;'}">
+-->
+																	<h:panelGrid id="tasksview_a_execfile_upl" columns="1" style="#{jobBean.manualExecutable ? 'display: none;' : 'display: block;'}">
+																		<dcsjsf:inputFile id="execfile_a"
+																				value="#{jobBean.execFile}"
+																				title="#{msgs.executableTip}"/>
+																		<h:panelGroup styleClass="dcs-sg-buttonBox">
+																			<h:commandButton	id="execfileupload_a"
+																						value="#{lbls.upload}"
+																						action="#{jobBean.uploadExecFileAction}"
+																						title="#{msgs.uploadTip}"
+																						onclick="return checkFileUpload('jobsubmission:execfile_a');"/>
+																		</h:panelGroup>
+
+																		<h:panelGrid columns="2" rendered="#{jobBean.execFileUploaded}" styleClass="dcs-sg-oddRow" width="95%" style="width:95%; border: 1px dashed #000;">
+																			<h:commandLink	id="execfileremove_a"
+																					action="#{jobBean.removeExecFileAction}"
+																					onclick="return confirmDeletion();">
+																				<h:graphicImage value="/resources/theme/current/img/stock/small/delete.png" title="#{lbls.delete}" alt="#{lbls.delete}"/>
+																			</h:commandLink>
+
+																			<h:outputText>
+																				<h:outputFormat value="#{msgs.uploadedFileInfo}">
+																					<f:param value="#{jobBean.execFileInfo.name}"/>
+																					<f:param value="#{jobBean.execFileInfo.type}"/>
+																					<f:param value="#{jobBean.execFileInfo.prettySize}"/>
+							<!--
+																					<f:param value="#{jobBean.execFileInfo.md5}"/>
+							-->
+																				</h:outputFormat>
+																			</h:outputText>
+																		</h:panelGrid>
+																	</h:panelGrid>
+																	<h:panelGrid id="tasksview_a_execfile_man" columns="1" style="#{jobBean.manualExecutable ? 'display: block;' : 'display: none;'}">
+																		<h:inputText	id="execfile_a_name"
+																				value="#{jobBean.execName}"
+																				title="#{msgs.manualExecNameTip}"/>
+																	</h:panelGrid>
+																</h:panelGroup>
+																<h:message for="execfile_a"/>
+																<!--@} Executable File -->
+
+																<!--@{ Executable Command Arguments -->
+																<h:outputLabel for="execcmdargs_a" value="#{lbls.execCmdArgs}"/>
+																<f:verbatim><![CDATA[&#160;]]></f:verbatim>
+																<h:panelGroup>
+																	<h:graphicImage id="execcmdargs_a_hlp" value="/resources/theme/current/img/stock/small/help.png" title="#{lbls.help}" alt="#{lbls.help}"/>
+																	<dcsjsf:outputPopupPanel showOnId="execcmdargs_a_hlp" headerTitle="#{hlpmsgs.jobSubmit_taskView_psa_execCmdArgs_title}">
+																		<dcsjsf:outputTextFilter value="#{hlpmsgs.jobSubmit_taskView_psa_execCmdArgs_msg}"/>
+																	</dcsjsf:outputPopupPanel>
+																</h:panelGroup>
+																<h:panelGrid id="execcmdargs_a" columns="1" styleClass="dcs-sg-bordered">
+																	<h:panelGroup layout="block">
+																		<h:selectBooleanCheckbox id="execcmdargsfilemodeflag" value="#{jobBean.uploadExecCmdArgs}" onclick="showHideExecCmdArgsFileUploadSection(this);" title="#{msgs.uploadExecCmdArgsTip}"/>
+																		<h:outputLabel for="execcmdargsfilemodeflag" value="#{msgs.uploadExecCmdArgsMsg}"/>
+																	</h:panelGroup>
+																	<h:panelGroup id="tasksview_a_execcmdargs_man" layout="block" style="#{jobBean.uploadExecCmdArgs ? 'display: none;' : 'display: block;'}">
+																		<h:inputTextarea id="execcmdargs_a_man"
+																				value="#{jobBean.execCmdArgs}"
+																				rows="8"
+																				cols="40"
+																				title="#{msgs.execCmdArgsTip}"/>
+																	</h:panelGroup>
+																	<h:panelGrid id="tasksview_a_execcmdargs_upl" style="#{jobBean.uploadExecCmdArgs ? 'display: block;' : 'display: none;'}">
+																		<dcsjsf:inputFile id="execcmdargsfile_a"
+																				value="#{jobBean.execCmdArgsFile}"
+																				title="#{msgs.execCmdArgsFileTip}"/>
+																		<h:panelGroup styleClass="dcs-sg-buttonBox">
+																			<h:commandButton	id="execargsfileupload_a"
+																						value="#{lbls.upload}"
+																						action="#{jobBean.uploadExecCmdArgsFileAction}"
+																						title="#{msgs.uploadTip}"
+																						onclick="return checkFileUpload('jobsubmission:execcmdargsfile_a');"/>
+																		</h:panelGroup>
+
+																		<h:panelGrid columns="2" rendered="#{jobBean.execCmdArgsFileUploaded}" styleClass="dcs-sg-oddRow" width="95%" style="width:95%; border: 1px dashed #000;">
+																			<h:commandLink	id="execargsfileremove_a"
+																					action="#{jobBean.removeExecCmdArgsFileAction}"
+																					onclick="return confirmDeletion();">
+																				<h:graphicImage value="/resources/theme/current/img/stock/small/delete.png" title="#{lbls.delete}" alt="#{lbls.delete}"/>
+																			</h:commandLink>
+
+																			<h:outputText>
+																				<h:outputFormat value="#{msgs.uploadedFileInfo}">
+																					<f:param value="#{jobBean.execCmdArgsFileInfo.name}"/>
+																					<f:param value="#{jobBean.execCmdArgsFileInfo.type}"/>
+																					<f:param value="#{jobBean.execCmdArgsFileInfo.prettySize}"/>
+																				</h:outputFormat>
+																			</h:outputText>
+																		</h:panelGrid>
+																	</h:panelGrid>
+																</h:panelGrid>
+																<h:message for="execcmdargs_a"/>
+																<!--@} Executable Command Arguments -->
+
+																<!--@{ Input Files -->
+																<h:outputLabel for="infiles_a" value="#{lbls.inFiles}"/>
+																<f:verbatim><![CDATA[&#160;]]></f:verbatim>
+																<h:panelGroup>
+																	<h:graphicImage id="infiles_a_hlp" value="/resources/theme/current/img/stock/small/help.png" title="#{lbls.help}" alt="#{lbls.help}"/>
+																	<dcsjsf:outputPopupPanel showOnId="infiles_a_hlp" headerTitle="#{hlpmsgs.jobSubmit_taskView_psa_inFiles_title}">
+																		<dcsjsf:outputTextFilter value="#{hlpmsgs.jobSubmit_taskView_psa_inFiles_msg}"/>
+																	</dcsjsf:outputPopupPanel>
+																</h:panelGroup>
+																<h:panelGrid columns="1" styleClass="dcs-sg-outerBordered">
+																	<h:panelGroup layout="block">
+																		<h:selectBooleanCheckbox	id="execinfileasarg_chk"
+																						value="#{jobBean.execInFileAsArg}"
+																						onclick="showHideExecInFileOpSection(this);"
+																						title="#{msgs.addInFileAsArgTip}"/>
+																		<h:outputLabel for="execinfileasarg_chk" value="#{msgs.addInFileAsArgMsg}"/>
+																	</h:panelGroup>
+																	<h:panelGroup id="tasksview_a_execinfileop" layout="block" style="#{jobBean.execInFileAsArg ? 'display: block;' : 'display: none;'}">
+																		<blockquote>
+																		<h:inputText	id="execargin_inop"
+																				value="#{jobBean.execInFileOpt}"
+																				size="6"
+																				title="#{msgs.jobArgInFilesOpTip}"/>
+																		<h:outputLabel for="execargin_inop" value="#{msgs.jobArgInFilesOpMsg}"/>
+																		</blockquote>
+																	</h:panelGroup>
+																	<h:panelGroup layout="block">
+																		<h:selectBooleanCheckbox	id="execargincombo_chk"
+																						value="#{jobBean.execArgInFilesCombined}"
+																						title="#{msgs.combineJobArgInFilesTip}"/>
+																		<h:outputLabel for="execargincombo_chk" value="#{msgs.combineJobArgInFilesMsg}"/>
+																	</h:panelGroup>
+																	<dcsjsf:inputFile id="infiles_a"
+																			value="#{jobBean.inFile}"
+																			title="#{msgs.inFilesTip}"/>
+																	<h:panelGroup styleClass="dcs-sg-buttonBox">
+																		<h:commandButton	id="infilesupload_a"
+																					value="#{lbls.upload}"
+																					action="#{jobBean.uploadInFileAction}"
+																					title="#{msgs.uploadTip}"
+																					onclick="return checkFileUpload('jobsubmission:infiles_a');"/>
+																	</h:panelGroup>
+																	<h:selectManyCheckbox	id="infilesinfo_a"
+																				value="#{jobBean.inFilesInfoRemoved}"
+																				rendered="#{jobBean.inFileUploaded}"
+																				layout="pageDirection"
+																				style="width: 95%; border: 1px dashed #000;"
+																				styleClass="dcs-sg-oddRow">
+						<!--
+						-->
+																		<dcsjsf:selectItems	value="#{jobBean.inFilesInfo}"
+																					var="inFileInfo"
+																					itemLabel="#{inFileInfo.name} - [#{inFileInfo.type}; #{inFileInfo.prettySize}]"
+																					itemValue="#{inFileInfo.name}"/>
+																	</h:selectManyCheckbox>
+																	<h:panelGroup styleClass="dcs-sg-buttonBox" rendered="#{jobBean.inFileUploaded}">
+																		<h:commandButton id="infileremove_a"
+																				value="#{lbls.delete}"
+																				action="#{jobBean.removeInFilesAction}"
+																				title="#{msgs.cmdDeleteTip}"
+																				onclick="return confirmDeletion();"/>
+																	</h:panelGroup>
+																</h:panelGrid>
+																<h:message for="infiles_a"/>
+																<!--@} Input Files -->
+
+																<!--@{ Extra Files -->
+																<h:outputLabel for="xfiles_a" value="#{lbls.additionalFiles}"/>
+																<f:verbatim><![CDATA[&#160;]]></f:verbatim>
+																<h:panelGroup>
+																	<h:graphicImage id="xfiles_a_hlp" value="/resources/theme/current/img/stock/small/help.png" title="#{lbls.help}" alt="#{lbls.help}"/>
+																	<dcsjsf:outputPopupPanel showOnId="xfiles_a_hlp" headerTitle="#{hlpmsgs.jobSubmit_taskView_psa_extraFiles_title}">
+																		<dcsjsf:outputTextFilter value="#{hlpmsgs.jobSubmit_taskView_psa_extraFiles_msg}"/>
+																	</dcsjsf:outputPopupPanel>
+																</h:panelGroup>
+																<h:panelGrid columns="1" styleClass="dcs-sg-outerBordered">
+																	<h:panelGroup layout="block">
+																		<h:selectBooleanCheckbox	id="execxfileasarg_chk"
+																						value="#{jobBean.execExtraFileAsArg}"
+																						onclick="showHideExecExtraFileOpSection(this);"
+																						title="#{msgs.addAdditionalFileAsArgTip}"/>
+																		<h:outputLabel for="execxfileasarg_chk" value="#{msgs.addAdditionalFileAsArgMsg}"/>
+																	</h:panelGroup>
+																	<h:panelGroup id="tasksview_a_execxfileop" layout="block" style="#{jobBean.execExtraFileAsArg ? 'display: block;' : 'display: none;'}">
+																		<blockquote>
+																		<h:inputText	id="execxfile_opt"
+																				value="#{jobBean.execExtraFileOpt}"
+																				size="6"
+																				title="#{msgs.additionalFilesOpTip}"/>
+																		<h:outputLabel for="execxfile_opt" value="#{msgs.additionalFilesOpMsg}"/>
+																		</blockquote>
+																	</h:panelGroup>
+																	<dcsjsf:inputFile id="xfiles_a"
+																			value="#{jobBean.extraFile}"
+																			title="#{msgs.additionalFilesTip}"/>
+																	<h:panelGroup styleClass="dcs-sg-buttonBox">
+																		<h:commandButton	id="xfilesupload_a"
+																					value="#{lbls.upload}"
+																					action="#{jobBean.uploadExtraFileAction}"
+																					title="#{msgs.uploadTip}"
+																					onclick="return checkFileUpload('jobsubmission:xfiles_a');"/>
+																	</h:panelGroup>
+																	<h:selectManyCheckbox	id="xfilesinfo_a"
+																				value="#{jobBean.extraFilesInfoRemoved}"
+																				rendered="#{jobBean.extraFileUploaded}"
+																				layout="pageDirection"
+																				style="width: 95%; border: 1px dashed #000;"
+																				styleClass="dcs-sg-oddRow">
+																		<dcsjsf:selectItems	value="#{jobBean.extraFilesInfo}"
+																					var="xFileInfo"
+																					itemLabel="#{xFileInfo.name} - [#{xFileInfo.type}; #{xFileInfo.prettySize}]"
+																					itemValue="#{xFileInfo.name}"/>
+																	</h:selectManyCheckbox>
+																	<h:panelGroup styleClass="dcs-sg-buttonBox" rendered="#{jobBean.extraFileUploaded}">
+																		<h:commandButton id="xfileremove_a"
+																				value="#{lbls.delete}"
+																				action="#{jobBean.removeExtraFilesAction}"
+																				title="#{msgs.cmdDeleteTip}"
+																				onclick="return confirmDeletion();"/>
+																	</h:panelGroup>
+																</h:panelGrid>
+																<h:message for="xfiles_a"/>
+																<!--@} Extra Files -->
+
+																<!--@{ Output Files -->
+																<h:outputLabel for="outfiles_a" value="#{lbls.outFiles}"/>
+																<f:verbatim><![CDATA[&#160;]]></f:verbatim>
+																<h:panelGroup>
+																	<h:graphicImage id="outfiles_a_hlp" value="/resources/theme/current/img/stock/small/help.png" title="#{lbls.help}" alt="#{lbls.help}"/>
+																	<dcsjsf:outputPopupPanel showOnId="outfiles_a_hlp"
+																		headerTitle="#{hlpmsgs.jobSubmit_taskView_psa_outFiles_title}">
+																		<dcsjsf:outputTextFilter value="#{hlpmsgs.jobSubmit_taskView_psa_outFiles_msg}"/>
+																	</dcsjsf:outputPopupPanel>
+																</h:panelGroup>
+																<h:panelGrid columns="1" styleClass="dcs-sg-outerBordered">
+																	<h:panelGroup layout="block">
+																		<h:selectBooleanCheckbox	id="execoutfileasarg_chk"
+																						value="#{jobBean.execOutFileAsArg}"
+																						onclick="showHideExecOutFileOpSection(this);"
+																						title="#{msgs.addOutFileAsArgTip}"/>
+																		<h:outputLabel for="execoutfileasarg_chk" value="#{msgs.addOutFileAsArgMsg}"/>
+																	</h:panelGroup>
+																	<h:panelGroup id="tasksview_a_execoutfileop" layout="block" style="#{jobBean.execOutFileAsArg ? 'display: block;' : 'display: none;'}">
+																		<blockquote>
+																		<h:inputText	id="execoutfile_opt"
+																				value="#{jobBean.execOutFileOpt}"
+																				size="6"
+																				title="#{msgs.outFilesOpTip}"/>
+																		<h:outputLabel for="execoutfile_opt" value="#{msgs.outFilesOpMsg}"/>
+																		</blockquote>
+																	</h:panelGroup>
+																	<h:panelGroup layout="block">
+																		<h:selectBooleanCheckbox	id="outfilestasks_chk"
+																						value="#{jobBean.oneOutputFilePerTask}"
+																						title="#{msgs.oneOutputFilePerTaskTip}"/>
+																		<h:outputLabel for="outfilestasks_chk" value="#{msgs.oneOutputFilePerTaskMsg}"/>
+																	</h:panelGroup>
+																	<h:panelGroup layout="block">
+																		<h:selectBooleanCheckbox id="outfilefilemodeflag" value="#{jobBean.uploadOutFile}" onclick="showHideOutFileFileUploadSection(this);" title="#{msgs.uploadOutFileTip}"/>
+																		<h:outputLabel for="outfilefilemodeflag" value="#{msgs.uploadOutFileMsg}"/>
+																	</h:panelGroup>
+																	<h:panelGroup id="tasksview_a_outfile_man" layout="block" style="#{jobBean.uploadOutFile ? 'display: none;' : 'display: block;'}">
+																		<h:panelGrid columns="2">
+																			<h:inputText id="outfiles_a" value="#{jobBean.outFile}" title="#{msgs.addOutFileTip}"/>
+																			<h:panelGroup styleClass="dcs-sg-buttonBox">
+																				<h:commandButton id="outfileadd_a"
+																						value="#{lbls.addOutFile}"
+																						action="#{jobBean.addOutFileAction}"
+																						title="#{msgs.addOutFileTip}"
+																						onclick="return checkFileAdd('jobsubmission:outfiles_a');"/>
+																			</h:panelGroup>
+																		</h:panelGrid>
+																		<h:selectManyCheckbox	id="outfilesinfo_a"
+																					value="#{jobBean.outFilesInfoRemoved}"
+																					rendered="#{jobBean.outFileAdded}"
+																					layout="pageDirection"
+																					style="width: 95%; border: 1px dashed #000;"
+																					styleClass="dcs-sg-oddRow">
+																			<dcsjsf:selectItems value="#{jobBean.outFilesInfo}"
+																						var="outFileInfo"
+																						itemLabel="#{outFileInfo}"
+																						itemValue="#{outFileInfo}"/>
+																		</h:selectManyCheckbox>
+																		<h:panelGroup styleClass="dcs-sg-buttonBox" rendered="#{jobBean.outFileAdded}">
+																			<h:commandButton id="outfileremove_a"
+																					value="#{lbls.delete}"
+																					action="#{jobBean.removeOutFilesAction}"
+																					title="#{msgs.cmdDeleteTip}"
+																					onclick="return confirmDeletion();"/>
+																		</h:panelGroup>
+																	</h:panelGroup>
+																	<h:panelGroup id="tasksview_a_outfile_upl" layout="block" style="#{jobBean.uploadOutFile ? 'display: block;' : 'display: none;'}">
+																		<h:panelGrid>
+																			<dcsjsf:inputFile id="outfilefile_a"
+																					value="#{jobBean.outFileFile}"
+																					title="#{msgs.outFileFileTip}"/>
+																			<h:panelGroup styleClass="dcs-sg-buttonBox">
+																				<h:commandButton	id="outfilefileupload_a"
+																							value="#{lbls.upload}"
+																							action="#{jobBean.uploadOutFileFileAction}"
+																							title="#{msgs.uploadTip}"
+																							onclick="return checkFileUpload('jobsubmission:outfilefile_a');"/>
+																			</h:panelGroup>
+
+																			<h:panelGrid columns="2" rendered="#{jobBean.outFileFileUploaded}" styleClass="dcs-sg-oddRow" width="95%" style="width:95%; border: 1px dashed #000;">
+																				<h:commandLink	id="outfilefileremove_a"
+																						action="#{jobBean.removeOutFileFileAction}"
+																						onclick="return confirmDeletion();">
+																					<h:graphicImage value="/resources/theme/current/img/stock/small/delete.png" title="#{lbls.delete}" alt="#{lbls.delete}"/>
+																				</h:commandLink>
+
+																				<h:outputText>
+																					<h:outputFormat value="#{msgs.uploadedFileInfo}">
+																						<f:param value="#{jobBean.outFileFileInfo.name}"/>
+																						<f:param value="#{jobBean.outFileFileInfo.type}"/>
+																						<f:param value="#{jobBean.outFileFileInfo.prettySize}"/>
+																					</h:outputFormat>
+																				</h:outputText>
+																			</h:panelGrid>
+																		</h:panelGrid>
+																	</h:panelGroup>
+																</h:panelGrid>
+																<h:message for="outfiles_a"/>
+																<!--@} Output Files -->
+
+																<!--@{ Tasks Number -->
+																<f:verbatim><![CDATA[&#160;]]></f:verbatim>
+																<f:verbatim><![CDATA[&#160;]]></f:verbatim>
+																<f:verbatim><![CDATA[&#160;]]></f:verbatim>
+																<f:verbatim><![CDATA[&#160;]]></f:verbatim>
+																<f:verbatim><![CDATA[&#160;]]></f:verbatim>
+<!--
+																<h:outputLabel for="tasksnum_a" value="#{lbls.tasksNum}"/>
+																<f:verbatim><![CDATA[&#160;]]></f:verbatim>
+																<rich:inputNumberSpinner	id="tasksnum_a"
+																				value="#{jobBean.tasksNum}"
+																				enableManualInput="true"
+																				minValue="1"
+																				step="1"/>
+																<h:message for="tasksnum_a"/>
+-->
+																<!--@} Tasks Number -->
+															</h:panelGrid>
+			<!--
+															<f:verbatim><![CDATA[</div>]]></f:verbatim>
+			-->
+														</h:panelGroup>
+														<!--@} Parameter Sweep (Advanced) View -->
+													</h:panelGrid>
+													<f:verbatim><![CDATA[&#160;]]></f:verbatim>
+													<h:message for="tasksview"/>
+													<!--@} Task View -->
+												</h:panelGrid>
+											</rich:tab>
+											<!--@} Manual Job insertion section -->
+										</rich:tabPanel>
+
+										<f:facet name="footer">
+											<h:panelGroup>
+												<div class="dcs-sg-buttonBox">
+													<h:commandButton id="submitjob" value="#{lbls.submit}" action="#{jobBean.jobSubmissionAction}" title="#{msgs.submitJobTip}"/>
+													<f:verbatim><![CDATA[&#160;]]></f:verbatim>
+													<h:commandButton id="previewjob" value="#{lbls.preview}" action="#{jobBean.previewJobAction}" title="#{msgs.previewJobTip}"/>
+													<f:verbatim><![CDATA[&#160;]]></f:verbatim>
+													<h:commandButton id="exportjob" value="#{lbls.export}" action="#{jobBean.exportJobAction}" title="#{msgs.exportJobTip}"/>
+													<f:verbatim><![CDATA[&#160;]]></f:verbatim>
+													<h:commandButton id="cancelJob" value="#{lbls.cancel}" action="#{jobBean.doCancelAction}" title="#{msgs.cancelJobTip}"/>
+												</div>
+											</h:panelGroup>
+										</f:facet>
+									</h:panelGrid>
+								</fieldset>
+							</h:form>
+						</div>
+					</div>
+				</div>
+
+				<jsp:directive.include file="/WEB-INF/jspf/footer.jspf"/>
+
+			</div>
+		</body>
+	</html>
+	</f:view>
+</jsp:root>
