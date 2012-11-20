@@ -68,6 +68,21 @@ public class JdbcDAOFactory implements IDAOFactory
 			: new JdbcUserDAO(this.jdbcClass, this.jdbcDsn, this.user, this.password);
 	}
 
+	public IUserCloudServiceDAO getUserCloudServiceDAO() throws Exception
+	{
+		if ( this.isMySqlDatabase() )
+		{
+			return  (this.ds != null)
+				? new MySqlUserCloudServiceDAO(this.ds)
+				: new MySqlUserCloudServiceDAO(this.jdbcClass, this.jdbcDsn, this.user, this.password);
+		}
+
+		// fall-back to generic case
+		return  (this.ds != null)
+			? new JdbcUserCloudServiceDAO(this.ds)
+			: new JdbcUserCloudServiceDAO(this.jdbcClass, this.jdbcDsn, this.user, this.password);
+	}
+
 	public IUserGridJobDAO getUserGridJobDAO() throws Exception
 	{
 		if ( this.isMySqlDatabase() )

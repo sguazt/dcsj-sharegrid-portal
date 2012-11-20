@@ -16,23 +16,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.unipmn.di.dcs.sharegrid.web.service;
+package it.unipmn.di.dcs.sharegrid.web.model.cloud;
+
+import javax.sql.DataSource;
 
 /**
- * Interface for service factories.
+ * MySQL specialized DAO class for UserCloudService objects.
+ *
+ * This class specializes the generic class {@code JdbcCloudServiceDAO} for
+ * providing MySQL-optimized versions of its methods.
  *
  * @author <a href="mailto:marco.guazzone@gmail.com">Marco Guazzone</a>
  */
-public interface IServiceFactory
+public class MySqlUserCloudServiceDAO extends JdbcUserCloudServiceDAO
 {
-	/** Returns an instance of the <em>Authentication Service</em>. */
-	IAuthenticationService authenticationService();
+	/** A constructor. */
+	public MySqlUserCloudServiceDAO(DataSource ds) throws Exception
+	{
+		super( ds );
+	}
 
-	/**
-	 * Returns an instance of the <em>Cloud Service Service</em>.
-	 */
-	ICloudServiceService cloudServiceService();
-
-	/** Returns an instance of the <em>Grid Job Execution Service</em>. */
-	IGridJobExecutionService gridJobExecutionService();
+	/** A constructor. */
+	public MySqlUserCloudServiceDAO(String jdbcClass, String jdbcDsn, String user, String password) throws Exception
+	{
+		super( jdbcClass, jdbcDsn, user, password );
+	}
 }

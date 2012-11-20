@@ -18,6 +18,8 @@
 
 package it.unipmn.di.dcs.sharegrid.web.model;
 
+import it.unipmn.di.dcs.sharegrid.web.model.cloud.IUserCloudServiceDAO;
+
 /**
  * Factory class for various DAO classes.
  *
@@ -27,6 +29,9 @@ public interface IDAOFactory
 {
 	/** Returns the DAO for {@code User} objects. */
 	IUserDAO getUserDAO() throws Exception;
+
+	/** Returns the DAO for {@code UserCloudService} objects. */
+	IUserCloudServiceDAO getUserCloudServiceDAO() throws Exception;
 
 	/** Returns the DAO for {@code UserGridJob} objects. */
 	IUserGridJobDAO getUserGridJobDAO() throws Exception;

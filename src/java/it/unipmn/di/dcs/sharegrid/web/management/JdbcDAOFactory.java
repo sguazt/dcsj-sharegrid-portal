@@ -18,6 +18,10 @@
 
 package it.unipmn.di.dcs.sharegrid.web.management;
 
+import it.unipmn.di.dcs.sharegrid.web.management.cloud.ICloudServiceUpdaterStateDAO;
+import it.unipmn.di.dcs.sharegrid.web.management.cloud.IUserCloudServiceCheckStateDAO;
+import it.unipmn.di.dcs.sharegrid.web.management.cloud.JdbcCloudServiceUpdaterStateDAO;
+import it.unipmn.di.dcs.sharegrid.web.management.cloud.JdbcUserCloudServiceCheckStateDAO;
 import it.unipmn.di.dcs.sharegrid.web.management.grid.IGridJobUpdaterStateDAO;
 import it.unipmn.di.dcs.sharegrid.web.management.grid.IUserGridJobCheckStateDAO;
 import it.unipmn.di.dcs.sharegrid.web.management.grid.JdbcGridJobUpdaterStateDAO;
@@ -55,6 +59,20 @@ public class JdbcDAOFactory implements IDAOFactory
 	}
 
 	//@{ IDAOFactory implementation ////////////////////////////////////////
+
+	public ICloudServiceUpdaterStateDAO getCloudServiceUpdaterStateDAO() throws ManagementException
+	{
+		return  (this.ds != null)
+			? new JdbcCloudServiceUpdaterStateDAO(this.ds)
+			: new JdbcCloudServiceUpdaterStateDAO(this.jdbcClass, this.jdbcDsn, this.user, this.password);
+	}
+
+	public IUserCloudServiceCheckStateDAO getUserCloudServiceCheckStateDAO() throws ManagementException
+	{
+		return  (this.ds != null)
+			? new JdbcUserCloudServiceCheckStateDAO(this.ds)
+			: new JdbcUserCloudServiceCheckStateDAO(this.jdbcClass, this.jdbcDsn, this.user, this.password);
+	}
 
 	public IGridJobUpdaterStateDAO getGridJobUpdaterStateDAO() throws ManagementException
 	{

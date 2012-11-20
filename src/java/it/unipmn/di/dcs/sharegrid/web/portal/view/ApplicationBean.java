@@ -110,6 +110,7 @@ public class ApplicationBean extends AbstractApplicationBean
 //		{
 //			this.navSectMap = new HashMap<String,String>();
 //			this.navSectMap.put( "/admin", "admin" );
+//			this.navSectMap.put( "/cloud", "cloud" );
 //			this.navSectMap.put( "/grid", "grid" );
 //			this.navSectMap.put( "/", "user" ); // fall-back case
 //		}
@@ -172,6 +173,11 @@ public class ApplicationBean extends AbstractApplicationBean
 		if ( path.startsWith("/admin") )
 		{
 			return secLevel >= SecurityLevels.AdminUser.intValue();
+		}
+		}
+		else if ( path.startsWith("/cloud") )
+		{
+			return secLevel >= SecurityLevels.BetaTesterUser.intValue();
 		}
 		else if ( path.startsWith("/grid") )
 		{

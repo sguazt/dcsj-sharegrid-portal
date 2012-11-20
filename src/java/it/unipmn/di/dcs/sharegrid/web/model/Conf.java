@@ -367,6 +367,95 @@ public class Conf
 
 	//@} Grid Middleware configuration /////////////////////////////////////
 
+	//@{ Cloud Middleware configuration ////////////////////////////////////
+
+	/** Returns the ID of the CLOUD middleware used. */
+	public String getCloudMiddlewareId()
+	{
+		try
+		{
+			return this.getProperties().getProperty( "cloud.middleware.id" );
+		}
+		catch (Exception e)
+		{
+			// Ignore
+		}
+
+		return "";
+	}
+
+	/**
+	* Returns the class for the given CLOUD middleware ID implementing
+	* it.unipmn.di.dcs.cloud.core.middleware.IMiddlewareManager interface.
+	*/
+	public String getCloudMiddlewareClass(String middlewareId)
+	{
+		try
+		{
+			return this.getProperties().getProperty( "cloud.middleware." + middlewareId + ".class" );
+		}
+		catch (Exception e)
+		{
+			// Ignore
+		}
+
+		return "";
+	}
+	< 
+	/**
+	* Returns the value of the given property {@code propName} for the
+	* given CLOUD middleware ID.
+	*/
+	public String getCloudMiddlewareCustomProperty(String middlewareId, String propName)
+	{
+		try
+		{
+			return this.getProperties().getProperty( "cloud.middleware." + middlewareId + "." + propName );
+		}
+		catch (Exception e)
+		{
+			// Ignore
+		}
+
+		return "";
+	}
+
+//	/**
+// 	 * Returns the Information Server host for the given CLOUD middleare ID.
+//	 */
+//	public String getCloudMiddlewareISHost(String middlewareId)
+//	{
+//		try
+//		{
+//			return this.getProperties().getProperty( "cloud.middleware." + middlewareId + ".is.host" );
+//		}
+//		catch (Exception e)
+//		{
+//			// Ignore
+//		}
+//
+//		return "";
+//	}
+
+//	/**
+//	 * Returns the Information Server port for the given CLOUD middleare ID.
+//	 */
+//	public String getCloudMiddlewareISPort(String middlewareId)
+//	{
+//		try
+//		{
+//			return this.getProperties().getProperty( "cloud.middleware." + middlewareId + ".is.port" );
+//		}
+//		catch (Exception e)
+//		{
+//			// Ignore
+//		}
+//
+//		return "";
+//	}
+
+	//@} Cloud Middleware configuration ////////////////////////////////////
+
 	//@{ Site configuration ////////////////////////////////////////////////
 
 	/** Returns the base URL for the site. */
@@ -668,6 +757,69 @@ public class Conf
 		try
 		{
 			return this.getProperties().getProperty( "mail.smtp.gridjoblifetimeupdate.body" );
+		}
+		catch (Exception e)
+		{
+			// ignore
+		}
+
+		return "";
+	}
+
+	/** Returns the URL for the CLOUD service detail page. */
+	public URL getWebCloudServiceDetailUrl() throws Exception
+	{
+		return new URL(
+			this.getWebBaseUrl().toString()
+			+ this.getProperties().getProperty( "web.cloud.servicedetail.url" )
+		);
+	}
+
+	/**
+	 * Returns the message sender for the notification of a CLOUD service
+	 * status update.
+	 */
+	public String getSmtpCloudServiceStatusUpdateSender()
+	{
+		try
+		{
+			return this.getProperties().getProperty( "mail.smtp.cloudservicestatusupdate.from" );
+		}
+		catch (Exception e)
+		{
+			// ignore
+		}
+
+		return "";
+	}
+
+	/**
+	 * Returns the message subject for the notification of a CLOUD service
+	 * status update.
+	 */
+	public String getSmtpCloudServiceStatusUpdateSubject()
+	{
+		try
+		{
+			return this.getProperties().getProperty( "mail.smtp.cloudservicestatusupdate.subject" );
+		}
+		catch (Exception e)
+		{
+			// ignore
+		}
+
+		return "";
+	}
+
+	/**
+	 * Returns the message body for the notification of a CLOUD service
+	 * status update.
+	 */
+	public String getSmtpCloudServiceStatusUpdateBody()
+	{
+		try
+		{
+			return this.getProperties().getProperty( "mail.smtp.cloudservicestatusupdate.body" );
 		}
 		catch (Exception e)
 		{

@@ -48,6 +48,10 @@ public interface IPortalSiteMapManager
 	@FIXME("Used only for accessing from a JSF page. Probably removed in the future")
 	SiteSection getAdminSection();
 
+	/** Returns the cloud site section. */
+	@FIXME("Used only for accessing from a JSF page. Probably removed in the future")
+	SiteSection getCloudSection();
+
 	/** Returns the error site section. */
 	@FIXME("Used only for accessing from a JSF page. Probably removed in the future")
 	SiteSection getErrorSection();

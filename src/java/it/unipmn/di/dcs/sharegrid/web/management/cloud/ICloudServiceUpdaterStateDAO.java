@@ -16,23 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.unipmn.di.dcs.sharegrid.web.service;
+package it.unipmn.di.dcs.sharegrid.web.management.cloud;
+
+import it.unipmn.di.dcs.sharegrid.web.model.IBaseDAO;
 
 /**
- * Interface for service factories.
+ * Interface for data store for grid service updater state.
  *
  * @author <a href="mailto:marco.guazzone@gmail.com">Marco Guazzone</a>
  */
-public interface IServiceFactory
+public interface ICloudServiceUpdaterStateDAO extends IBaseDAO<CloudServiceUpdaterState,Integer>
 {
-	/** Returns an instance of the <em>Authentication Service</em>. */
-	IAuthenticationService authenticationService();
 
-	/**
-	 * Returns an instance of the <em>Cloud Service Service</em>.
-	 */
-	ICloudServiceService cloudServiceService();
-
-	/** Returns an instance of the <em>Grid Job Execution Service</em>. */
-	IGridJobExecutionService gridJobExecutionService();
 }

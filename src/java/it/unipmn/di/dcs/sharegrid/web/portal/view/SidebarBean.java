@@ -59,6 +59,11 @@ public class SidebarBean extends AbstractFragmentBean
 		return PortalController.Instance().getSiteMapManager().getAdminSection().getNavigationSectionId();
 	}
 
+	public String getCloudSiteSectionNavId()
+	{
+		return PortalController.Instance().getSiteMapManager().getCloudSection().getNavigationSectionId();
+	}
+
 	public String getGridSiteSectionNavId()
 	{
 		return PortalController.Instance().getSiteMapManager().getGridSection().getNavigationSectionId();
@@ -77,6 +82,17 @@ public class SidebarBean extends AbstractFragmentBean
 	{
 		return this.isSiteSectionAccessible(
 			PortalController.Instance().getSiteMapManager().getAdminSection().getPath()
+		);
+	}
+
+	/**
+	 * Return {@code true} if the CLOUD section is accessible by the current
+	 * user.
+	 */
+	public boolean isCloudSiteSectionAccessible()
+	{
+		return this.isSiteSectionAccessible(
+			PortalController.Instance().getSiteMapManager().getCloudSection().getPath()
 		);
 	}
 

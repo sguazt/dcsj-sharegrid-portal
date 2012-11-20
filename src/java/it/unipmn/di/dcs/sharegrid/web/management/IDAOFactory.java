@@ -18,6 +18,8 @@
 
 package it.unipmn.di.dcs.sharegrid.web.management;
 
+import it.unipmn.di.dcs.sharegrid.web.management.cloud.ICloudServiceUpdaterStateDAO;
+import it.unipmn.di.dcs.sharegrid.web.management.cloud.IUserCloudServiceCheckStateDAO;
 import it.unipmn.di.dcs.sharegrid.web.management.grid.IGridJobUpdaterStateDAO;
 import it.unipmn.di.dcs.sharegrid.web.management.grid.IUserGridJobCheckStateDAO;
 
@@ -28,6 +30,12 @@ import it.unipmn.di.dcs.sharegrid.web.management.grid.IUserGridJobCheckStateDAO;
  */
 public interface IDAOFactory
 {
+	/** Returns an instance of {@code ICloudServiceUpdaterDAO}. */
+	ICloudServiceUpdaterStateDAO getCloudServiceUpdaterStateDAO() throws ManagementException;
+
+	/** Returns an instance of {@code IUserCloudServiceCheckStateDAO}. */
+	IUserCloudServiceCheckStateDAO getUserCloudServiceCheckStateDAO() throws ManagementException;
+
 	/** Returns an instance of {@code IGridJobUpdaterDAO}. */
 	IGridJobUpdaterStateDAO getGridJobUpdaterStateDAO() throws ManagementException;
 

@@ -44,6 +44,11 @@ public class ServiceFactory implements IServiceFactory
 		return AuthenticationService.instance();
 	}
 
+	public ICloudServiceService cloudServiceService()
+	{
+		return CloudServiceService.instance();
+	}
+
 	public IGridJobExecutionService gridJobExecutionService()
 	{
 		return GridJobExecutionService.instance();

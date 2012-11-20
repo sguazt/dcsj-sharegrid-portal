@@ -166,40 +166,43 @@ public class SecurityFilter implements Filter
 		}
 	}
 
-        protected boolean isPathAccessibleByAnonymous(String path)
-        {
-                return this.isPathAccessibleByUser(path, null);
-        }
+	protected boolean isPathAccessibleByAnonymous(String path)
+	{
+		return this.isPathAccessibleByUser(path, null);
+	}
 
 	@TODO("Implement access control using a table stored in the DB")
-        protected boolean isPathAccessibleByUser(String path, User user)
-        {
-                int secLevel;
+	protected boolean isPathAccessibleByUser(String path, User user)
+	{
+		int secLevel;
 
-                if ( user != null )
-                {
-                        secLevel = user.getSecurityLevel().intValue();
-                }
-                else
-                {
-                        secLevel = SecurityLevels.AnonymousUser.intValue();
-                }
+		if ( user != null )
+		{
+			secLevel = user.getSecurityLevel().intValue();
+		}
+		else
+		{
+			secLevel = SecurityLevels.AnonymousUser.intValue();
+		}
 
-                if ( path.startsWith("/admin") )
-                {
-                        return secLevel >= SecurityLevels.AdminUser.intValue();
-                }
-                else if ( path.startsWith("/grid") )
-                {
-                        return secLevel >= SecurityLevels.StandardUser.intValue();
-                }
-                else if ( path.startsWith("/user") )
-                {
-                        return secLevel >= SecurityLevels.StandardUser.intValue();
-                }
+		if ( path.startsWith("/admin") )
+		{
+				return secLevel >= SecurityLevels.AdminUser.intValue();
+		}
+		if ( path.startsWith("/cloud") )
+		{
+			return secLevel >= SecurityLevels.BetaTesterUser.intValue();
+		}
+		else if ( path.startsWith("/grid") )
+		{
+			return secLevel >= SecurityLevels.StandardUser.intValue();
+		}
+		else if ( path.startsWith("/user") )
+		{
+			return secLevel >= SecurityLevels.StandardUser.intValue();
+		}
 
-                // fall-back case (include: /, /err)
-              	return secLevel >= SecurityLevels.AnonymousUser.intValue();
+		// fall-back case (include: /, /err)
+		return secLevel >= SecurityLevels.AnonymousUser.intValue();
 	}
- 
 }

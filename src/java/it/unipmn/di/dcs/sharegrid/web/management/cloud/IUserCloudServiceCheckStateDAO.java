@@ -16,23 +16,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package it.unipmn.di.dcs.sharegrid.web.service;
+package it.unipmn.di.dcs.sharegrid.web.management.cloud;
+
+import it.unipmn.di.dcs.sharegrid.web.management.ManagementException;
+import it.unipmn.di.dcs.sharegrid.web.model.IBaseDAO;
 
 /**
- * Interface for service factories.
+ * Interface for data store for user grid service check state.
  *
  * @author <a href="mailto:marco.guazzone@gmail.com">Marco Guazzone</a>
  */
-public interface IServiceFactory
+public interface IUserCloudServiceCheckStateDAO extends IBaseDAO<UserCloudServiceCheckState,Integer>
 {
-	/** Returns an instance of the <em>Authentication Service</em>. */
-	IAuthenticationService authenticationService();
-
-	/**
-	 * Returns an instance of the <em>Cloud Service Service</em>.
-	 */
-	ICloudServiceService cloudServiceService();
-
-	/** Returns an instance of the <em>Grid Job Execution Service</em>. */
-	IGridJobExecutionService gridJobExecutionService();
+	/** Return the check-state of the given service. */
+	UserCloudServiceCheckState loadByServiceId(int serviceId) throws ManagementException;
 }

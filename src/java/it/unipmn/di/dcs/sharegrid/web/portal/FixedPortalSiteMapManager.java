@@ -37,6 +37,7 @@ import java.util.Map;
 public class FixedPortalSiteMapManager implements IPortalSiteMapManager
 {
 	private static final String ADMIN_SECTION_ID = "/admin";
+	private static final String CLOUD_SECTION_ID = "/cloud";
 	private static final String ERROR_SECTION_ID = "/error";
 	private static final String GRID_SECTION_ID = "/grid";
 	private static final String HELP_SECTION_ID = "/help";
@@ -44,6 +45,7 @@ public class FixedPortalSiteMapManager implements IPortalSiteMapManager
 	private static final String USER_SECTION_ID = "/user";
 
 	private static final String ADMIN_SECTION_PATH = "/admin";
+	private static final String CLOUD_SECTION_PATH = "/cloud";
 	private static final String ERROR_SECTION_PATH = "/err";
 	private static final String GRID_SECTION_PATH = "/grid";
 	private static final String HELP_SECTION_PATH = "/help";
@@ -117,6 +119,11 @@ public class FixedPortalSiteMapManager implements IPortalSiteMapManager
 		return this.siteMap.get( ADMIN_SECTION_PATH );
 	}
 
+	public SiteSection getCloudSection()
+	{
+		return this.siteMap.get( CLOUD_SECTION_PATH );
+	}
+
 	public SiteSection getErrorSection()
 	{
 		return this.siteMap.get( ERROR_SECTION_PATH );
@@ -159,6 +166,14 @@ public class FixedPortalSiteMapManager implements IPortalSiteMapManager
 				SecurityLevels.AdminUser
 		);
 		this.siteMap.put( ADMIN_SECTION_PATH, section );
+		// Cloud section
+		section = new SiteSection(
+				CLOUD_SECTION_ID,
+				CLOUD_SECTION_PATH,
+				CLOUD_SECTION_ID,
+				SecurityLevels.PowerUser
+		);
+		this.siteMap.put( CLOUD_SECTION_PATH, section );
 		// Grid section
 		section = new SiteSection(
 				GRID_SECTION_ID,
