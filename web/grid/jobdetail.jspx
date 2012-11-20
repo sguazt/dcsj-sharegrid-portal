@@ -47,9 +47,13 @@
 		<head>
 			<meta http-equiv="Content-Type" content="text/xhtml; charset=UTF-8"/>
 			<meta http-equiv="Content-Script-Type" content="text/javascript"/>
-			<link rel="stylesheet" href="${facesContext.externalContext.requestContextPath}/resources/theme/current/css/screen.css" type="text/css" />
-			<link rel="shortcut icon" href="${facesContext.externalContext.requestContextPath}/resources/theme/current/img/favicon.ico" type="image/x-icon"/>
-			<script type="text/javascript" src="${facesContext.externalContext.requestContextPath}/resources/scripts/dcssg.js"><![CDATA[<!-- // -->]]></script>
+<!--
+			<link rel="stylesheet" href="${facescontext.externalcontext.requestcontextpath}/resources/theme/current/css/screen.css" type="text/css" />
+			<link rel="shortcut icon" href="${facescontext.externalcontext.requestcontextpath}/resources/theme/current/img/favicon.ico" type="image/x-icon"/>
+-->
+			<link rel="stylesheet" href="#{facescontext.externalcontext.requestcontextpath}/resources/theme/current/css/screen.css" type="text/css" />
+			<link rel="shortcut icon" href="#{facescontext.externalcontext.requestcontextpath}/resources/theme/current/img/favicon.ico" type="image/x-icon"/>
+			<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/scripts/dcssg.js"><![CDATA[<!-- // -->]]></script>
 			<title><h:outputText value="#{msgs.jobDetailTitle}"/></title>
 			<script type="text/javascript">
 			<![CDATA[

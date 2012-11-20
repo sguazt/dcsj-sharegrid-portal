@@ -18,6 +18,39 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
+		<from-view-id>/cloud/submitsvc.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/index.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>svc-submit-ok</from-outcome>
+			<to-view-id>/cloud/svclist.jspx</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/cloud/svcdetail.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/cloud/svclist.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>delete-ok</from-outcome>
+			<to-view-id>/cloud/svclist.jspx</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>monitor</from-outcome>
+			<to-view-id>/cloud/svcprobe.jspx</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/cloud/svcprobe.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/cloud/svclist.jspx</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
 		<from-view-id>/grid/jobdetail.jspx</from-view-id>
 		<navigation-case>
 			<from-outcome>cancel</from-outcome>
@@ -120,6 +153,32 @@
 	<managed-bean>
 		<managed-bean-name>changePasswdBean</managed-bean-name>
 		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.user.UserPasswordChangeBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>cloudSvcProbeBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.cloud.CloudServiceProbeBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+<!--
+		<managed-property>
+			<property-name>id</property-name>
+			<value>#{param.id}</value>
+		</managed-property>
+-->
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>cloudSvcDetailBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.cloud.CloudServiceDetailBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>cloudSvcListBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.cloud.CloudServiceListBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>cloudSvcSubmitBean</managed-bean-name>
+		<managed-bean-class>it.unipmn.di.dcs.sharegrid.web.portal.view.cloud.CloudServiceSubmitBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>

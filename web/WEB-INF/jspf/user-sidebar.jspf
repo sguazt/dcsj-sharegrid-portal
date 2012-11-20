@@ -64,6 +64,12 @@
 								<f:param name="new" value="1"/>
 							</h:outputLink>
 						</li>
+					</ul>
+				</rich:panelBarItem>
+				<rich:panelBarItem label="#{lbls.cloudSvcMenu}" name="#{sidebarBean.cloudSiteSectionNavId}" rendered="#{sidebarBean.cloudSiteSectionAccessible}">
+					<ul>
+						<li><h:outputLink value="#{facesContext.externalContext.requestContextPath}/faces/cloud/submitsvc.jspx" title="#{lbls.serviceSubmit}"><h:outputText value="#{lbls.serviceSubmit}"/></h:outputLink></li>
+						<li><h:outputLink value="#{facesContext.externalContext.requestContextPath}/faces/cloud/svclist.jspx" title="#{lbls.serviceList}"><h:outputText value="#{lbls.serviceList}"/></h:outputLink></li>
 						<li><h:outputLink value="#{facesContext.externalContext.requestContextPath}/faces/grid/joblist.jspx" title="#{lbls.jobList}"><h:outputText value="#{lbls.jobList}"/></h:outputLink></li>
 					</ul>
 				</rich:panelBarItem>

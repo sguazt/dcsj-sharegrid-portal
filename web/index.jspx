@@ -50,8 +50,12 @@
 		<head>
 			<meta http-equiv="Content-Type" content="text/xhtml; charset=UTF-8"/>
 			<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<!--
 			<link rel="stylesheet" href="${facesContext.externalContext.requestContextPath}/resources/theme/current/css/screen.css" type="text/css" />
 			<link rel="shortcut icon" href="${facesContext.externalContext.requestContextPath}/resources/theme/current/img/favicon.ico" type="image/x-icon"/>
+-->
+			<link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/theme/current/css/screen.css" type="text/css" />
+			<link rel="shortcut icon" href="#{facesContext.externalContext.requestContextPath}/resources/theme/current/img/favicon.ico" type="image/x-icon"/>
 			<title><h:outputText value="#{msgs.indexTitle}"/></title>
 		</head>
 		<body id="pgHome">

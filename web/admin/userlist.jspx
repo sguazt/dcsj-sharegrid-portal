@@ -50,16 +50,20 @@
 		<head>
 			<meta http-equiv="Content-Type" content="text/xhtml; charset=UTF-8"/>
 			<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<!--
 			<link rel="stylesheet" href="${facesContext.externalContext.requestContextPath}/resources/theme/current/css/screen.css" type="text/css"/>
 			<link rel="shortcut icon" href="${facesContext.externalContext.requestContextPath}/resources/theme/current/img/favicon.ico" type="image/x-icon"/>
-			<script type="text/javascript" src="${facesContext.externalContext.requestContextPath}/resources/scripts/dcssg.js"><![CDATA[<!-- // -->]]></script>
+-->
+			<link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/theme/current/css/screen.css" type="text/css"/>
+			<link rel="shortcut icon" href="#{facesContext.externalContext.requestContextPath}/resources/theme/current/img/favicon.ico" type="image/x-icon"/>
+			<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/scripts/dcssg.js"><![CDATA[<!-- // -->]]></script>
 			<!-- This is needed for a broken behaviour with PNG images on IE browsers less than v.7 -->
 			<f:verbatim>
 			<![CDATA[
 			<!--[if lt IE 7]>
 			]]>
 			</f:verbatim>
-			<script defer="defer" type="text/javascript" src="${facesContext.externalContext.requestContextPath}/resources/scripts/pngfix.js"><![CDATA[<!-- // -->]]></script>
+			<script defer="defer" type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/scripts/pngfix.js"><![CDATA[<!-- // -->]]></script>
 			<f:verbatim>
 			<![CDATA[
 			<![endif]-->
