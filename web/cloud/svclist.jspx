@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ - Copyright (C) 2008  Distributed Computing System (DCS) Group, Computer
+ - Science Department - University of Piemonte Orientale, Alessandria (Italy).
+ -
+ - This program is free software: you can redistribute it and/or modify
+ - it under the terms of the GNU General Public License as published
+ - by the Free Software Foundation, either version 3 of the License, or
+ - (at your option) any later version.
+ -
+ - This program is distributed in the hope that it will be useful,
+ - but WITHOUT ANY WARRANTY; without even the implied warranty of
+ - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ - GNU General Public License for more details.
+ -
+ - You should have received a copy of the GNU General Public License
+ - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -
+ - Author: Marco Guazzone (marco.guazzone@gmail.com)
+-->
+
+<jsp:root version="2.1"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:dcsjsf="http://dcs.di.unipmn.it/tld/dcsjsf">
+
+	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
+	<jsp:output	omit-xml-declaration="no"
+			doctype-root-element="html"
+			doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+			doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+	<f:view>
+
+	<!-- Prepare info for content management -->
+	<jsp:scriptlet>
+		pageContext.setAttribute(it.unipmn.di.dcs.sharegrid.web.portal.view.util.ViewConstants.PageIdAttribute,"/cloud/svclist", PageContext.REQUEST_SCOPE);
+	</jsp:scriptlet>
+
+	<jsp:directive.include file="/WEB-INF/jspf/usercheck-onlylogged.jspf"/>
+
+	<html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<meta http-equiv="Content-Type" content="text/xhtml; charset=UTF-8"/>
+			<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<!--Unfortunately this doesn't work since when passing from submitjob to joblist, the refresh load the submitjob page instead of the joblist one!
+			<meta http-equiv="Refresh" content="10"/>
+-->
+			<meta http-equiv="Refresh" content="10; URL=#{facesContext.externalContext.requestContextPath}/faces/cloud/svclist.jspx"/>
+			<link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/theme/current/css/screen.css" type="text/css" />
+			<link rel="shortcut icon" href="#{facesContext.externalContext.requestContextPath}/resources/theme/current/img/favicon.ico" type="image/x-icon"/>
+			<script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/scripts/dcssg.js"><![CDATA[<!-- // -->]]></script>
+			<script type="text/javascript">
+			<![CDATA[
+			<!--
+				function confirmDeletion()
+				{
+					var answer;
+
+					answer = confirm( "Confirm deletion?" ); // no I18N
+
+					return answer;
+				}
+				function confirmStopping()
+				{
+					var answer;
+
+					answer = confirm( "Confirm stopping?" ); // no I18N
+
+					return answer;
+				}
+			//-->
+			]]>
+			</script>
+			<title><h:outputText value="#{msgs.svcListTitle}"/></title>
+		</head>
+		<body id="pgHome">
+			<div id="document">
+
+				<jsp:directive.include file="/WEB-INF/jspf/header.jspf"/>
+
+				<div id="container">
+					<div id="sidebar">
+						<jsp:directive.include file="/WEB-INF/jspf/common-sidebar.jspf"/>
+					</div>
+					<div id="content">
+						<div class="dcs-sg-section">
+							<h:outputText styleClass="dcs-sg-head1" value="#{msgs.svcListWelcomeTitle}"/>
+							<div class="dcs-sg-para">
+								<h:outputText styleClass="dcs-sg-normal" value="#{msgs.svcListWelcomeMsg}"/>
+							</div>
+						</div>
+						<div class="dcs-sg-entry dcs-sg-errors">
+							<h:messages globalOnly="true"
+								fatalClass="dcs-sg-fatalMessage"
+								errorClass="dcs-sg-errorMessage"
+								warnClass="dcs-sg-warnMessage"
+								infoClass="dcs-sg-infoMessage"/>
+						</div>
+
+						<div class="dcs-sg-section dcs-sg-centerAlign">
+						<h:form id="svc-list">
+							<fieldset>
+								<h:panelGrid columns="1" rowClasses="dcs-sg-centerAlign">
+									<rich:dataTable value="#{cloudSvcListBean.services}"
+											var="svc"
+											id="svcList"
+											rows="20"
+											onRowMouseOver="DcsShareGrid(this).addClass(this,'dcs-sg-activeRow')"
+											onRowMouseOut="DcsShareGrid(this).removeClass(this,'dcs-sg-activeRow')"
+											rowClasses="dcs-sg-oddRow,dcs-sg-evenRow"
+											align="center">
+										<f:facet name="header">
+											<rich:columnGroup>
+												<rich:column>
+													<h:outputText value="#{lbls.schedulerServiceId}"/>
+												</rich:column>
+												<rich:column>
+													<h:outputText value="#{lbls.name}"/>
+												</rich:column>
+												<rich:column>
+													<h:outputText value="#{lbls.submitDate}"/>
+												</rich:column>
+												<rich:column>
+													<h:outputText value="#{lbls.stopDate}"/>
+												</rich:column>
+												<rich:column>
+													<h:outputText value="#{lbls.status}"/>
+												</rich:column>
+												<rich:column>
+													<h:outputText value="#{lbls.actions}"/>
+												</rich:column>
+											</rich:columnGroup>
+										</f:facet>
+
+										<!-- Service Scheduler ID -->
+										<rich:column styleClass="dcs-sg-rightAlign">
+											<h:outputText value="#{svc.schedulerServiceId}"/>
+										</rich:column>
+										<!-- Service Name -->
+										<rich:column styleClass="dcs-sg-centerAlign">
+											<h:outputText value="#{svc.name}"/>
+										</rich:column>
+										<!-- Submission Date -->
+										<rich:column styleClass="dcs-sg-centerAlign">
+											<h:outputText value="#{svc.submissionDate}">
+												<f:convertDateTime pattern="dd-MM-yyyy HH:mm" timeZone="#{sessionBean.user.timeZone}"/>
+											</h:outputText>
+										</rich:column>
+										<!-- Stopping Date -->
+										<rich:column styleClass="dcs-sg-centerAlign">
+											<h:outputText value="#{svc.stoppingDate}">
+												<f:convertDateTime pattern="dd-MM-yyyy HH:mm" timeZone="#{sessionBean.user.timeZone}"/>
+											</h:outputText>
+										</rich:column>
+										<!-- Status -->
+										<rich:column styleClass="dcs-sg-centerAlign">
+											<h:outputText value="#{svc.status}"/>
+										</rich:column>
+										<!-- Actions -->
+										<rich:column styleClass="dcs-sg-centerAlign">
+											<h:outputLink id="view" value="#{facesContext.externalContext.requestContextPath}/faces/cloud/svcdetail.jspx">
+												<f:param name="id" value="#{svc.id}"/>
+
+												<h:graphicImage value="/resources/theme/current/img/stock/small/view.png" title="#{msgs.cmdViewTip}" alt="#{lbls.view}"/>
+											</h:outputLink>
+											<dcsjsf:if test="#{svc.running}">
+												<f:verbatim><![CDATA[&#160;]]></f:verbatim>
+												<h:outputLink id="monitor" value="#{facesContext.externalContext.requestContextPath}/faces/cloud/svcprobe.jspx">
+													<f:param name="id" value="#{svc.id}"/>
+
+													<h:graphicImage value="/resources/theme/current/img/stock/small/monitor.png" title="#{msgs.cmdMonitorTip}" alt="#{lbls.monitor}"/>
+												</h:outputLink>
+											</dcsjsf:if>
+											<dcsjsf:if test="#{svc.ready or svc.running or svc.unstarted}">
+												<f:verbatim><![CDATA[&#160;]]></f:verbatim>
+												<h:commandLink id="cancel" action="#{cloudSvcListBean.doStopAction}" onclick="return confirmStopping();">
+													<f:param name="sid" value="#{svc.id}"/>
+
+													<h:graphicImage value="/resources/theme/current/img/stock/small/stop.png" title="#{msgs.cmdStopTip}" alt="#{lbls.stop}"/>
+												</h:commandLink>
+											</dcsjsf:if>
+											<f:verbatim><![CDATA[&#160;]]></f:verbatim>
+											<h:commandLink id="delete" action="#{cloudSvcListBean.doDeleteAction}" onclick="return confirmDeletion();">
+												<f:param name="sid" value="#{svc.id}"/>
+
+												<h:graphicImage value="/resources/theme/current/img/stock/small/delete.png" title="#{msgs.cmdDeleteTip}" alt="#{lbls.delete}"/>
+											</h:commandLink>
+										</rich:column>
+									</rich:dataTable>
+<!--
+									<rich:spacer height="30"/>
+-->
+									<rich:datascroller align="center"  for="svcList"/>
+								</h:panelGrid>
+							</fieldset>
+						</h:form>
+						</div>
+					</div>
+				</div>
+
+				<jsp:directive.include file="/WEB-INF/jspf/footer.jspf"/>
+
+			</div>
+		</body>
+		</html>
+	</f:view>
+</jsp:root>
