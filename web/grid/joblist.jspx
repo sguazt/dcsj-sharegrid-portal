@@ -54,9 +54,14 @@
 <!--Unfortunately this doesn't work since when passing from submitjob to joblist, the refresh load the submitjob page instead of the joblist one!
 			<meta http-equiv="Refresh" content="30"/>
 -->
+<!--
 			<meta http-equiv="Refresh" content="30; URL=${facesContext.externalContext.requestContextPath}/faces/grid/joblist.jspx"/>
 			<link rel="stylesheet" href="${facesContext.externalContext.requestContextPath}/resources/theme/current/css/screen.css" type="text/css" />
 			<link rel="shortcut icon" href="${facesContext.externalContext.requestContextPath}/resources/theme/current/img/favicon.ico" type="image/x-icon"/>
+-->
+			<meta http-equiv="Refresh" content="30; URL=#{facesContext.externalContext.requestContextPath}/faces/grid/joblist.jspx"/>
+			<link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/theme/current/css/screen.css" type="text/css" />
+			<link rel="shortcut icon" href="#{facesContext.externalContext.requestContextPath}/resources/theme/current/img/favicon.ico" type="image/x-icon"/>
 			<script type="text/javascript" src="${facesContext.externalContext.requestContextPath}/resources/scripts/dcssg.js"><![CDATA[<!-- // -->]]></script>
 			<script type="text/javascript">
 			<![CDATA[

@@ -40,7 +40,8 @@
 				try {
 					var isFirstCall = true;
 					// get upload status
-					updater = new Ajax.PeriodicalUpdater('uploadStatusDiv','${facesContext.externalContext.requestContextPath}/upload?query=3',
+					//updater = new Ajax.PeriodicalUpdater('uploadStatusDiv','${facesContext.externalContext.requestContextPath}/upload?query=3',
+					updater = new Ajax.PeriodicalUpdater('uploadStatusDiv','#{facesContext.externalContext.requestContextPath}/upload?query=3',
 					asynchronous:true,
 					frequency:1,
 					method:'get',
@@ -157,11 +158,14 @@
 					<h:graphicImage value="/resources/theme/current/img/close.png" style="cursor:pointer" onclick="Richfaces.hideModalPanel('jobsubmission:upload-view:uploadDlg')"/>
 				</f:facet>
 
+<!--
 				<form id="attUploadForm" enctype="multipart/form-data" method="post" target="uploadTrg" action="${facesContext.externalContext.requestContextPath}/upload?query=1&amp;page={page}" onsubmit="submitPostUsingAjax();" style="bottom:50px;">
+-->
+				<form id="attUploadForm" enctype="multipart/form-data" method="post" target="uploadTrg" action="#{facesContext.externalContext.requestContextPath}/upload?query=1&amp;page={page}" onsubmit="submitPostUsingAjax();" style="bottom:50px;">
 					<input type="file" name="txtFile0" id="txtFile0" onchange="appendInput();" class="rsInput"/><br class="formBR"/>
 					<input type="submit" id="submitID1" name="submit" class="rsButton" value="Upload"/>
 <!--
-					<input type="hidden" id="attachmentsFormID" value="${formId}"/>
+					<input type="hidden" id="attachmentsFormID" value="#{formId}"/>
 -->
 				</form>
 

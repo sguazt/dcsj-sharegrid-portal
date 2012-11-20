@@ -43,9 +43,14 @@
 		<head>
 			<meta http-equiv="Content-Type" content="text/xhtml; charset=UTF-8"/>
 			<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<!--
 			<meta http-equiv="Refresh" content="10; URL=${facesContext.externalContext.requestContextPath}/faces/index.jspx"/>
 			<link rel="stylesheet" href="${facesContext.externalContext.requestContextPath}/resources/theme/current/css/screen.css" type="text/css" />
 			<link rel="shortcut icon" href="${facesContext.externalContext.requestContextPath}/resources/theme/current/img/favicon.ico" type="image/x-icon"/>
+-->
+			<meta http-equiv="Refresh" content="10; URL=#{facesContext.externalContext.requestContextPath}/faces/index.jspx"/>
+			<link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/theme/current/css/screen.css" type="text/css" />
+			<link rel="shortcut icon" href="#{facesContext.externalContext.requestContextPath}/resources/theme/current/img/favicon.ico" type="image/x-icon"/>
 			<title><h:outputText value="#{msgs.err403Title}"/></title>
 		</head>
 		<body id="pgHome">

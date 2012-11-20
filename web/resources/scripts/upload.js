@@ -13,7 +13,7 @@ function submitPostUsingAjax(id)
 		// get upload status from Prototype Ajax object
 		updater = new Ajax.PeriodicalUpdater(
 			'uploadStatusDiv',
-			'${facesContext.externalContext.requestContextPath}/upload?query=3',
+			'#{facesContext.externalContext.requestContextPath}/upload?query=3',
 			{
 				asynchronous:true,
 				frequency:1,
