@@ -1,0 +1,105 @@
+#!/bin/sh
+
+##
+## This script will be executed *after* all the other init scripts.
+## You can put your own initialization stuff in here if you don't
+## want to do the full Sys V style init stuff.
+##
+## Authors:
+## - Marco Guazzone (marco.guazzone@gmail.com)
+##
+## ----------------------------------------------------------------------------
+##
+## Copyright (C) 2007-2012  Marco Guazzone
+##                          [Distributed Computing System (DCS) Group,
+##                           Computer Science Institute,
+##                           Department of Science and Technological Innovation,
+##                           University of Piemonte Orientale,
+##                           Alessandria (Italy)]
+##
+## This file is part of dcssh-sharegrid-startup.
+##
+## dcssh-sharegrid-startup is free software: you can redistribute it and/or modify
+## it under the terms of the GNU General Public License as published
+## by the Free Software Foundation, either version 3 of the License, or
+## (at your option) any later version.
+##
+## dcssh-sharegrid-startup is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+##
+## You should have received a copy of the GNU General Public License
+## along with dcssh-sharegrid-startup.  If not, see <http://www.gnu.org/licenses/>.
+##
+
+touch /var/lock/subsys/local
+
+
+### [ShareGrid start-up scripts] ###
+
+#PATH=$PATH:$HOME/bin:/usr/java/jre1.5.0_11/bin
+PATH=/opt/java/bin:$PATH:$HOME/bin
+export PATH
+
+JAVA_HOME=/opt/java
+export JAVA_HOME
+
+CATALINA_HOME=/usr/local/apache-tomcat
+export CATALINA_HOME
+
+sg_user=sharegrid
+sg_basedir=/home/$sg_user
+sg_logfile=/var/log/sharegrid/startup.log
+
+su $sg_user -c "touch $sg_logfile"
+
+echo -n `date +"[%F %T] "` >>$sg_logfile
+echo "Starting ShareGrid ..." >>$sg_logfile
+
+# Starts ShareGrid core-peer
+echo -n `date +"[%F %T] "` >>$sg_logfile
+echo "Starting ShareGrid core-peer ..." >>$sg_logfile
+su $sg_user -c "$sg_basedir/scripts/startCorePeer.sh $sg_user >>$sg_logfile"
+echo -n `date +"[%F %T] "` >>$sg_logfile
+echo "... ShareGrid core-peer started" >>$sg_logfile
+
+# Starts ShareGrid unipmn info-lab peer
+echo -n `date +"[%F %T] "` >>$sg_logfile
+echo "Starting ShareGrid Unipmn peer ..." >>$sg_logfile
+su $sg_user -c "$sg_basedir/scripts/startUnipmnPeer.sh $sg_user >>$sg_logfile"
+echo -n `date +"[%F %T] "` >>$sg_logfile
+echo "... ShareGrid Unipmn peer started" >>$sg_logfile
+
+# Starts ShareGrid topix peer
+echo -n `date +"[%F %T] "` >>$sg_logfile
+echo "Starting ShareGrid TOPIX peer ..." >>$sg_logfile
+su $sg_user -c "$sg_basedir/scripts/startTopixPeer.sh $sg_user >>$sg_logfile"
+echo -n `date +"[%F %T] "` >>$sg_logfile
+echo "... ShareGrid TOPIX peer started" >>$sg_logfile
+
+# Starts a dummy mygrid (for ShareGrid portal and test151 workaround)
+echo -n `date +"[%F %T] "` >>$sg_logfile
+echo "Starting ShareGrid dummy mygrid (sgportal/workaround) ..." >>$sg_logfile
+su $sg_user -c "$sg_basedir/scripts/startDummyMyGrid.sh $sg_user >>$sg_logfile"
+echo -n `date +"[%F %T] "` >>$sg_logfile
+echo "... ShareGrid dummy mygrid (sgportal/workaround) started" >>$sg_logfile
+
+# Starts Apache Tomcat for core-peer web-status
+echo -n `date +"[%F %T] "` >>$sg_logfile
+echo "Starting ShareGrid Web-Server (Apache Tomcat) ..." >>$sg_logfile
+$CATALINA_HOME/bin/catalina.sh start >>$sg_logfile
+echo -n `date +"[%F %T] "` >>$sg_logfile
+echo "... ShareGrid Web-Server (Apache Tomcat) started" >>$sg_logfile
+
+# Starts ShareGrid core-peer web-status
+echo -n `date +"[%F %T] "` >>$sg_logfile
+echo "Starting ShareGrid Web-Status ..." >>$sg_logfile
+su -c "$sg_basedir/scripts/startWebStatus.sh >>$sg_logfile"
+echo -n `date +"[%F %T] "` >>$sg_logfile
+echo "... ShareGrid Web-Status started" >>$sg_logfile
+
+echo -n `date +"[%F %T] "` >>$sg_logfile
+echo "... ShareGrid started" >>$sg_logfile
+
+### [/ShareGrid start-up scripts] ###

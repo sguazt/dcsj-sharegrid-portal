@@ -1,0 +1,260 @@
+#!/bin/sh
+
+################################################################################
+##
+## Copyright (C) 2008-2012  Distributed Computing System (DCS) Group, Computer
+## Science Department - University of Piemonte Orientale, Alessandria (Italy).
+##
+## This program is free software: you can redistribute it and/or modify
+## it under the terms of the GNU Lesser General Public License as published
+## by the Free Software Foundation, either version 3 of the License, or
+## (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU Lesser General Public License for more details.
+##
+## You should have received a copy of the GNU Lesser General Public License
+## along with this program.  If not, see <http://www.gnu.org/licenses/>.
+##
+################################################################################
+
+#
+# rc.userAgentSG:	ShareGrid User-Agent startup script.
+#
+# chkconfig:	2345 98 03
+# description:	ShareGrid User-Agent is the client-side interface for the \
+#		ShareGrid middleware.
+# processname:  rc.userAgentSG
+#
+# Authors:
+# 	Marco Guazzone (marco.guazzone@gmail.com)
+#		University of Piemonte Orientale
+#		The Distributed Computing System Group
+#		http://dcs.di.unipmn.it
+#
+# Absolutely no warranty -- use at your own risk
+#
+
+dtnow=`date +"%F %T"`
+
+# Source function library.
+if [ -f /etc/rc.d/init.d/functions ];
+then
+	. /etc/rc.d/init.d/functions
+else
+	# The code below is taken from Fedora /etc/rc.d/init.d/functions
+	#
+	# color => new RH6.0 bootup
+	# verbose => old-style bootup
+	# anything else => new style bootup without ANSI colors or positioning
+	BOOTUP=color
+	# Turn on graphical boot
+	GRAPHICAL=yes
+	# column to start "[  OK  ]" label in 
+	RES_COL=60
+	# terminal sequence to move to that column. You could change this
+	# to something like "tput hpa ${RES_COL}" if your terminal supports it
+	MOVE_TO_COL="echo -en \\033[${RES_COL}G"
+	# terminal sequence to set color to a 'success' color (currently: green)
+	SETCOLOR_SUCCESS="echo -en \\033[0;32m"
+	# terminal sequence to set color to a 'failure' color (currently: red)
+	SETCOLOR_FAILURE="echo -en \\033[0;31m"
+	# terminal sequence to set color to a 'warning' color (currently: yellow)
+	SETCOLOR_WARNING="echo -en \\033[0;33m"
+	# terminal sequence to reset to the default color.
+	SETCOLOR_NORMAL="echo -en \\033[0;39m"
+	# default kernel loglevel on boot (syslog will reset this)
+	LOGLEVEL=3
+	# Set to anything other than 'no' to allow hotkey interactive startup...
+	PROMPT=yes
+	# Set to 'yes' to allow probing for devices with swap signatures
+	AUTOSWAP=no
+
+
+	echo_success()
+	{
+		[ "$BOOTUP" = "color" ] && $MOVE_TO_COL
+		echo -n "["
+		[ "$BOOTUP" = "color" ] && $SETCOLOR_SUCCESS
+		echo -n $"  OK  "
+		[ "$BOOTUP" = "color" ] && $SETCOLOR_NORMAL
+		echo -n "]"
+		echo -ne "\r"
+		return 0
+	}
+
+	echo_failure()
+	{
+		[ "$BOOTUP" = "color" ] && $MOVE_TO_COL
+		echo -n "["
+		[ "$BOOTUP" = "color" ] && $SETCOLOR_FAILURE
+		echo -n $"FAILED"
+		[ "$BOOTUP" = "color" ] && $SETCOLOR_NORMAL
+		echo -n "]"
+		echo -ne "\r"
+		return 1
+	}
+
+	# Log that something succeeded
+	success()
+	{
+		#if [ -z "${IN_INITLOG:-}" ]; then
+		#   initlog $INITLOG_ARGS -n $0 -s "$1" -e 1
+		#fi
+		[ "$BOOTUP" != "verbose" -a -z "${LSB:-}" ] && echo_success
+		echo "Operation succeeded" >>$logfile
+		return 0
+	}
+
+	# Log that something failed
+	failure()
+	{
+		local rc=$?
+		#fi
+		[ "$BOOTUP" != "verbose" -a -z "${LSB:-}" ] && echo_failure
+		echo "Operation failed" >>$logfile
+		return $rc
+	}
+
+fi
+
+## Path to the program binary and short-form for messages.
+# User for which UserAgent program is to be run as
+user=sharegrid
+# Path to program binary
+useragent="/home/$user/shareGrid/userAgentSG/useragent"
+# Short-form
+prog=userAgentSG
+# The sub-system name
+#subsys=`basename $0`
+subsys=rc.userAgentSG
+# Log file
+#logfile=/dev/null
+logfile=${LOGFILE-/var/log/$subsys}
+# Lock file
+lockfile=${LOCKFILE-/var/lock/subsys/$subsys}
+# Workaround for return status problem
+#use_workaround="no" # don't use workaround
+use_retstatus_workaround="no" # use workaround
+# Tmp file for storing output message
+if [ "$use_retstatus_workaround" = "yes" ]; then
+	tmpfile=`su -c $user 'mktemp -t'`
+else
+	tmpfile=
+fi
+
+
+RETVAL=0
+
+start()
+{
+	echo "[$dtnow] Starting $prog" >>$logfile
+
+	echo -n $"Starting $prog: "
+
+	if [ -e "$lockfile" ];
+	then
+		failure
+		echo "Lock-file present" >>$logfile
+		echo $"Lock-file present"
+		return 1
+	fi
+
+	su $user -c "$useragent start" >>$logfile 2>&1;
+	RETVAL=$?
+	#echo
+	#[ $RETVAL = 0 ] && echo_success || echo_failure
+	if [ $RETVAL = 0 ];
+	then
+		touch ${lockfile}
+		success
+	else
+		failure
+	fi
+	echo
+	return $RETVAL
+}
+
+stop()
+{
+	echo "[$dtnow] Stopping $prog" >>$logfile
+
+	echo -n $"Stopping $prog: "
+	if [ "$use_retstatus_workaround" = "yes" ]; then
+		su $user -c "$useragent stop" >$tmpfile 2>&1;
+		RETVAL=$?
+		cat $tmpfile >>$logfile
+	else
+		su $user -c "$useragent stop" >>$logfile 2>&1;
+		RETVAL=$?
+	fi
+	#[ $RETVAL = 0 ] && echo_success || echo_failure
+	if [ $RETVAL = 0 ];
+	then
+		if [ "$use_retstatus_workaround" = "yes" ]; then
+			c=1
+			cmax=5 # number of max trials
+			while [ $c -le $cmax ] && ( [ `wc -l $tmpfile` -eq 0 ] || [ `grep -ci "User Agent is down" <$tmpfile` -ne 1 ] ); do
+				# Conditions:
+				# 1. $c <= $cmax		==> number of max trial not reached
+				# 2. `wc .l ...` -eq 0		==> $tmpfile is empty
+				# 3. `grep -ci ...` -ne 1	==> $tmpfile doesn't contain the given string
+				c=$(($c + 1))
+				sleep 2
+			done
+			if [ $c -gt $cmax ] || [ `wc -l $tmpfile` -eq 0 ]; then
+				failure
+			else
+				rm -f ${lockfile}
+				success
+			fi
+		else
+			rm -f ${lockfile}
+			success
+		fi
+	else
+		failure
+	fi
+	echo
+	return $RETVAL
+}
+
+status()
+{
+	echo "[$dtnow] Status request $prog" >>$logfile
+
+	su $user -c "$useragent status"
+	RETVAL=$?
+	return $RETVAL
+}
+
+if [ $# -lt 1 ];
+then
+	echo $"Usage: $0 {start|stop|restart|status}"
+	exit 2
+else
+	case "$1" in
+
+		start)
+			start
+			;;
+		stop)
+			stop
+			;;
+		restart)
+			stop
+			start
+			;;
+		status)
+			status
+			;;
+		*)
+			echo $"Usage: $0 {start|stop|restart|status}"
+			exit 2
+			;;
+	esac
+fi
+
+exit $RETVAL

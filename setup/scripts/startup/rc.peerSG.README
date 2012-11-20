@@ -1,0 +1,202 @@
+################################################################################
+## rc.peerSG: The ShareGrid Peer (linux) start-up script.
+################################################################################
+##
+## Copyright (C) 2008-2012  Distributed Computing System (DCS) Group, Computer
+## Science Department - University of Piemonte Orientale, Alessandria (Italy).
+##
+## This program is free software: you can redistribute it and/or modify
+## it under the terms of the GNU Lesser General Public License as published
+## by the Free Software Foundation, either version 3 of the License, or
+## (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU Lesser General Public License for more details.
+##
+## You should have received a copy of the GNU Lesser General Public License
+## along with this program.  If not, see <http://www.gnu.org/licenses/>.
+##
+################################################################################
+
+-- PURPOSE ---------------------------------------------------------------------
+
+This shell script allow you to start the 'peerSG' application at machine
+boot time.
+
+-- SYSTEM REQUIREMENTS:
+
+* Linux operating system.
+* 'root' user privileges.
+* The 'peerSG' program already installed.
+
+--------------------------------------------------------------------------------
+
+-- QUICK INSTALLATION INSTRUCTIONS ---------------------------------------------
+
+1. Change the name of the user used for running the 'peerSG' program. 
+   [Default: user=sharegrid]
+   If the default value is not for you, you need to change the '$user' variable
+   inside the 'rc.peerSG' script.
+
+2. Change the path to the 'peerSG' program.
+   [Default: peer="/home/$user/shareGrid/peerSG/bin/peer"]
+   If the default value is not for you, you need to change the '$peer'
+   variable inside the 'rc.peerSG' script.
+
+3. Change the path to the Site Description (SDF) file.
+   [Default: sdf="/home/$user/shareGrid/peerSG/mysite.sdf"]
+   If the default value is not for you, you need to change the '$sdf'
+   variable inside the 'rc.peerSG' script.
+
+4. Gain 'root' privileges.
+   Log-in as 'root' user or, alternatively, use the 'sudo' command.
+
+5. Add the script in the 'start-up script' directory of your operating system.
+   This location is operating-system dependent. In many Linux operating systems
+   it is typically named '/etc/init.d'. If this is your case, simply run:
+     $ cp rc.peerSG /etc/init.d/.
+   Otherwise, refer to your operating system administration guide.
+
+6. Change the script attributes.
+   In order to execute the script, you need to add the execution attribute:
+     $ chmod u+x /etc/init.d/rc.peerSG
+
+7. Tell your operating system to run the script at boot time.
+   If you run a RedHat-like operating system, you can simply run the following
+   command:
+     $ chkconfig --add rc.peerSG
+   If not, please consult your operating system administration guide.
+
+8. Test your installation by running (with 'root' privileges):
+     $ /etc/init.d/rc.peerSG start
+   If the output shows the message 'OK', the installation is done. Otherwise,
+   try to repeat the installation steps (maybe using the instructions of the
+   next section).
+
+--------------------------------------------------------------------------------
+
+-- LONG INSTALLATION INSTRUCTIONS ----------------------------------------------
+
+In order to use the 'peerSG' start-up script, you need to follow some
+basic installation steps:
+
+1. Open the 'rc.peerSG' file with your preferred text editor.
+
+2. Change the name of the user used for running the 'peerSG' program. 
+   As default, the script assumes you run the 'peerSG' application under
+   the user 'sharegrid', that is:
+     ---[ snip]---
+     user=sharegrid
+     ---[/snip]---
+   For changing the default behavior, you need to change the variable '$user'.
+   For instance, for changing the user to 'myuser', just comment the line shown
+   above and add a new one where the '$user' get assigned the 'myuser' value.
+   After this, your script fragment should look like the following:
+     ---[ snip]---
+     #user=sharegrid
+     user=myuser
+     ---[/snip]---
+
+3. Change the path to the 'peerSG' program.
+   As default, the script assumes the 'peerSG' program is placed under the
+   'shareGrid' directory of the '$user' home directory, that is:
+     ---[ snip]---
+     peer="/home/$user/shareGrid/peerSG/bin/peer"
+     ---[/snip]---
+   where '$user' is the variable whose meaning has been explained in the
+   previous step (step #2).
+   For changing the default behavior, you need to change the variable
+   '$peer'.
+   For instance, if the 'peerSG' program is placed under the
+   '/opt/shareGrid/peer' folder, just comment the line shown above and add a new
+   one where the '$peer' get assigned the new value.
+   After this, your script fragment should look like the following:
+     ---[ snip]---
+     #peer="/home/$user/shareGrid/peerSG/bin/peer"
+     peer="/opt/shareGrid/ua/peer"
+     ---[/snip]---
+
+4. Change the path to the Site Description (SDF) file.
+   [Default: sdf="/home/$user/shareGrid/peerSG/mysite.sdf"]
+   If the default value is not for you, you need to change the '$sdf'
+   variable inside the 'rc.peerSG' script.
+   As default, the script assumes the SDF file is placed under the
+   'shareGrid' directory of the '$user' home directory, that is:
+     ---[ snip]---
+     sdf="/home/$user/shareGrid/peerSG/mysite.sdf"
+     ---[/snip]---
+   where '$user' is the variable whose meaning has been explained in step #2.
+   For changing the default behavior, you need to change the variable '$sdf'.
+   For instance, if the SDF file is named 'yoursite.sdf' and is placed under the
+   '/opt/shareGrid/peer' folder, just comment the line shown above and add a new
+   one where the '$sdf' get assigned the new value.
+   After this, your script fragment should look like the following:
+     ---[ snip]---
+     #sdf="/home/$user/shareGrid/peerSG/mysite.sdf"
+     sdf="/opt/shareGrid/peer/yoursite.sdf"
+     ---[/snip]---
+
+5. Change the log file path.
+   Log file is used for tracing the start-up program execution.
+   As default, the script logs messages in the '/var/log/rc.peerSG' file.
+   If you don't like it, you can simply change the variable '$logfile'.
+   For instance, for logging to the '/var/opt/log/rc.peerSG' file, just
+   comment the line containing the old value and add a new line with the new
+   value:
+     ---[ snip]---
+     #logfile=${LOGFILE-/var/log/$subsys}
+     logfile=/var/opt/log/$subsys}
+     ---[/snip]---
+   If you don't want to produce any log file, you can simply log to the
+   '/dev/null' special file:
+     ---[ snip]---
+     #logfile=${LOGFILE-/var/log/$subsys}
+     logfile=/dev/null
+     ---[/snip]---
+
+6. Change the lock file path.
+   Lock file is used for avoiding to start two instances of the same program.
+   As default, the script creates the '/var/lock/subsys/rc.peerSG' lock
+   file.
+   If you don't like it, you can simply change the variable '$lockfile'.
+   For instance, for changing it to the '/var/opt/lock/rc.peerSG' file,
+   just comment the line containing the old value and add a new line with the
+   new value:
+     ---[ snip]---
+     #lockfile=${LOCKFILE-/var/lock/subsys/$subsys}
+     lockfile=/var/opt/lock/rc.peerSG
+     ---[/snip]---
+
+7. Save changes and exit from the text-editor.
+
+8. Gain 'root' privileges.
+   Log-in as 'root' user or, alternatively, use the 'sudo' command.
+
+9. Add the script in the 'start-up script' directory of your operating system.
+   This location is operating-system dependent. In many Linux operating systems
+   it is typically named '/etc/init.d'. If this is your case, simply run:
+     $ cp rc.peerSG /etc/init.d/.
+   Otherwise, refer to your operating system administration guide.
+
+10. Tell your operating system to run the script at boot time.
+   If you run a RedHat-like operating system, you can simply run the following
+   command:
+     $ chkconfig --add rc.peerSG
+   and then check the installation running:
+     $ chkconfig --list rc.peerSG
+   The output of this last command should look like the following:
+     ---[ snip]---
+     rc.peerSG  0:off   1:off   2:on    3:on    4:on    5:on    6:off
+     ---[/snip]---
+   If your operating system is not a RedHat-like one, please consult your
+   operating system administration guide.
+
+11. For testing if the installation is OK, you can simply reboot the machine or
+   manually run the following command (with 'root' privileges):
+     $ /etc/init.d/rc.peerSG start
+   If the output shows the message 'OK', the installation is done. Otherwise,
+   try to repeat the installation steps.
+
+--------------------------------------------------------------------------------
